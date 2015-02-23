@@ -1,0 +1,41 @@
+/*** Global ***/
+
+.delete-link {
+	color: red;
+}
+
+a {
+	text-decoration: none;
+}
+
+
+
+/*** Category Listing And Creation ***/
+
+#category-form-container {
+	height: 200px;
+	margin-top: 100px;
+}
+
+#flash-message {
+	.success {
+		color: green;
+	}
+	.error {
+		color: red;
+	}
+}
+
+#new-category-form {
+	display: none;
+}
+
+
+/*** Sub-Category Listing And Creation ***/
+
+#new-subcategory-form {
+	display: none;
+	height: 100px;
+	margin-top: 200px;
+	background-color: #999;
+}

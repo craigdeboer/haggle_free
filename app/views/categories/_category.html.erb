@@ -1,0 +1,6 @@
+<!-- When using render @category it iterates automatically -->
+<%= category.name %>
+<%= link_to category, remote: true, method: :delete, data: { confirm: "Are you sure?" } do %>
+	<button class="delete-link">Delete</button>
+<% end %>
+<br>

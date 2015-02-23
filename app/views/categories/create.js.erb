@@ -1,0 +1,17 @@
+// Check to see if new category save was successful.
+<% if flash[:notice] == "Success" %>
+	// If it was then update category listing, hide the category
+	// form, unhide the add category button, and show a 
+	// success message for 3 seconds.
+	$("#list-categories").html("<%= j (render @categories) %>"); 
+	$("#new-category-form").slideUp(800); 
+	$("#add-category-button").show(); 
+	$("#flash-message").html("<p class='success'>Category successfully created.</p>");
+	$("#flash-message").show();
+	setTimeout(function() { $("#flash-message").hide(); }, 3000);
+<% else %>
+	// If category save was unsuccessful, keep the form visible and
+	// display the error message.
+	$("#flash-message").html("<p class='error'><%= j (flash[:notice]) %><br><%= j (@category.errors.full_messages[0]) %><br><br></p>");
+	$("#flash-message").show();
+<% end %>

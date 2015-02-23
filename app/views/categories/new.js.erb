@@ -1,0 +1,13 @@
+// Inserts the render 'form' html inside the div created in the 
+// index template. I can't add render 'form' directly in the template
+// because @category isn't initialized in the index action. It's
+// initialized in the new action which is the action this view is 
+// associated with.
+$("#new-category-form").html("<%= j (render 'form') %>"); 
+
+// Shows the category form using a slide down effect. The div is
+// initially set to display: none in CSS.
+$("#new-category-form").slideDown(); 
+
+// Hide the button that shows the form.
+$("#add-category-button").hide();

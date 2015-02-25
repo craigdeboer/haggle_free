@@ -1,13 +1,11 @@
-<%= form_for @user do |f| %>
-	<%= f.label :first_name %>
-	<%= f.text_field :first_name %>
-	<%= f.label :last_name %>
-	<%= f.text_field :last_name %>
-	<%= f.label :user_name %>
-	<%= f.text_field :user_name %>
-	<%= f.label :email %>
-	<%= f.text_field :email %>
-	<%= f.label :admin %>
-	<%= f.check_box :email %>
+<%= simple_form_for @user, defaults: { error: false } do |f| %>
+	<%= render 'shared/error_messages', object: @user %>
+	<%= f.input :first_name %>
+	<%= f.input :last_name %>
+	<%= f.input :user_name %>
+	<%= f.input :email %>
+	<%= f.input :password %>
+	<%= f.input :password_confirmation %>
+	<%= f.input :admin %>
 	<%= f.submit %>
 <% end %>

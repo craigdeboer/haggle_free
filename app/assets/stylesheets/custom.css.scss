@@ -1,3 +1,24 @@
+/*** Mixins and Variables ***/
+
+@mixin box_sizing {
+  -moz-box-sizing:    border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing:         border-box;
+}
+
+/* miscellaneous */
+
+.debug_dump {
+  clear: both;
+  float: left;
+  width: 100%;
+  margin-top: 45px;
+  background-color: #ddd;
+  border: 1px solid #000;
+  @include box_sizing;
+}
+
+
 /*** Global ***/
 
 .delete-link {
@@ -8,7 +29,15 @@ a {
 	text-decoration: none;
 }
 
+/*** Messages and Alerts ***/
 
+.alert-success {
+	width: 100%;
+	background-color: #3bff00;
+	color: #888;
+	font-size: 1.5em;
+	@include box_sizing;
+}
 
 /*** Category Listing And Creation ***/
 

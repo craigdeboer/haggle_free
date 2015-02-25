@@ -1,0 +1,18 @@
+<% if object.errors.any? %>
+<% nonredundant_errors = {} %> 
+<!-- Get rid of redundant errors. For example, if the password is missing, the user doesn't need to know it's too short. So just take the first error element in the
+array for each attribute. -->
+<% object.errors.messages.each do |key, array| %>
+  <% nonredundant_errors.store(key, array[0]) unless array.empty? %>
+<% end %>
+  <div id="error-explanation">
+    <div class="alert">
+      The form contains <%= pluralize(nonredundant_errors.count, "error") %>.
+    </div>
+    <ul>
+      <% nonredundant_errors.each do |key, msg| %>
+        <li>* <%= key.capitalize %> <%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>

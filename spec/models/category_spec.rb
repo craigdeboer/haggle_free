@@ -13,6 +13,7 @@ RSpec.describe Category, type: :model do
   it "is valid with a name" do
   	expect(@category).to be_valid
   end
+  
   it "is invalid without a name" do
   	@category.name = ""
   	@category.valid?

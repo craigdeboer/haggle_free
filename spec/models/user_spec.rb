@@ -4,15 +4,17 @@ RSpec.describe User, type: :model do
   
   before do
   	@user = User.new(first_name: "Peter", last_name: "Puck", 
-  									 user_name: "PeterP", email: "peterp@gmail.com")
+  									 user_name: "PeterP", email: "peterp@gmail.com",
+                     password: "foobar", password_confirmation: "foobar")
   end
 
   it "should have the right attributes" do
   	expect(@user).to respond_to(:first_name, :last_name, 
-  														  :user_name, :email, :admin)
+  														  :user_name, :email, :admin,
+                                :password, :password_confirmation)
   end
 
-  it "is valid with firstname, lastname, username, and email" do
+  it "is valid with firstname, lastname, username, email, password, and password_confirmation" do
   	expect(@user).to be_valid
   end
 
@@ -31,6 +33,11 @@ RSpec.describe User, type: :model do
   	@user.last_name = ""
   	expect(@user).not_to be_valid
   	expect(@user.errors[:last_name]).to include("can't be blank")
+  end
+
+  it "is invalid with a password that is too short" do
+    @user.password = @user.password_confirmation = "a" * 5
+    expect(@user).not_to be_valid
   end
 
   it "is invalid without a username" do
@@ -70,14 +77,14 @@ RSpec.describe User, type: :model do
   end
 
   it "is invalid with a user name that is not unique" do
-    @new_user1 = User.create(first_name: "John", last_name: "Jacks", 
-                     user_name: "JohnnyJ", email: "jj@gmail.com")
+    @user.save
     @new_user = User.new(first_name: "John", last_name: "Jacks", 
-                     user_name: "Johnnyj", email: "johnj@gmail.com")
+                     user_name: "Peterp", email: "johnj@gmail.com",
+                     password: "foobar", password_confirmation: "foobar")
     expect(@new_user).to_not be_valid
   end
 
-  it "is invalid without a email" do
+  it "is invalid without an email" do
   	@user.email = ""
   	expect(@user).not_to be_valid
   end
@@ -103,9 +110,13 @@ RSpec.describe User, type: :model do
   it "is invalid if the email isn't unique" do
     @user.save
     @new_user = User.new(first_name: "Jack", last_name: "Jeffers", 
-                         user_name: "Jack254", email: "Peterp@gmail.com")
+                         user_name: "Jack254", email: "Peterp@gmail.com",
+                         password: "foobar", 
+                         password_confirmation: "foobar")
     expect(@new_user).to_not be_valid
   end
+
+  
 
 
 

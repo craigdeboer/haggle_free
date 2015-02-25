@@ -13,6 +13,7 @@ RSpec.describe SubCategory, type: :model do
   it "is valid with a name" do
   	expect(@subcategory).to be_valid
   end
+  
   it "is invalid without a name" do
   	@subcategory.name = ""
   	@subcategory.valid?

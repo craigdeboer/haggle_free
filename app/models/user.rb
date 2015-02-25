@@ -6,9 +6,12 @@ class User < ActiveRecord::Base
 	validates :first_name, presence: true, length: { maximum: 50 }
 	validates :last_name, presence: true
 	validates :user_name, presence: true, length: { in: 6..50 }, 
-						format: { with: VALID_USER_NAME_REGEX },
+						format: { with: VALID_USER_NAME_REGEX, 
+						message: "must start with a letter and contain only numbers and letters" },
 						uniqueness: { case_sensitive: false }
 	validates :email, presence: true, format: { with: VALID_EMAIL_REGEX },
 						uniqueness: { case_sensitive: false }
-
+	validates :password, length: { minimum: 6 }
+	has_secure_password
+	
 end

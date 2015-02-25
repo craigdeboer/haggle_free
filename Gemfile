@@ -39,6 +39,7 @@ group :test do
 	gem 'factory_girl_rails', '~> 4.5.0'
 	gem 'capybara', '~> 2.4.4'
 	gem 'selenium-webdriver', '~> 2.44.0'
+	gem 'faker', '~> 1.4.3'
 	gem 'chromedriver-helper'
 	gem 'database_cleaner'
 	gem 'launchy'

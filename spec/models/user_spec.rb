@@ -3,9 +3,7 @@ require 'rails_helper'
 RSpec.describe User, type: :model do
   
   before do
-  	@user = User.new(first_name: "Peter", last_name: "Puck", 
-  									 user_name: "PeterP", email: "peterp@gmail.com",
-                     password: "foobar", password_confirmation: "foobar")
+  	@user = build(:user)
   end
 
   it "should have the right attributes" do
@@ -78,9 +76,7 @@ RSpec.describe User, type: :model do
 
   it "is invalid with a user name that is not unique" do
     @user.save
-    @new_user = User.new(first_name: "John", last_name: "Jacks", 
-                     user_name: "Peterp", email: "johnj@gmail.com",
-                     password: "foobar", password_confirmation: "foobar")
+    @new_user = build(:user, user_name: @user.user_name.upcase)
     expect(@new_user).to_not be_valid
   end
 
@@ -109,10 +105,7 @@ RSpec.describe User, type: :model do
 
   it "is invalid if the email isn't unique" do
     @user.save
-    @new_user = User.new(first_name: "Jack", last_name: "Jeffers", 
-                         user_name: "Jack254", email: "Peterp@gmail.com",
-                         password: "foobar", 
-                         password_confirmation: "foobar")
+    @new_user = build(:user, email: @user.email)
     expect(@new_user).to_not be_valid
   end
 

@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Category, type: :model do
   
   before do
-    @category = Category.new(name: "Motor Vehicles") 
+    @category = build(:category)
   end
 
 	it "should have the right attributes" do

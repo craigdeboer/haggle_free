@@ -21,13 +21,92 @@
 
 /*** Global ***/
 
+body {
+	margin: 0;
+	padding: 0;
+}
+
 .delete-link {
 	color: red;
+}
+
+.button-normal{
+	padding: 5px;
+	font-size: 1em;
+	background-color: blue;
+	color: white;
+	border: none;
+	position: relative;
+	top: -2px;
+	border-radius: 4px;
+}
+
+.delete-button {
+	background-color: red;
+	font-size: .75em;
+	color: white;
+	padding: 4px;
+	border: none;
+	border-radius: 4px;
+	position: relative;
+	top: -2px;
 }
 
 a {
 	text-decoration: none;
 }
+
+
+/*** Header ***/
+
+#header {
+	margin-top: 0;
+	padding: 0;
+	width: 100%;
+	background-color: blue;
+	@include box_sizing;
+}
+
+#logo {
+	padding: 25px 0 25px;
+	text-align: center;
+	a {
+		text-transform: uppercase;
+		padding: 15px;
+		text-decoration: none;
+		font-size: 2em;
+		color: #FFF;
+		&:hover {
+			color: #FFF
+		}
+	}
+}
+
+#menu {
+	margin: 0;
+	padding: 0;
+	margin-top: 15px;
+	ul {
+		margin: 0;
+		padding: 0 0 15px;
+		list-style: none;
+		text-align: center;
+		li {
+			display: inline-block;
+			margin-right: 15px;
+			a {
+				color: white;
+			}		
+		}
+	}
+}
+
+
+
+
+
+
+
 
 /*** Messages and Alerts ***/
 
@@ -65,6 +144,33 @@ a {
 #new-subcategory-form {
 	display: none;
 	height: 100px;
-	margin-top: 200px;
 	background-color: #999;
 }
+
+#all-categories-list {
+	width: 95%;
+	margin: 0 auto;
+	form {
+		display: inline-block;
+	}
+}
+
+.category-heading {
+	margin-top: 30px;
+	span {
+		font-size: 1.5em;
+	}
+}
+
+.all-subcategory-display {
+	margin-top: 15px;
+}
+
+.each-subcategory-display {
+	margin-bottom: 10px;
+	a {
+		font-size: 1em;
+	}
+}
+
+

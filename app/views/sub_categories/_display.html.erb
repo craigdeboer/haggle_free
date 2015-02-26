@@ -1,15 +1,16 @@
 <% categories.each do |category| %>	
-	<%= link_to '#' do %>
-		<h1><%= category.name %></h1>
-	<% end %>
-	<%= button_to "Add Sub-Category For #{category.name}", new_sub_category_path(id: category.id), method: :get, remote: true %>
-	
-	<% subcategories.each do |subcategory| %>
-		<% if subcategory.category_id == category.id %>
-			<%= link_to '#' do %>
-				<h2><%= subcategory.name %></h2>
-			<% end %>
-			<%= button_to("Delete #{subcategory.name}", sub_category_path(id: subcategory.id), method: :delete, remote: true, data: {confirm: "Are you sure you want to delete this sub-category?" }, class: "delete-link") %>
+	<div class="category-heading">
+		<span><%= category.name %></span>
+		<%= button_to "Add Sub-Category For #{category.name}", new_sub_category_path(id: category.id), method: :get, remote: true, class: "button-normal" %>
+	</div>
+	<div class="all-subcategory-display">
+		<% subcategories.each do |subcategory| %>
+			<div class="each-subcategory-display">
+				<% if subcategory.category_id == category.id %>
+					<%= link_to subcategory.name, '#' %>
+					<%= button_to("Delete #{subcategory.name}", sub_category_path(id: subcategory.id), method: :delete, remote: true, data: {confirm: "Are you sure you want to delete this sub-category?" }, class: "delete-button") %>
+				<% end %>
+			</div>
 		<% end %>
-	<% end %>
+	</div>
 <% end %>

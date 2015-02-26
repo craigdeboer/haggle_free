@@ -1,0 +1,18 @@
+<div>
+<div id="header">
+	<div id="logo">
+		<%= link_to "Haggle Free Victoria", root_path, id: "logo" %>
+	</div><!-- logo -->
+	<div id="menu">
+		<ul>
+			<% if logged_in? %>
+				<li><%= link_to current_user.user_name, '#'%></li>
+				<li><%= link_to "LOG OUT", logout_path, method: :delete %></li>
+			<% else %>
+				<li><%= link_to "SIGN UP", new_user_path  %></li>
+				<li><%= link_to "LOG IN", login_path  %></li>
+			<% end %>		
+		</ul>
+	</div> <!-- menu -->
+</div> <!-- header -->
+</div>

@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -9,10 +9,18 @@ Rails.application.routes.draw do
   get    'login'  => 'sessions#new'
   post   'login'  => 'sessions#create'
   delete 'logout' => 'sessions#destroy'
-
+  get    'listings' => 'listings#index'
+  resources :listings, only: [:show, :edit, :update, :destroy]
   resources :categories 
-  resources :sub_categories
-  resources :users
+  resources :sub_categories do
+    get 'listings' => 'listings#subcategory'
+  end
+  resources :users do
+    get 'listings' => 'listings#user'
+    resources :listings, only: [:new, :create]
+  end
+
+
 
   
   # Example of regular route:

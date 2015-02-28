@@ -11,13 +11,49 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150226002934) do
+ActiveRecord::Schema.define(version: 20150226233016) do
+
+  create_table "auctions", force: :cascade do |t|
+    t.decimal  "reserve",                precision: 7, scale: 2
+    t.boolean  "show_reserve", limit: 1
+    t.datetime "end_date"
+    t.integer  "listing_id",   limit: 4
+    t.datetime "created_at",                                     null: false
+    t.datetime "updated_at",                                     null: false
+  end
+
+  add_index "auctions", ["listing_id"], name: "index_auctions_on_listing_id", using: :btree
 
   create_table "categories", force: :cascade do |t|
     t.string   "name",       limit: 255
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
   end
+
+  create_table "listings", force: :cascade do |t|
+    t.string   "title",           limit: 255
+    t.text     "description",     limit: 65535
+    t.string   "sell_method",     limit: 255
+    t.date     "post_date"
+    t.integer  "sub_category_id", limit: 4
+    t.integer  "user_id",         limit: 4
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+  end
+
+  add_index "listings", ["sub_category_id"], name: "index_listings_on_sub_category_id", using: :btree
+  add_index "listings", ["user_id"], name: "index_listings_on_user_id", using: :btree
+
+  create_table "price_fades", force: :cascade do |t|
+    t.decimal  "start_price",           precision: 7, scale: 2
+    t.decimal  "end_price",             precision: 7, scale: 2
+    t.datetime "end_date"
+    t.integer  "listing_id",  limit: 4
+    t.datetime "created_at",                                    null: false
+    t.datetime "updated_at",                                    null: false
+  end
+
+  add_index "price_fades", ["listing_id"], name: "index_price_fades_on_listing_id", using: :btree
 
   create_table "sub_categories", force: :cascade do |t|
     t.string   "name",        limit: 255

@@ -1,5 +1,6 @@
 <% if logged_in? %>
 	<h1>Welcome <%= current_user.first_name %></h1>
+	<%= button_to "Create New Listing", new_user_listing_path(current_user), method: :get %>
 <% end %>
 </div>
 <%= content_tag :div, id: "new-subcategory-form" do %>

@@ -1,0 +1,5 @@
+<%= f.simple_fields_for :auction do |a| %>
+	<%= a.input :reserve %>
+	<%= a.input :show_reserve, input_html: {checked: false} %>
+	<%= a.input :end_date %>
+<% end %>

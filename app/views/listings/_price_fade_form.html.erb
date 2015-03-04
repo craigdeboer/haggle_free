@@ -1,5 +1,27 @@
 <%= f.simple_fields_for :price_fade do |a| %>
-	<%= a.input :start_price %>
-	<%= a.input :end_price %>
-	<%= a.input :end_date %>
+	<div id="start-price-field">
+		<p>What is the starting price for this item? Your ideal price?</p>
+		<%= a.input :start_price, input_html: { id: "start-price-input" } %>
+	</div>
+	<div id="price-interval-field">
+		<p>Select the frequency of price drops. Since there are seven price intervals, this will determine how long it will take your listing to reach your lowest acceptable price. Eg. Choosing 'Every Day' will result in your listing reaching the lowest price in 7 days.</p>
+		<%= a.collection_radio_buttons :price_interval, [["1", "Every Day"], ["2", "Every 2 Days"], ["3", "Every 3 Days"]], :first, :last %>
+	</div>
+	<div id="price-decrement-field">
+		<p>Choose the amount the price will decrease by each interval. The number you choose here, when multiplied by 7, will set the lowest price you are willing to accept. Eg. If your starting price (ideal price) is $20.00 and the price interval you enter here is $0.50, then your lowest acceptable price would be $16.50. Once you enter the necessary information, the results will be shown below.</p>
+		<%= a.input :price_decrement, input_html: { id: "price-decrement-input" } %>
+	</div>
+	<div id="price-fade-results">
+		<%= link_to "See Price Intervals", '#', id: "price-interval-preview"  %>
+		<div id="error-message">
+		</div>
+		<table>
+			<% for i in 0..7 %>
+				<%= content_tag :tr do %>
+					<%= content_tag :td, '', id: "interval-#{i}-date" %>
+					<%= content_tag :td, '', id: "interval-#{i}-price" %>
+				<% end %>
+			<% end %>
+		</table>	
+	</div>	
 <% end %>

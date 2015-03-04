@@ -4,8 +4,8 @@
 	<%= f.input :title %>
 	<%= f.input :description %>
 	<%= f.input :sell_method, as: :radio_buttons, collection: ["Auction", "Price"], checked: "Auction" %>
-	<div id="nested-auction-form"><%= render 'auction_form', f: f %></div>
-	<div id="nested-price-fade-form"><%= render 'price_fade_form', f: f %></div>
-	<%= f.button :submit %>
+		<div id="nested-auction-form"><%= render 'auction_form', f: f %></div>
+		<div id="nested-price-fade-form"><%= render 'price_fade_form', f: f %></div>
+	<%= f.submit "Create Listing" %>
 <% end %>
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150226233016) do
+ActiveRecord::Schema.define(version: 20150302183606) do
 
   create_table "auctions", force: :cascade do |t|
     t.decimal  "reserve",                precision: 7, scale: 2
@@ -45,12 +45,12 @@ ActiveRecord::Schema.define(version: 20150226233016) do
   add_index "listings", ["user_id"], name: "index_listings_on_user_id", using: :btree
 
   create_table "price_fades", force: :cascade do |t|
-    t.decimal  "start_price",           precision: 7, scale: 2
-    t.decimal  "end_price",             precision: 7, scale: 2
-    t.datetime "end_date"
-    t.integer  "listing_id",  limit: 4
-    t.datetime "created_at",                                    null: false
-    t.datetime "updated_at",                                    null: false
+    t.decimal  "start_price",               precision: 7, scale: 2
+    t.decimal  "price_decrement",           precision: 7, scale: 2
+    t.integer  "listing_id",      limit: 4
+    t.datetime "created_at",                                        null: false
+    t.datetime "updated_at",                                        null: false
+    t.integer  "price_interval",  limit: 4
   end
 
   add_index "price_fades", ["listing_id"], name: "index_price_fades_on_listing_id", using: :btree

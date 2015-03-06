@@ -180,9 +180,46 @@ a {
 }
 
 
+/*** Subcategory/Users Listings Index ***/
 
 
+.listing-index-container {
+	width: 90%;
+	margin: 20px auto 20px;
+	padding: 0;
+	background-color: #EEE;
+	border: 2px solid #000;
 
+	.listing-title-container {
+		
+
+		width: 100%;
+		border-bottom: 2px solid #000;
+		background-color: #888;
+		padding-top: 5px;
+
+		.listing-title {
+			display: inline-block;
+			font-size: 2em;
+			width: 60%;
+			text-align: center;
+		}
+		.listing-method {
+			display: inline-block;
+			width: 35%;
+			font-size: 1.5em;
+			position: relative;
+			top: -3px;
+		}
+		
+	}
+
+	.listing-description {
+			padding: 10px;
+		}
+
+	@include box_sizing;
+}
 
 
 

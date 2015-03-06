@@ -3,6 +3,9 @@ class ListingsController < ApplicationController
   end
 
   def subcategory
+    @subcategory = SubCategory.find(params[:sub_category_id])
+    @listings = @subcategory.listings.all.order(created_at: :desc)
+    render 'index'
   end
 
   def user
@@ -21,7 +24,6 @@ class ListingsController < ApplicationController
     @listing = Listing.new(listing_params)
     @listing.post_date = Date.today
     @listing.user_id = params[:user_id]
-    byebug
     if @listing.save
       flash[:success] = "New listing created."
       redirect_to @listing

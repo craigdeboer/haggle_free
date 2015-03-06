@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   def index
+    @users = User.all
   end
 
   def show
@@ -21,12 +22,23 @@ class UsersController < ApplicationController
   end
 
   def edit
+    @user = User.find(params[:id])
+    render 'new'
   end
 
   def update
+    @users = User.all
+    @user = User.find(params[:id])
+    @user.update_attributes(user_params)
+    render 'index'
   end
 
   def destroy
+    @users = User.all
+    @user = User.find(params[:id])
+    @user.destroy
+    flash[:success] = "User deleted."
+    render 'index'
   end
 
   private

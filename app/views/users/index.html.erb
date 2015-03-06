@@ -1,2 +1,24 @@
-<h1>Users#index</h1>
-<p>Find me in app/views/users/index.html.erb</p>
+<h1>Users Index</h1>
+
+
+<table>
+	<tr>
+		<th>Name</th>
+		<th>User Name</th>
+		<th>Email</th>
+		<th>Admin</th>
+		<th></th>
+	</tr>
+	<% @users.each do |user| %>
+		<tr>
+			<td><%= user.first_name %> <%= user.last_name %></td>
+			<td><%= user.user_name %></td>
+			<td><%= user.email %></td>
+			<td><%= is_admin(user) %></td>
+			<td><%= button_to "Delete", user_path(user), method: :delete, data: {confirm: "Are you sure?"}, class: "delete-button" %></td>
+			<td><%= button_to "Edit", edit_user_path(user), method: :get %></td>
+		</tr>
+	<% end %>
+</table>
+
+

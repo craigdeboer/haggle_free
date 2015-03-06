@@ -1,2 +1,12 @@
-<h1>Listings#index</h1>
-<p>Find me in app/views/listings/index.html.erb</p>
+<h1>Listings For <%= @subcategory.name %></h1>
+
+
+<% @listings.each do |listing| %>
+ <div class="listing-index-container">
+ 	<div class="listing-title-container">
+ 		<div class="listing-title"><%= listing.title %></div>
+ 		<div class="listing-method">Listing Type: <%= listing.sell_method %></div>
+ 	</div>
+ 	<div class="listing-description"><%= listing.description %></div>
+ </div>
+<% end %>

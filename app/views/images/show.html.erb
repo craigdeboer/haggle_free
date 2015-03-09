@@ -1,0 +1,14 @@
+<h1>Crop Page</h1>
+
+<%= image_tag @image.picture.url(:large), id: "listingpic" %>
+<%= image_tag @image.picture.url(:thumb) %>
+
+
+<%= simple_form_for @image, url: listing_image_path do |f| %>
+	<%= f.input :x_value, input_html: { id: "x-value-input" } %>
+	<%= f.input :y_value, input_html: { id: "y-value-input" } %>
+	<%= f.input :width_value, input_html: { id: "width-value-input" } %>
+	<%= f.input :height_value, input_html: { id: "height-value-input" } %>
+
+	<%= f.submit "Save Changes" %>
+<% end %>

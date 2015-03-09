@@ -3,6 +3,7 @@ class Listing < ActiveRecord::Base
 	belongs_to :sub_category
 	has_one :price_fade
 	has_one :auction
+	has_many :images
 	accepts_nested_attributes_for :auction, :reject_if => :price_selected
 	accepts_nested_attributes_for :price_fade, :reject_if => :auction_selected
 

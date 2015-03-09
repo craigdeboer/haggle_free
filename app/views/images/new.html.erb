@@ -1,0 +1,7 @@
+<h1>Add New Images</h1>
+
+<%= simple_form_for @image, url: listing_images_path, html: { multipart: true } do |f| %>
+	<%= f.input :picture %>
+	<%= f.input :main_image %>
+	<%= f.submit "Add Picture" %>
+<% end %>

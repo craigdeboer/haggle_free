@@ -1,2 +1,9 @@
 <h1>Listings#show</h1>
-<%= image_tag 'IMG_0558.JPG', id: "mypic" %>
+<!-- <%= image_tag 'IMG_0558.JPG', id: "mypic" %> -->
+
+<%= @listing.title %>
+<%= @listing.description %>
+
+<%= button_to "Add Picture(s) To Your Listing", new_listing_image_path(@listing), method: :get %>
+
+

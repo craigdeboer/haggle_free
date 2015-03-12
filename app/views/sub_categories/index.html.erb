@@ -1,13 +1,18 @@
 <% if logged_in? %>
-	<h1>Welcome <%= current_user.first_name %></h1>
-	<%= button_to "Create New Listing", new_user_listing_path(current_user), method: :get %>
+	<div id="new-listing-button">
+		<%= button_to "Create New Listing", new_user_listing_path(current_user), method: :get, class: "button-large" %>
+	</div>
 <% end %>
-</div>
 <%= content_tag :div, id: "new-subcategory-form" do %>
 	<% end %>
 	<div id="new-subcategory-form"></div>
 <div id="all-categories-list">	
 	<%= render 'display', categories: @categories, subcategories: @subcategories %>
+</div>
+<div id="admin-options">
+	<% if admin? %>
+
+	<% end %>
 </div>
 
 

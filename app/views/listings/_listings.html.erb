@@ -1,0 +1,27 @@
+<% @listings.each do |listing| %>
+  <div class="listing-index-container">
+		<div class="listing-image">
+	 		<% @image = listing.images.find { |image| image.listing_id == listing.id } %>
+	 		<%= image_tag @image.picture.url(:thumb), class: "listing-image-display" if @image %>
+		</div>
+		<div class="listing-title-container">
+			<div class="listing-title"><%= link_to listing.title, listing_path(listing) %></div>
+			<div class="listing-method">Listing Type: <%= listing.sell_method %></div>
+			<div class="price-or-bids">
+ 			<% if listing.sell_method == "Auction" %>
+ 				Bids: Number of Bids
+ 			<% else %>
+ 				Current Price: $<%= sprintf("%.2f", current_price) %>
+ 			<% end %>
+			</div>
+		</div>
+	 	<div class="listing-description">
+	 		<%= truncate(listing.description, length: 150) %>
+	 	</div>
+	 	<div class="listing-footer">
+	 		<span class="posted-by">Posted By: <%= listing.user.user_name %></span>
+	 		<span>Posted On: <%= listing.created_at.strftime("%A %B %d, %Y") %></span>
+	 		<%= button_to "Delete", listing_path(listing), method: :delete, data: { confirm: "Are you sure?" }, class: "delete-button" if listing.user == current_user %>
+	 	</div>
+  </div>
+<% end %>

@@ -1,18 +1,20 @@
 class ListingsController < ApplicationController
   def index
+    @listings = Listing.all
+    @images = Image.all
   end
 
   def subcategory
     @subcategory = SubCategory.find(params[:sub_category_id])
-    @listings = @subcategory.listings.all.order(created_at: :desc)
-    render 'index'
+    @listings = @subcategory.listings.includes(:images).all.order(created_at: :desc)
   end
 
   def user
   end
 
   def show
-    @listing = Listing.find(params[:id])
+    @listing = Listing.includes(:auction, :price_fade).find(params[:id])
+    @images = @listing.images.all
   end
 
   def new
@@ -40,6 +42,9 @@ class ListingsController < ApplicationController
   end
 
   def destroy
+    @listing = Listing.find(params[:id])
+    @listing.destroy
+    redirect_to listings_path
   end
 
   private

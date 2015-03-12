@@ -30,6 +30,15 @@ body {
 	color: red;
 }
 
+.button-large {
+	padding: 10px;
+	font-size: 1.25em;
+	background-color: blue;
+	color: white;
+	border: none;
+	border-radius: 10px;
+}
+
 .button-normal{
 	padding: 5px;
 	font-size: 1em;
@@ -55,6 +64,58 @@ body {
 a {
 	text-decoration: none;
 }
+
+.center {
+	text-align: center;
+}
+
+
+/*** Forms ***/
+
+form.simple_form {
+	label {
+		font-size: 1em;
+		text-transform: uppercase;
+		display: block;
+		margin: 20px 0 5px;
+	}
+	select {
+		padding: 5px;
+		-webkit-appearance: none;
+		height: 30px;
+		width: 250px;
+		border: 1px solid #000;
+		background-image: url("arrow.png");
+		background-repeat: no-repeat;
+		background-position: right center;
+	}
+	input[type=text] {
+		height: 30px;
+		width: 350px;
+		border: 1px solid #000;
+		border-radius: 5px;
+	}
+	input[type=radio], 
+	input[type=checkbox] {
+		margin-right: 5px;
+	}
+	input[type=number] {
+		height: 30px;
+		width: 150px;
+		border: 1px solid #000;
+		border-radius: 5px;
+	}
+	textarea {
+		height: 200px;
+		width: 500px;
+		border: 1px solid #000;
+		border-radius: 5px;
+	}
+	.radio label {
+		text-transform: none;
+	}
+}
+
 
 
 /*** Header ***/
@@ -141,6 +202,14 @@ a {
 
 /*** Sub-Category Listing And Creation ***/
 
+#new-listing-button {
+	margin-top: 50px;
+	form {
+		text-align: center;
+	}
+
+}
+
 #new-subcategory-form {
 	display: none;
 	height: 100px;
@@ -153,22 +222,33 @@ a {
 	form {
 		display: inline-block;
 	}
+	.category-heading {
+		background-color: #999;
+		span {
+			display: inline-block;
+			padding: 10px;
+		}
+	}
+	.all-subcategory-display {
+		border: 1px solid #000;
+		background-color: #aaa;
+	}
 }
 
 .category-heading {
 	margin-top: 30px;
+	border: 1px solid #000;
 	span {
 		font-size: 1.5em;
 	}
 }
 
-.all-subcategory-display {
-	margin-top: 15px;
-}
 
 .each-subcategory-display {
+	padding-top: 10px;
 	margin-bottom: 10px;
 	a {
+		padding: 5px;
 		font-size: 1em;
 	}
 }
@@ -177,49 +257,154 @@ a {
 
 #nested-price-fade-form {
 	display: none;
+	margin-bottom: 50px;
 }
 
+#nested-auction-form {
+	margin-bottom: 50px;
+}
 
-/*** Subcategory/Users Listings Index ***/
-
-
-.listing-index-container {
+#new-listing-form {
 	width: 90%;
-	margin: 20px auto 20px;
-	padding: 0;
-	background-color: #EEE;
-	border: 2px solid #000;
+	margin: 0 auto 0;
+}
 
-	.listing-title-container {
-		
-
-		width: 100%;
-		border-bottom: 2px solid #000;
-		background-color: #888;
-		padding-top: 5px;
-
-		.listing-title {
-			display: inline-block;
-			font-size: 2em;
-			width: 60%;
-			text-align: center;
-		}
-		.listing-method {
-			display: inline-block;
-			width: 35%;
-			font-size: 1.5em;
-			position: relative;
-			top: -3px;
-		}
-		
-	}
-
-	.listing-description {
-			padding: 10px;
-		}
-
+#reserve-input {
+	padding: 5px;
+	width: 150px;
 	@include box_sizing;
 }
+
+
+/*** Subcategory/Users/Index Listings ***/
+
+.all-listings {
+	@include box_sizing;
+	width: 90%;
+	margin: 50px auto 0;
+	.listing-index-container {
+		width: 100%;
+		margin: 10px 0 10px;
+		border: 2px solid #000;
+		border-radius: 10px;
+		padding: 0;
+		float: left;
+		.listing-image {
+				width: 15%;
+				max-width: 150px;
+				min-width: 120px;
+				float: left;
+				padding: 10px;
+				@include box_sizing;
+				.listing-image-display {
+					width: 100%;
+					border-radius: 5px;
+				}
+			}
+		.listing-title-container {
+			@include box_sizing;
+			width: 25%;
+			padding-top: 10px;
+			float: left;
+			.listing-title {
+				font-size: 1.5em;
+				width: 100%;	
+				margin-top: 10px;	
+				a {
+					padding: 10px;
+				}
+			}
+			.listing-method, 
+			.price-or-bids {
+				width: 100%;
+				font-size: 1em;	
+				padding-left: 10px;	
+				margin-top: 10px; 
+			}
+		
+			
+		}
+
+		.listing-description {
+			@include box_sizing;
+			width: 55%;
+			background-color: #AAA;
+			border-radius: 10px;
+			padding: 20px;
+			margin-top: 20px;
+			float: left;
+		}
+
+		.listing-footer {
+			clear: both;
+			padding: 10px;
+			border-top: 2px solid #000;
+			form {
+				display: inline-block;
+			}
+			.posted-by {
+				margin-right: 50px;
+			}
+		}
+	}	
+}
+
+/*** Listings Show - Individual Listing Display ***/
+
+.individual-listing {
+	@include box_sizing;
+	width: 90%;
+	margin: 50px auto 0;
+	.title {
+		@include box_sizing;
+		font-size: 2em;
+		width: 100%;
+		padding: 10px;
+	}
+	.main-image {
+		margin: 20px auto 0;
+		.main-image-display {
+			width: 400px;
+			height: 400px;
+		}
+	}
+	.other-images {
+	}
+	.description {
+		width: 90%;
+		margin: 20px 0 0;
+		font-size: 1.25em;
+	}
+	.question-button {
+		margin: 20px 0 20px;
+	}
+	.listing-details {
+		width: 90%;
+		margin: 20px 0 0;
+		ul {
+			width: 50%;
+			margin: 0 0 25px;
+			list-style: none;
+			padding: 0;
+		}
+		li {
+			font-size: 1.25em;	
+			margin-top: 5px;
+		}
+	}
+	table {
+		th,
+		td {
+			width: 250px;
+			height: 25px;
+			border: 1px solid #000;
+		}
+		td {
+			text-align: center;
+		}
+	}
+}
+
 
 
 

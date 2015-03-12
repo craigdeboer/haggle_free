@@ -1,17 +1,17 @@
-<h1>The time is: <%= Time.now.strftime("%I:%M:%S %Z") %></h1>
 <% categories.each do |category| %>	
 	<div class="category-heading">
 		<span><%= category.name %></span>
-		<%= button_to "Add Sub-Category For #{category.name}", new_sub_category_path(id: category.id), method: :get, remote: true, class: "button-normal" %>
+		<%= button_to "Add Sub-Category For #{category.name}", new_sub_category_path(id: category.id), method: :get, remote: true, class: "button-normal" if admin? %>
 	</div>
 	<div class="all-subcategory-display">
 		<% subcategories.each do |subcategory| %>
-			<div class="each-subcategory-display">
-				<% if subcategory.category_id == category.id %>
-					<%= link_to subcategory.name, sub_category_listings_path(subcategory.id) %>
-					<%= button_to("Delete #{subcategory.name}", sub_category_path(id: subcategory.id), method: :delete, remote: true, data: {confirm: "Are you sure you want to delete this sub-category?" }, class: "delete-button") %>
-				<% end %>
-			</div>
+			<% if subcategory.category_id == category.id %>
+				<div class="each-subcategory-display">
+				<%= link_to subcategory.name, sub_category_listings_path(subcategory.id) %>
+				<%= content_tag :span, "(#{subcategory.listings.size})" %>
+				<%= button_to("Delete #{subcategory.name}", sub_category_path(id: subcategory.id), method: :delete, remote: true, data: {confirm: "Are you sure you want to delete this sub-category?" }, class: "delete-button") if admin? %>
+				</div>
+			<% end %>	
 		<% end %>
 	</div>
 <% end %>

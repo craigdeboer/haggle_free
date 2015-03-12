@@ -1,8 +1,56 @@
-<h1>Listings#show</h1>
-<!-- <%= image_tag 'IMG_0558.JPG', id: "mypic" %> -->
+<div class="individual-listing">
+	<div class="title"><%= @listing.title %></div>
+	<% if !@images.empty? %>
+		<div class="main-image"><%= image_tag @images[0].picture.url(:large), class: "main-image-display" %></div>
+		<div class="other-images">
+			<% @images.each do |image| %>
+				<span><%= image_tag image.picture.url(:thumb) %></span>
+			<% end %>
+		</div>
+	<% end %>
+	<div class="description"><%= @listing.description %></div>
+	<div class="question-button"><%= button_to "Ask The Seller A Question", '#', class: "button-normal" %></div>
+	<div class="listing-details">
+		<ul>
+			<%= content_tag :li, "Posted By: #{@listing.user.user_name}" %>
+			<%= content_tag :li, "Posted On: #{@listing.created_at.strftime("%A %B %d, %Y")}" %>
+			<li>Listing Type: <%= @listing.sell_method %></li>
+		</ul>
+		<% if @listing.sell_method == "Auction" %>
+			<ul>
+				<%= content_tag :li, "Reserve: Yes, there is a reserve that needs to be met." if @listing.auction.reserve != 0 && @listing.auction.show_reserve == false %>
+				<%= content_tag :li, "Reserve: $#{@listing.auction.reserve}"   if @listing.auction.reserve != 0 && @listing.auction.show_reserve == true %>
+				<%= content_tag :li, "No Reserve" if @listing.auction.reserve == 0 %>
+				<%= content_tag :li, "Number of bids: 2" %>
+				<%= content_tag :li, "Auction Ends: #{@listing.auction.end_date.strftime("%A %B %d, %Y")} - 9:00 PM" %>
+			</ul>
+			<%= button_to "Bid On This Item", '#', class: "button-large" %>
+		<% else %>
+			<h3>All price changes happen at 9 PM on the given day.</h3>
+			<table class="price-fade-list">
+				<tr>
+					<th>Date</th>
+					<th>Price</th>
+					<th></th>
+				</tr>
+				<% date_price_hash = price_fade_hash(@listing.price_fade) %>
+				<% date_price_hash.each do |key, value| %>
+					<tr>
+						<% if key == "Current Price" %>
+							<%= content_tag :td, key %>
+						<% else %>
+							<%= content_tag :td, key.strftime("%A %B %d, %Y") %>
+						<% end %>
+						<%= content_tag :td, value %>
+						<td><%= button_to "Buy At This Price", '#', class: "button-normal" %></td>
+					</tr>
+				<% end %>
+			</table>
+		<% end %>
+	</div>
+</div>
 
-<%= @listing.title %>
-<%= @listing.description %>
+
 
 <%= button_to "Add Picture(s) To Your Listing", new_listing_image_path(@listing), method: :get %>
 

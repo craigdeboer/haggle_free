@@ -1,0 +1,31 @@
+<h1>Entering a new bid</h1>
+
+<h2>You have chosen to enter a bid on <%= @listing.title %></h2>
+
+
+
+<% if @listing.sell_method == "Auction" %>
+
+	<h2>There <%= 'is'.pluralize(@listing.bids_count) %> currently <%= pluralize(@listing.bids_count, " bid") %></h2>
+
+	<h3>By entering a bid on this item, you agree to purchase the item at the bid price subject
+	to inspection and verification that the listing information and description provided by the seller is accurate.</h3>
+
+	<h3><%= show_reserve(@listing.auction) %></h3>
+
+	<%= simple_form_for @bid, url: listing_bids_path do |f| %>
+		<%= f.input :price %>
+		<%= f.submit "Submit Your Bid" %>
+	<% end %>
+
+<% else %>
+
+	<h2>at the price level of $<%= sprintf('%.2f', @bid.price) %></h2>
+
+	<%= simple_form_for @bid, url: listing_bids_path do |f| %>
+		<%= f.input :price, as: :hidden, value: @bid.price %>
+		<%= f.submit "Submit Your Bid" %>
+	<% end %>
+
+<% end %>
+

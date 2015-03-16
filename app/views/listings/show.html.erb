@@ -1,3 +1,10 @@
+<div class="breadcrumb">
+	<%= link_to "ALL CATEGORIES", root_path %>
+	<span> >> </span>
+	<%= link_to @listing.sub_category.name.upcase, sub_category_listings_path(@listing.sub_category_id) %>
+	<span> >> </span>
+	<%= @listing.title.upcase %>
+</div>
 <div class="individual-listing">
 	<div class="title"><%= @listing.title %></div>
 	<% if !@images.empty? %>
@@ -12,7 +19,7 @@
 	<div class="question-button"><%= button_to "Ask The Seller A Question", '#', class: "button-normal" %></div>
 	<div class="listing-details">
 		<ul>
-			<%= content_tag :li, "Posted By: #{@listing.user.user_name}" %>
+			<%= content_tag :li, "Seller: #{@listing.user.user_name}" %>
 			<%= content_tag :li, "Posted On: #{@listing.created_at.strftime("%A %B %d, %Y")}" %>
 			<li>Listing Type: <%= @listing.sell_method %></li>
 		</ul>
@@ -21,28 +28,39 @@
 				<%= content_tag :li, "Reserve: Yes, there is a reserve that needs to be met." if @listing.auction.reserve != 0 && @listing.auction.show_reserve == false %>
 				<%= content_tag :li, "Reserve: $#{@listing.auction.reserve}"   if @listing.auction.reserve != 0 && @listing.auction.show_reserve == true %>
 				<%= content_tag :li, "No Reserve" if @listing.auction.reserve == 0 %>
-				<%= content_tag :li, "Number of bids: 2" %>
+				<%= content_tag :li, "Number Of Bids: #{pluralize(@listing.bids_count, 'bid')}" %>
 				<%= content_tag :li, "Auction Ends: #{@listing.auction.end_date.strftime("%A %B %d, %Y")} - 9:00 PM" %>
 			</ul>
-			<%= button_to "Bid On This Item", '#', class: "button-large" %>
+			<%= button_to "Bid On This Item", new_listing_bid_path(@listing), method: :get, class: "button-large" %>
 		<% else %>
 			<h3>All price changes happen at 9 PM on the given day.</h3>
 			<table class="price-fade-list">
 				<tr>
-					<th>Date</th>
-					<th>Price</th>
+					<th class="decrease-date">Date</th>
+					<th class="price-level">Price</th>
+					<th></th>
+					<th></th>
 					<th></th>
 				</tr>
 				<% date_price_hash = price_fade_hash(@listing.price_fade) %>
+				<% current_price_class = "before-current-price" %>
 				<% date_price_hash.each do |key, value| %>
+					<% current_price_class = "after-current-price" if key == "Current Price" %>
 					<tr>
+						<% bids = count_bids(@bids, value) if @bids != nil %>
 						<% if key == "Current Price" %>
-							<%= content_tag :td, key %>
+							<%= content_tag :td, key, class: "current-price" %>
 						<% else %>
-							<%= content_tag :td, key.strftime("%A %B %d, %Y") %>
+							<%= content_tag :td, key.strftime("%a %B %d"), class: current_price_class %>
 						<% end %>
-						<%= content_tag :td, value %>
-						<td><%= button_to "Buy At This Price", '#', class: "button-normal" %></td>
+						<%= content_tag :td, value, class: "price-level #{current_price_class}" %>
+						<% if key == "Current Price" %>
+							<td><%= button_to "Buy At This Price", '#', class: "button-normal" %></td>
+						<% elsif current_price_class == "after-current-price" %>
+							<td><%= link_to "Line Up To Buy At This Price", new_listing_bid_path(@listing, price: value.remove("$").to_f), class: "button-normal" %></td>
+							<td><%= button_to "?", '#', class: "tooltip" %></td>
+							<%= content_tag :td, "#{bids} in line to buy" %>
+						<% end %>
 					</tr>
 				<% end %>
 			</table>

@@ -1,0 +1,3 @@
+module BidsHelper
+
+end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150309195312) do
+ActiveRecord::Schema.define(version: 20150313172806) do
 
   create_table "auctions", force: :cascade do |t|
     t.decimal  "reserve",                precision: 7, scale: 2
@@ -23,6 +23,17 @@ ActiveRecord::Schema.define(version: 20150309195312) do
   end
 
   add_index "auctions", ["listing_id"], name: "index_auctions_on_listing_id", using: :btree
+
+  create_table "bids", force: :cascade do |t|
+    t.integer  "user_id",    limit: 4
+    t.integer  "listing_id", limit: 4
+    t.decimal  "price",                precision: 7, scale: 2
+    t.datetime "created_at",                                   null: false
+    t.datetime "updated_at",                                   null: false
+  end
+
+  add_index "bids", ["listing_id"], name: "index_bids_on_listing_id", using: :btree
+  add_index "bids", ["user_id"], name: "index_bids_on_user_id", using: :btree
 
   create_table "categories", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -50,8 +61,9 @@ ActiveRecord::Schema.define(version: 20150309195312) do
     t.date     "post_date"
     t.integer  "sub_category_id", limit: 4
     t.integer  "user_id",         limit: 4
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
+    t.datetime "created_at",                                null: false
+    t.datetime "updated_at",                                null: false
+    t.integer  "bids_count",      limit: 4,     default: 0, null: false
   end
 
   add_index "listings", ["sub_category_id"], name: "index_listings_on_sub_category_id", using: :btree

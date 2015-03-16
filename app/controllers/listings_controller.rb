@@ -10,11 +10,14 @@ class ListingsController < ApplicationController
   end
 
   def user
+    @user = current_user
+    @listings = @user.listings.includes(:auction, :price_fade, :bids).all
   end
 
   def show
-    @listing = Listing.includes(:auction, :price_fade).find(params[:id])
+    @listing = Listing.includes(:auction, :price_fade, :sub_category).find(params[:id])
     @images = @listing.images.all
+    @bids = @listing.bids.all
   end
 
   def new
@@ -44,7 +47,7 @@ class ListingsController < ApplicationController
   def destroy
     @listing = Listing.find(params[:id])
     @listing.destroy
-    redirect_to listings_path
+    redirect_to sub_category_listings_path(sub_category_id: @listing.sub_category_id)
   end
 
   private

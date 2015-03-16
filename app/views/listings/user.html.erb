@@ -1,2 +1,4 @@
-<h1>Listings#users</h1>
-<p>Find me in app/views/listings/users.html.erb</p>
+<div class="all-listings">
+	<h1 class="center">Here are all your current listings <%= @user.first_name %></h1>
+	<%= render 'listings' %>
+</div>

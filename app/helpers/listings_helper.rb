@@ -1,28 +1,53 @@
 module ListingsHelper
 
-	def current_price
-		a = 25.50
+	def find_current_price(price_fade)
+		start_date = price_fade.created_at.beginning_of_day + 21.hours
+		current_time = DateTime.now
+		interval = price_fade.price_interval
+		for i in 0..7
+			date = start_date + (interval * i).days
+			next_date = date + interval.days
+			if current_time < start_date 
+				current_price = price_fade.start_price
+			elsif (current_time >= date) && (current_time < next_date)
+				current_price = price_fade.start_price - (price_fade.price_decrement * i)
+			end
+		end
+		current_price
 	end
 
 	def price_fade_hash(price_fade)
 		date_price_array = []
-		current_time = DateTime.now
-		found_current_price = 0
+		start_date = price_fade.created_at.beginning_of_day + 21.hours
+		start_price = price_fade.start_price
+		current_price = find_current_price(price_fade)
 		for i in 0..7
-			date = price_fade.created_at.to_date + (price_fade.price_interval * i)
-			date = (date.to_time + (60*60*22)).to_datetime
-			next_date = date + price_fade.price_interval
-			price = (price_fade.start_price - (price_fade.price_decrement * i))
-			if found_current_price == 0
-				if (date < current_time && next_date > current_time) || price_fade.created_at.to_date == Date.today
-					date_price_array << "Current Price" << "$#{sprintf('%.2f', price)}"
-					found_current_price = 1
-				end
-			elsif date > current_time
-					date_price_array << date.to_date << "$#{sprintf('%.2f', price)}"
-			end
+			date = start_date.to_date + (price_fade.price_interval * i)
+			price = start_price - (price_fade.price_decrement * i)
+			date = "Current Price" if current_price == price
+			date_price_array << date << "$#{sprintf('%.2f', price)}"
 		end
 		the_hash = Hash[*date_price_array]
+	end
+
+	def count_bids(bids, price)
+		counter = 0
+		bids.each do |bid|
+			if bid.price == price.remove("$").to_f
+				counter += 1
+			end
+		end
+		counter
+	end
+
+	def show_reserve(auction)
+		if auction.reserve > 0
+			reserve = "$#{auction.reserve}" if auction.show_reserve
+ 			reserve = "Yes, but hidden." if !auction.show_reserve
+ 		else
+ 			reserve = "No Reserve."
+ 		end
+ 		reserve
 	end
 
 end

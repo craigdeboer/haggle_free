@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Listing, type: :model do
   
   before do
-  	@listing = build(:listing, sub_category_id: "2")
+  	@listing = build(:listing)
   end
 
   it "should have the right attributes" do
@@ -31,7 +31,7 @@ RSpec.describe Listing, type: :model do
   end
 
   it "is invalid with a description that is too long" do
-  	@listing.description = "This is a long sentence. " * 12
+  	@listing.description = "This is a long sentence. " * 41
   	expect(@listing).to_not be_valid
   end
 

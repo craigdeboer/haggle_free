@@ -4,6 +4,7 @@ class Listing < ActiveRecord::Base
 	has_one :price_fade, dependent: :destroy
 	has_one :auction, dependent: :destroy
 	has_many :images, dependent: :destroy
+	has_many :bids, dependent: :destroy
 	accepts_nested_attributes_for :auction, :reject_if => :price_selected
 	accepts_nested_attributes_for :price_fade, :reject_if => :auction_selected
 

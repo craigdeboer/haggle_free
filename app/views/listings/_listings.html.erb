@@ -9,9 +9,13 @@
 			<div class="listing-method">Listing Type: <%= listing.sell_method %></div>
 			<div class="price-or-bids">
  			<% if listing.sell_method == "Auction" %>
- 				Bids: Number of Bids
+ 				<ul>
+ 					<li>Bids: <%= listing.bids_count %></li>
+ 					<li>Reserve: <%= show_reserve(listing.auction) %></li>
+ 					<li>End Date: <%= listing.auction.end_date.strftime("%A %B %d") %></li>
+ 				</ul>
  			<% else %>
- 				Current Price: $<%= sprintf("%.2f", current_price) %>
+ 				Current Price: $<%= sprintf("%.2f", find_current_price(listing.price_fade)) %>
  			<% end %>
 			</div>
 		</div>
@@ -19,7 +23,7 @@
 	 		<%= truncate(listing.description, length: 150) %>
 	 	</div>
 	 	<div class="listing-footer">
-	 		<span class="posted-by">Posted By: <%= listing.user.user_name %></span>
+	 		<span class="posted-by">Seller: <%= listing.user.user_name %></span>
 	 		<span>Posted On: <%= listing.created_at.strftime("%A %B %d, %Y") %></span>
 	 		<%= button_to "Delete", listing_path(listing), method: :delete, data: { confirm: "Are you sure?" }, class: "delete-button" if listing.user == current_user %>
 	 	</div>

@@ -10,18 +10,18 @@ Rails.application.routes.draw do
   post   'login'  => 'sessions#create'
   delete 'logout' => 'sessions#destroy'
   get    'listings' => 'listings#index'
+  get    'user_listings' => 'listings#user'
 
-  resources :listings, only: [:show, :edit, :update, :destroy] do
+  resources :listings do
     resources :images
+    resources :bids, only: [:new, :create]
   end
   resources :categories 
   resources :sub_categories do
     get 'listings' => 'listings#subcategory'
   end
-  resources :users do
-    get 'listings' => 'listings#user'
-    resources :listings, only: [:new, :create]
-  end
+  resources :users
+  resources :bids, only: [:index, :show, :edit, :update, :destroy]
 
 
 

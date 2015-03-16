@@ -1,4 +1,9 @@
-<h1 class="center"><%= @subcategory.name %></h1>
+<div class="breadcrumb">
+	<%= link_to "ALL CATEGORIES", root_path %>
+	<span> >> </span>
+	<%= @subcategory.name.upcase %>
+</div>
 <div class="all-listings">
+	<h1 class="center"><%= @subcategory.name %></h1>
 	<%= render 'listings' %>
 </div>

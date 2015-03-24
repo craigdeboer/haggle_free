@@ -7,10 +7,10 @@ RSpec.describe PriceFade, type: :model do
   end
 
   it "should have the right attributes" do
-  	expect(@price_fade).to respond_to(:start_price, :end_price, :end_date)
+  	expect(@price_fade).to respond_to(:start_price, :price_interval, :price_decrement)
   end
 
-  it "is valid with a start price, end price, and end_date" do
+  it "is valid with a start price, price interval, and price decrement" do
   	expect(@price_fade).to be_valid
   end
 
@@ -19,13 +19,13 @@ RSpec.describe PriceFade, type: :model do
   	expect(@price_fade).to_not be_valid
   end
 
-  it "is invalid without an end price" do
-  	@price_fade.end_price = nil
+  it "is invalid without a price interval" do
+  	@price_fade.price_interval = nil
   	expect(@price_fade).to_not be_valid
   end
 
-  it "is invalid without an end date" do
-  	@price_fade.end_date = ""
+  it "is invalid without a price_decrement" do
+  	@price_fade.price_decrement = ""
   	expect(@price_fade).to_not be_valid
   end
 
@@ -36,7 +36,7 @@ RSpec.describe PriceFade, type: :model do
   end
 
   it "is saved when a listing is saved with the price_fade attributes nested in it" do
-    @listing = build(:listing, price_fade_attributes:(attributes_for(:price_fade)))
+    @listing = build(:listing, sell_method: "Price", price_fade_attributes:(attributes_for(:price_fade)))
     expect{ @listing.save }.to change(PriceFade, :count).by(1)
   end
 end

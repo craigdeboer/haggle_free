@@ -1,6 +1,6 @@
 <div id="new-listing-form">
 	<h1>New Listing</h1>
-	<%= simple_form_for @listing, url: user_listings_path, defaults: { error: false, required: false } do |f| %>
+	<%= simple_form_for @listing, url: listings_path, defaults: { error: false, required: false } do |f| %>
 		<%= render 'shared/error_messages', object: @listing %>
 		<%= f.association :sub_category, prompt: "Choose a Subcategory" %>
 		<%= f.input :title %>

@@ -6,7 +6,7 @@ class BidsController < ApplicationController
 
 	def new
 		@listing = Listing.find(params[:listing_id])
-		if !existing_bid(@listing)
+		if !existing_bid(@listing) 
 			@bid = @listing.bids.new
 			@bid.price = params[:price] if params[:price]
 		else
@@ -19,13 +19,18 @@ class BidsController < ApplicationController
 		@listing = Listing.find(params[:listing_id])
 		@bid = @listing.bids.new(bid_params)
 		@bid.user_id = current_user.id
-		if check_bid(@listing, @bid) && @bid.save
+		if check_bid(@listing, @bid)
+			if before_listing_end(@listing) && @bid.save
 				flash[:success] = "Your bid has been accepted! Good luck!"
 				redirect_to @listing
 			else
-				flash[:error] = "Your bid must be greater than the reserve price."
-				render 'new'
+				flash[:error] = "Unforturnately, this auction has ended."
+				redirect_to root_path
 			end
+		else
+			flash[:error] = "Your bid must be greater than the reserve price."
+			render 'new'
+		end
 	end
 
 	private
@@ -46,6 +51,17 @@ class BidsController < ApplicationController
 			else
 				check = false
 			end
+			check
 		end
+
+		def before_listing_end(listing)
+			if listing.sell_method == "Auction"
+				is_before = DateTime.now < (listing.auction.end_date.beginning_of_day + 21.hours)
+			else 
+				is_before = DateTime.now < ((listing.price_fade.created_at.beginning_of_day + 21.hours) + (listing.price_fade.price_interval * 7).days)
+			end
+			is_before
+		end
+
 
 end

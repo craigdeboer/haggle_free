@@ -5,7 +5,8 @@ FactoryGirl.define do
 		association :sub_category
 		title { Faker::Lorem.words(4) }
 		description { Faker::Lorem.paragraph(3) }
-		sell_method "auction"
+		sell_method "Auction"
 		post_date Date.today
 	end
+
 end

@@ -19,11 +19,6 @@ RSpec.describe Auction, type: :model do
   	expect(@auction).to_not be_valid
   end
 
-  it "is invalid without a show reserve" do
-  	@auction.show_reserve = nil
-  	expect(@auction).to_not be_valid
-  end
-
   it "is invalid without an end date" do
   	@auction.end_date = ""
   	expect(@auction).to_not be_valid

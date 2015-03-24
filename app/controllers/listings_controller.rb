@@ -6,7 +6,7 @@ class ListingsController < ApplicationController
 
   def subcategory
     @subcategory = SubCategory.find(params[:sub_category_id])
-    @listings = @subcategory.listings.includes(:images).all.order(created_at: :desc)
+    @listings = @subcategory.listings.includes(:images, :auction, :price_fade, :user).order(created_at: :desc)
   end
 
   def user
@@ -21,7 +21,8 @@ class ListingsController < ApplicationController
   end
 
   def new
-    @listing = User.find(params[:user_id]).listings.new
+    @user = current_user
+    @listing = @user.listings.new
     @listing.build_auction
     @listing.build_price_fade
   end
@@ -29,7 +30,7 @@ class ListingsController < ApplicationController
   def create
     @listing = Listing.new(listing_params)
     @listing.post_date = Date.today
-    @listing.user_id = params[:user_id]
+    @listing.user_id = current_user.id
     if @listing.save
       flash[:success] = "New listing created."
       redirect_to @listing

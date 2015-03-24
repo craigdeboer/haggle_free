@@ -3,7 +3,9 @@ require 'rails_helper'
 RSpec.describe Bid, type: :model do
   
   before do
-  	@bid = build(:bid)
+    @listing = create(:listing)
+    @auction = create(:auction, listing_id: @listing.id)
+  	@bid = build(:bid, listing_id: @listing.id)
   end
 
   it "should have the right attributes" do
@@ -49,6 +51,23 @@ RSpec.describe Bid, type: :model do
     @bid2 = build(:bid, listing_id: @bid.listing_id, user_id: @bid.user_id)
     expect(@bid2).to_not be_valid
   end
+
+  it "is valid if the bid is being entered before the auction end date" do
+    expect(@bid).to be_valid
+  end
+
+  it "is invalid if the bid is being entered after the auction end date" do
+    @bid.listing.auction.end_date = DateTime.now - 2.days
+    expect(@bid).to_not be_valid
+  end
+
+  it "is invalid if the bid is being entered after the price fade end date" do
+    @new_listing = create(:listing, sell_method: "Price", post_date: DateTime.now - 15.days)
+    @price_fade = create(:price_fade, listing_id: @new_listing.id)
+    @new_bid = build(:bid, listing_id: @new_listing.id)
+    expect(@new_bid).to_not be_valid
+  end
+
 end
 
 

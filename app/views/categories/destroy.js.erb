@@ -2,3 +2,4 @@ $("#list-categories").html("<%= j (render @categories) %>");
 $("#flash-message").html("<p class='success'>Category successfully deleted.</p>");
 $("#flash-message").show();
 setTimeout(function() { $("#flash-message").hide(); }, 3000);
+<% flash.clear %>

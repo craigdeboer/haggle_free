@@ -9,6 +9,7 @@
 	$("#flash-message").html("<p class='success'>Category successfully created.</p>");
 	$("#flash-message").show();
 	setTimeout(function() { $("#flash-message").hide(); }, 3000);
+	<% flash.clear %>
 <% else %>
 	// If category save was unsuccessful, keep the form visible and
 	// display the error message.

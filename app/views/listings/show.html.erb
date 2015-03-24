@@ -5,14 +5,19 @@
 	<span> >> </span>
 	<%= @listing.title.upcase %>
 </div>
-
+<% if @listing.user_id == current_user.id %>
+	<% if @images.count < 5 %>
+		<h3>You have added <%= @images.count %> pictures. You may add up to 5.</h3>
+		<%= link_to "Add Picture", new_listing_image_path(@listing), class: "button-normal" %>
+	<% end %>
+<% end %>
 <div class="individual-listing">
 	<div class="title"><%= @listing.title %></div>
 	<% if !@images.empty? %>
-		<div class="main-image"><%= image_tag @images[0].picture.url(:large), class: "main-image-display" %></div>
-		<div class="other-images">
+		<div id="main-listing-image"><%= image_tag @images[0].picture.url(:large), class: "main-image-display" %></div>
+		<div id="listing-thumbnails">
 			<% @images.each do |image| %>
-				<span><%= image_tag image.picture.url(:thumb) %></span>
+				<span><%= image_tag image.picture.url(:thumb), class: "thumbnail-display" %></span>
 			<% end %>
 		</div>
 	<% end %>
@@ -71,6 +76,5 @@
 
 
 
-<%= button_to "Add Picture(s) To Your Listing", new_listing_image_path(@listing), method: :get %>
 
 

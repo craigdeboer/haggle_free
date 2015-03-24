@@ -6,8 +6,8 @@ $(document).ready(function(){
 
 	$("#listingpic").Jcrop({
 		onSelect: getCoords,
-		aspectRatio: 1,
-		setSelect: [0, 0, 600, 600]
+		aspectRatio: 1.5,
+		setSelect: [0, 0, 400, 300]
 
 	});
 
@@ -19,5 +19,11 @@ $(document).ready(function(){
 		$("#height-value-input").val(c.h);
 
 	}
+
+	$('#listing-thumbnails img').click( function() {
+		var imageThumb = $(this).attr('src');
+		var imageLarge = imageThumb.replace("thumb", "large");
+		$('#main-listing-image').html("<img class='main-image-display' src='" + imageLarge + "'>");
+	});
 
 });

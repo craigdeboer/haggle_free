@@ -9,6 +9,7 @@ class ImagesController < ApplicationController
 
 	def new
 		@image = Image.new
+		@listing = Listing.find(params[:listing_id])
 	end
 
 	def create
@@ -26,7 +27,7 @@ class ImagesController < ApplicationController
 		@image = Image.find(params[:id])
 	end
 
-	def update		
+	def update	
 		@image = Image.find(params[:id])
 		ratio = get_ratio(@image)
 		@image.update_attributes(crop_params)
@@ -35,7 +36,7 @@ class ImagesController < ApplicationController
     @image.height_value = (@image.height_value.to_i * ratio).round
     @image.width_value = (@image.width_value.to_i * ratio).round
     @image.picture.reprocess!  #crop the image and then save it.
-    redirect_to listing_image_path(id: @image.id)
+    redirect_to listing_path(id: params[:listing_id])
 	end
 
 	def destroy

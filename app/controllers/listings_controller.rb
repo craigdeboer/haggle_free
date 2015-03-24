@@ -32,7 +32,7 @@ class ListingsController < ApplicationController
     @listing.post_date = Date.today
     @listing.user_id = current_user.id
     if @listing.save
-      flash[:success] = "New listing created."
+      flash[:success] = "Here is your new listing."
       redirect_to @listing
     else
       render 'new'

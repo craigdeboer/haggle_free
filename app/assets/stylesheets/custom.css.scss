@@ -404,14 +404,17 @@ form.simple_form {
 		width: 100%;
 		padding: 10px;
 	}
-	.main-image {
+	#main-listing-image {
 		margin: 20px auto 0;
 		.main-image-display {
-			width: 400px;
-			height: 400px;
+			width: 600px;
+			height: 340px;
 		}
 	}
-	.other-images {
+
+	.thumbnail-display {
+		height: 68px;
+		width: 120px;
 	}
 	.description {
 		width: 90%;

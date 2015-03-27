@@ -1,6 +1,7 @@
 <h1>Add A New Image For <%= @listing.title %></h1>
 
-<%= simple_form_for @image, url: listing_images_path, html: { multipart: true } do |f| %>
+<%= simple_form_for @image, url: listing_images_path, html: { multipart: true }, defaults: { error: false } do |f| %>
+	<%= render 'shared/error_messages', object: @image %>
 	<%= f.input :picture %>
 	<%= f.input :main_image %>
 	<%= f.submit "Add Picture" %>

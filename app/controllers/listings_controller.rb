@@ -2,6 +2,7 @@ class ListingsController < ApplicationController
   def index
     @listings = Listing.all
     @images = Image.all
+    
   end
 
   def subcategory

@@ -15,3 +15,4 @@
 # Ignore files with sensitive data.
 /config/database.yml
 /config/secrets.yml
+/config/aws.yml

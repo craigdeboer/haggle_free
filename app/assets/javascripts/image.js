@@ -13,7 +13,7 @@ $(document).ready(function(){
 
 	function getCoords(c) {
 
-		var ratio = $('#image-ratio').val()
+		var ratio = $('#image-ratio').val();
 		$("#x-value-input").val(Math.round(c.x * ratio));
 		$("#y-value-input").val(Math.round(c.y * ratio));
 		$("#width-value-input").val(Math.round(c.w * ratio));

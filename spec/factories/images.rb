@@ -5,6 +5,5 @@ FactoryGirl.define do
 		picture_file_name "cool_motorcycle.jpeg"
 		picture_content_type "image/jpeg"
 		picture_file_size "45000"
-		main_image false
 	end
 end

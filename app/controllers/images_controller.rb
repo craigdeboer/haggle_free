@@ -49,7 +49,7 @@ class ImagesController < ApplicationController
 		end
 
 		def image_params
-			params.require(:image).permit(:picture, :main_image)
+			params.require(:image).permit(:picture)
 		end
 
 		def crop_params

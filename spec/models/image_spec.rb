@@ -7,7 +7,7 @@ RSpec.describe Image, type: :model do
   end
 
   it "should have the right attributes" do
-  	expect(@image).to respond_to(:listing_id, :main_image, :picture_file_name, :picture_content_type, :picture_file_size)
+  	expect(@image).to respond_to(:listing_id, :picture_file_name, :picture_content_type, :picture_file_size)
   end
 
   it "is valid with listing id, file name, content type,and file size" do

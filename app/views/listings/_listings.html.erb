@@ -15,7 +15,7 @@
  					<li>End Date: <%= listing.auction.end_date.strftime("%A %B %d") %></li>
  				</ul>
  			<% else %>
- 				Current Price: $<%= sprintf("%.2f", find_current_price(listing.price_fade)) %>
+ 				Current Price: <%= number_to_currency(find_current_price(listing.price_fade)) %>
  			<% end %>
 			</div>
 		</div>

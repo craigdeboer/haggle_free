@@ -61,11 +61,7 @@
 						<% end %>
 						<%= content_tag :td, value, class: "price-level #{current_price_class}" %>
 						<% if key == "Current Price" %>
-							<td><%= button_to "Buy At This Price", '#', class: "button-normal" %></td>
-						<% elsif current_price_class == "after-current-price" %>
-							<td><%= link_to "Line Up To Buy At This Price", new_listing_bid_path(@listing, price: value.remove("$").to_f), class: "button-normal" %></td>
-							<td><%= button_to "?", '#', class: "tooltip" %></td>
-							<%= content_tag :td, "#{bids} in line to buy" %>
+							<td><%= link_to "Buy At This Price", new_listing_bid_path(listing_id: @listing.id, price: value), class: "button-normal" %></td>
 						<% end %>
 					</tr>
 				<% end %>

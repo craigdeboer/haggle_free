@@ -36,8 +36,14 @@ RSpec.configure do |config|
 
   # Include Factory Girl syntax to simplify calls to factories 
   config.include FactoryGirl::Syntax::Methods
-  config.include LoginMacros
-  config.include ListingMacros
+  config.include WaitForAjax, type: :feature
+  config.include LoginMacros, type: :feature
+  config.include ListingMacros, type: :feature
+  config.include CategoryMacros, type: :feature
+  config.include SubcategoryMacros, type: :feature
+  config.include BidMacros, type: :feature
+
+
 
   # RSpec Rails can automatically mix in different behaviours to your tests
   # based on their file location, for example enabling you to call `get` and

@@ -25,7 +25,7 @@ module ListingsHelper
 			date = start_date.to_date + (price_fade.price_interval * i)
 			price = start_price - (price_fade.price_decrement * i)
 			date = "Current Price" if current_price == price
-			date_price_array << date << "$#{sprintf('%.2f', price)}"
+			date_price_array << date << price
 		end
 		the_hash = Hash[*date_price_array]
 	end
@@ -33,7 +33,7 @@ module ListingsHelper
 	def count_bids(bids, price)
 		counter = 0
 		bids.each do |bid|
-			if bid.price == price.remove("$").to_f
+			if bid.price == price
 				counter += 1
 			end
 		end
@@ -42,7 +42,7 @@ module ListingsHelper
 
 	def show_reserve(auction)
 		if auction.reserve > 0
-			reserve = "$#{auction.reserve}" if auction.show_reserve
+			reserve = number_to_currency(auction.reserve) if auction.show_reserve
  			reserve = "Yes, but hidden." if !auction.show_reserve
  		else
  			reserve = "No Reserve."

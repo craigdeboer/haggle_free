@@ -1,6 +1,6 @@
 <h1>Entering a new bid</h1>
 
-<h2>You have chosen to enter a bid on <%= @listing.title %></h2>
+
 
 
 
@@ -13,18 +13,20 @@
 
 	<h3><%= show_reserve(@listing.auction) %></h3>
 
+	<h2>You have chosen to enter a bid on <%= @listing.title %></h2>
+
 	<%= simple_form_for @bid, url: listing_bids_path do |f| %>
 		<%= f.input :price %>
 		<%= f.submit "Submit Your Bid" %>
 	<% end %>
 
 <% else %>
-
-	<h2>at the price level of $<%= sprintf('%.2f', @bid.price) %></h2>
+	<h2>You have chosen to purchase <%= @listing.title %></h2>
+	<h2>at the price level of <%= number_to_currency(@bid.price) %></h2>
 
 	<%= simple_form_for @bid, url: listing_bids_path do |f| %>
 		<%= f.input :price, as: :hidden, value: @bid.price %>
-		<%= f.submit "Submit Your Bid" %>
+		<%= f.submit "Confirm" %>
 	<% end %>
 
 <% end %>

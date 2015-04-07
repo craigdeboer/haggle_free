@@ -1,0 +1,19 @@
+<% present @listing do |listing_presenter| %>
+	<h3>All price changes happen at 9 PM on the given day.</h3>
+	<table class="price-fade-list">
+		<tr>
+			<th class="decrease-date">Date</th>
+			<th class="price-level">Price</th>
+			<th></th>
+			<th></th>
+			<th></th>
+		</tr>
+		<%= listing_presenter.pricing_table do |date, price, html_class| %>
+			<tr>
+				<%= content_tag :td, date, class: html_class %>
+				<%= content_tag :td, number_to_currency(price), class: html_class %>
+			</tr>
+		<% end %>
+	</table>
+	<%= link_to "Submit Offer To Buy At The Current Price", new_listing_bid_path(@listing, price: find_current_price(@listing.price_fade)), class: "button-large" %> 
+<% end %>

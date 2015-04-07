@@ -1,31 +1,26 @@
 <% @listings.each do |listing| %>
-  <div class="listing-index-container">
-		<div class="listing-image">
-	 		<% @image = listing.images.find { |image| image.listing_id == listing.id } %>
-	 		<%= image_tag @image.picture.url(:thumb), class: "listing-image-display" if @image %>
-		</div>
-		<div class="listing-title-container">
-			<div class="listing-title"><%= link_to listing.title, listing_path(listing) %></div>
-			<div class="listing-method">Listing Type: <%= listing.sell_method %></div>
-			<div class="price-or-bids">
- 			<% if listing.sell_method == "Auction" %>
- 				<ul>
- 					<li>Bids: <%= listing.bids_count %></li>
- 					<li>Reserve: <%= show_reserve(listing.auction) %></li>
- 					<li>End Date: <%= listing.auction.end_date.strftime("%A %B %d") %></li>
- 				</ul>
- 			<% else %>
- 				Current Price: <%= number_to_currency(find_current_price(listing.price_fade)) %>
- 			<% end %>
-			</div>
-		</div>
-	 	<div class="listing-description">
-	 		<%= truncate(listing.description, length: 150) %>
-	 	</div>
-	 	<div class="listing-footer">
-	 		<span class="posted-by">Seller: <%= listing.user.user_name %></span>
-	 		<span>Posted On: <%= listing.created_at.strftime("%A %B %d, %Y") %></span>
-	 		<%= button_to "Delete", listing_path(listing), method: :delete, data: { confirm: "Are you sure?" }, class: "delete-button" if listing.user == current_user %>
-	 	</div>
-  </div>
-<% end %>
+	<% present listing do |listing_presenter| %>
+	  <div class="listing-index-container">
+			<div class="listing-image"><%= listing_presenter.thumbnail %></div>
+			<div class="listing-title-container">
+				<div class="listing-title"><%= listing_presenter.title %></div>
+				<div class="listing-method">Listing Type: <%= listing.sell_method %></div>
+				<div class="price-or-bids">
+					<ul>
+						<li><%= listing_presenter.bids_or_offers %></li>
+						<li><%= listing_presenter.reserve_or_current_price %></li>
+						<li><%= listing_presenter.end_date_or_next_price %></li>
+					</ul>		
+				</div>
+	 		</div> <!-- listing-index-container -->
+		 	<div class="listing-description">
+		 		<%= truncate(listing.description, length: 150) %>
+		 	</div> <!-- listing-description -->
+		 	<div class="listing-footer">
+		 		<span class="posted-by">Seller: <%= listing.user.user_name %></span>
+		 		<span>Posted On: <%= listing.created_at.strftime("%A %B %d, %Y") %></span>
+		 		<span><%= listing_presenter.delete_listing %></span>
+		 	</div> <!-- listing-footer -->
+	  </div>
+  <% end %> <!-- present -->
+<% end %> <!-- @listings.each -->

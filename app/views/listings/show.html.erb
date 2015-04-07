@@ -5,70 +5,24 @@
 	<span> >> </span>
 	<%= @listing.title.upcase %>
 </div>
-<% if @listing.user_id == current_user.id %>
-	<% if @images.count < 5 %>
-		<h3>You have added <%= @images.count %> pictures. You may add up to 5.</h3>
-		<%= link_to "Add Picture", new_listing_image_path(@listing), class: "button-normal" %>
-	<% end %>
-<% end %>
-<div class="individual-listing">
-	<div class="title"><%= @listing.title %></div>
-	<% if !@images.empty? %>
-		<div id="main-listing-image"><%= image_tag @images[0].picture.url(:large), class: "main-image-display" %></div>
-		<div id="listing-thumbnails">
-			<% @images.each do |image| %>
-				<span><%= image_tag image.picture.url(:thumb), class: "thumbnail-display" %></span>
-			<% end %>
-		</div>
-	<% end %>
-	<div class="description"><%= @listing.description %></div>
-	<div class="question-button"><%= button_to "Ask The Seller A Question", '#', class: "button-normal" %></div>
-	<div class="listing-details">
-		<ul>
-			<%= content_tag :li, "Seller: #{@listing.user.user_name}" %>
-			<%= content_tag :li, "Posted On: #{@listing.created_at.strftime("%A %B %d, %Y")}" %>
-			<li>Listing Type: <%= @listing.sell_method %></li>
-		</ul>
-		<% if @listing.sell_method == "Auction" %>
+
+<% present @listing do |listing_presenter| %>
+	<div class="individual-listing">
+		<div class="title"><%= @listing.title %></div>
+		<div id="main-listing-image"><%= listing_presenter.large_image %></div>
+		<div id="listing-thumbnails"><%= listing_presenter.thumbnails %></div>
+		<div class="description"><%= simple_format(@listing.description) %></div>
+		<div class="question-button"><%= button_to "Ask The Seller A Question", '#', class: "button-normal" %></div>
+		<div class="listing-details">
 			<ul>
-				<%= content_tag :li, "Reserve: Yes, there is a reserve that needs to be met." if @listing.auction.reserve != 0 && @listing.auction.show_reserve == false %>
-				<%= content_tag :li, "Reserve: $#{@listing.auction.reserve}"   if @listing.auction.reserve != 0 && @listing.auction.show_reserve == true %>
-				<%= content_tag :li, "No Reserve" if @listing.auction.reserve == 0 %>
-				<%= content_tag :li, "Number Of Bids: #{pluralize(@listing.bids_count, 'bid')}" %>
-				<%= content_tag :li, "Auction Ends: #{@listing.auction.end_date.strftime("%A %B %d, %Y")} - 9:00 PM" %>
+				<%= content_tag :li, "Seller: #{@listing.user.user_name}" %>
+				<%= content_tag :li, "Posted On: #{@listing.created_at.strftime("%A %B %d, %Y")}" %>
+				<li>Listing Type: <%= @listing.sell_method %></li>
 			</ul>
-			<%= button_to "Bid On This Item", new_listing_bid_path(@listing), method: :get, class: "button-large" %>
-		<% else %>
-			<h3>All price changes happen at 9 PM on the given day.</h3>
-			<table class="price-fade-list">
-				<tr>
-					<th class="decrease-date">Date</th>
-					<th class="price-level">Price</th>
-					<th></th>
-					<th></th>
-					<th></th>
-				</tr>
-				<% date_price_hash = price_fade_hash(@listing.price_fade) %>
-				<% current_price_class = "before-current-price" %>
-				<% date_price_hash.each do |key, value| %>
-					<% current_price_class = "after-current-price" if key == "Current Price" %>
-					<tr>
-						<% bids = count_bids(@bids, value) if @bids != nil %>
-						<% if key == "Current Price" %>
-							<%= content_tag :td, key, class: "current-price" %>
-						<% else %>
-							<%= content_tag :td, key.strftime("%a %B %d"), class: current_price_class %>
-						<% end %>
-						<%= content_tag :td, value, class: "price-level #{current_price_class}" %>
-						<% if key == "Current Price" %>
-							<td><%= link_to "Buy At This Price", new_listing_bid_path(listing_id: @listing.id, price: value), class: "button-normal" %></td>
-						<% end %>
-					</tr>
-				<% end %>
-			</table>
-		<% end %>
+				<%= listing_presenter.sell_method_details %>
+		</div>
 	</div>
-</div>
+<% end %> <!-- listing_presenter -->
 
 
 

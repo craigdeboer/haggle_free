@@ -1,9 +1,5 @@
 <h1>Entering a new bid</h1>
 
-
-
-
-
 <% if @listing.sell_method == "Auction" %>
 
 	<h2>There <%= 'is'.pluralize(@listing.bids_count) %> currently <%= pluralize(@listing.bids_count, " bid") %></h2>

@@ -16,20 +16,6 @@ module ListingsHelper
 		current_price
 	end
 
-	def price_fade_hash(price_fade)
-		date_price_array = []
-		start_date = price_fade.created_at.beginning_of_day + 21.hours
-		start_price = price_fade.start_price
-		current_price = find_current_price(price_fade)
-		for i in 0..7
-			date = start_date.to_date + (price_fade.price_interval * i)
-			price = start_price - (price_fade.price_decrement * i)
-			date = "Current Price" if current_price == price
-			date_price_array << date << price
-		end
-		the_hash = Hash[*date_price_array]
-	end
-
 	def count_bids(bids, price)
 		counter = 0
 		bids.each do |bid|

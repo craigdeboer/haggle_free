@@ -1,2 +1,9 @@
 <h1>Listings#edit</h1>
 <p>Find me in app/views/listings/edit.html.erb</p>
+<% if @listing.user_id == current_user.id %>
+	<% if @listing.images.length < 5 %>
+	
+		<h3>You have added <%= @listing.images.count %> pictures. You may add up to 5.</h3>
+		<%= link_to "Add Picture", new_listing_image_path(@listing), class: "button-normal" %>
+	<% end %>
+<% end %>

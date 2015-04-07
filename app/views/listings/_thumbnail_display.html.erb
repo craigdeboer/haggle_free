@@ -1,0 +1,3 @@
+<% @listing.images.each do |image| %>
+	<span><%= image_tag image.picture.url(:thumb), class: "thumbnail-display" %></span>
+<% end %>

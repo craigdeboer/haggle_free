@@ -1,0 +1,8 @@
+<% present @listing do |listing_presenter| %>
+	<%= content_tag :ul do %>
+		<%= listing_presenter.reserve %>
+		<%= content_tag :li, "Number Of Bids: #{pluralize(@listing.bids_count, 'bid')}" %>
+		<%= content_tag :li, "Auction Ends: #{@listing.auction.end_date.strftime("%A %B %d, %Y")} - 9:00 PM" %>
+	<% end %>
+	<%= button_to "Bid On This Item", new_listing_bid_path(@listing), method: :get, class: "button-large" %>
+<% end %>

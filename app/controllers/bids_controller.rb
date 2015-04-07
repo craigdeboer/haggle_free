@@ -24,7 +24,7 @@ class BidsController < ApplicationController
 				flash[:success] = "Your bid has been accepted! Good luck!"
 				redirect_to @listing
 			else
-				flash[:error] = "Unforturnately, this auction has ended."
+				flash[:error] = "Unforturnately this auction has ended."
 				redirect_to root_path
 			end
 		else
@@ -58,7 +58,7 @@ class BidsController < ApplicationController
 			if listing.sell_method == "Auction"
 				is_before = DateTime.now < (listing.auction.end_date.beginning_of_day + 21.hours)
 			else 
-				is_before = DateTime.now < ((listing.price_fade.created_at.beginning_of_day + 21.hours) + (listing.price_fade.price_interval * 7).days)
+				is_before = DateTime.now < ((listing.price_fade.created_at.beginning_of_day + 21.hours) + (listing.price_fade.price_interval * 14).days)
 			end
 			is_before
 		end

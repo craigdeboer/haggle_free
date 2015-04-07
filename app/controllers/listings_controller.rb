@@ -1,8 +1,6 @@
 class ListingsController < ApplicationController
   def index
-    @listings = Listing.all
-    @images = Image.all
-    
+    @listings = Listing.includes(:images).all
   end
 
   def subcategory
@@ -11,14 +9,13 @@ class ListingsController < ApplicationController
   end
 
   def user
-    @user = current_user
-    @listings = @user.listings.includes(:auction, :price_fade, :bids).all
+    @listings = Listing.user_listings(current_user)
   end
 
   def show
-    @listing = Listing.includes(:auction, :price_fade, :sub_category).find(params[:id])
-    @images = @listing.images.all
-    @bids = @listing.bids.all
+    @listing = Listing.includes(:auction, :price_fade, :sub_category, :images, :bids).find(params[:id])
+    # @images = @listing.images.all
+    # @bids = @listing.bids.all
   end
 
   def new
@@ -41,6 +38,8 @@ class ListingsController < ApplicationController
   end
 
   def edit
+    @listing = Listing.find(params[:id])
+    
   end
 
   def update

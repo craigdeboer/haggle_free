@@ -23,5 +23,9 @@ class Listing < ActiveRecord::Base
 		return true if self.sell_method == "Price"
 	end
 
+	def self.user_listings(user)
+		Listing.where("user_id = ?", user).includes(:images, :auction, :price_fade, :user).order(created_at: :desc)
+	end
+
 
 end

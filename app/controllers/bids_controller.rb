@@ -19,13 +19,13 @@ class BidsController < ApplicationController
 		@listing = Listing.find(params[:listing_id])
 		@bid = @listing.bids.new(bid_params)
 		@bid.user_id = current_user.id
+		byebug
 		if check_bid(@listing, @bid)
-			if before_listing_end(@listing) && @bid.save
+			if @bid.save
 				flash[:success] = "Your bid has been accepted! Good luck!"
 				redirect_to @listing
 			else
-				flash[:error] = "Unforturnately this auction has ended."
-				redirect_to root_path
+				render 'new'
 			end
 		else
 			flash[:error] = "Your bid must be greater than the reserve price."
@@ -44,6 +44,7 @@ class BidsController < ApplicationController
 		end
 
 		def check_bid(listing, bid)
+			byebug
 			if listing.sell_method == "Price"
 				check = true
 			elsif (bid.price >= listing.auction.reserve) || !listing.auction.show_reserve 

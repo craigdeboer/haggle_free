@@ -1,26 +1,30 @@
-<h1>Entering a new bid</h1>
-
 <% if @listing.sell_method == "Auction" %>
 
-	<h2>There <%= 'is'.pluralize(@listing.bids_count) %> currently <%= pluralize(@listing.bids_count, " bid") %></h2>
+	<h2>You have chosen to enter a bid on this item:</h2>
+	<h2><%= @listing.title %></h2>
+
+	<h3>There <%= 'is'.pluralize(@listing.bids_count) %> currently <%= pluralize(@listing.bids_count, " bid") %></h3>
 
 	<h3>By entering a bid on this item, you agree to purchase the item at the bid price subject
 	to inspection and verification that the listing information and description provided by the seller is accurate.</h3>
 
-	<h3><%= show_reserve(@listing.auction) %></h3>
+	<h3><%= "Reserve: #{number_to_currency(@listing.auction.reserve)}" if @listing.auction.show_reserve %></h3>
 
-	<h2>You have chosen to enter a bid on <%= @listing.title %></h2>
+
 
 	<%= simple_form_for @bid, url: listing_bids_path do |f| %>
+		<%= render 'shared/error_messages', object: @bid %>
 		<%= f.input :price %>
-		<%= f.submit "Submit Your Bid" %>
+		<%= f.submit "Submit Your Bid", class: "button-large" %>
 	<% end %>
 
 <% else %>
-	<h2>You have chosen to purchase <%= @listing.title %></h2>
+	<h2>You have chosen to submit an offer to purchase this item:</h2>
+	<h2><%= @listing.title %></h2>
 	<h2>at the price level of <%= number_to_currency(@bid.price) %></h2>
 
 	<%= simple_form_for @bid, url: listing_bids_path do |f| %>
+		<%= render 'shared/error_messages', object: @bid %>
 		<%= f.input :price, as: :hidden, value: @bid.price %>
 		<%= f.submit "Confirm" %>
 	<% end %>

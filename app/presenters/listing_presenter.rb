@@ -27,9 +27,9 @@ class ListingPresenter
 
 	def reserve_or_current_price
 		if auction?
-			h.content_tag :li, "Reserve: " + h.show_reserve(@listing.auction) 
+			reserve 
 		else
-			h.content_tag :li, "Current Price: #{h.number_to_currency(h.find_current_price(@listing.price_fade))}" 
+			h.content_tag :li, "Current Price: #{h.number_to_currency(find_current_price)}" 
 		end
 	end
 
@@ -70,7 +70,7 @@ class ListingPresenter
 			if show_reserve?
 				h.content_tag :li, "Reserve: $#{@listing.auction.reserve}"
 			else
-				h.content_tag :li, "Reserve: Yes, there is a reserve that needs to be met." 
+				h.content_tag :li, "Reserve: Yes, but it's hidden." 
 			end
 		else
 			h.content_tag :li, "No Reserve"
@@ -95,14 +95,34 @@ class ListingPresenter
 
 private
 
+	def find_current_price
+		start_date = price_fade.created_at.beginning_of_day + 21.hours
+		current_time = DateTime.now
+		interval = price_fade.price_interval
+		for i in 0..7
+			date = start_date + (interval * i).days
+			next_date = date + interval.days
+			if current_time < start_date 
+				current_price = price_fade.start_price
+			elsif (current_time >= date) && (current_time < next_date)
+				current_price = price_fade.start_price - (price_fade.price_decrement * i)
+			end
+		end
+		current_price
+	end
+
+	def price_fade
+		@listing.price_fade
+	end
+
 	def next_price
-		h.number_to_currency(h.find_current_price(@listing.price_fade) - (@listing.price_fade.price_decrement))
+		h.number_to_currency(find_current_price - (price_fade.price_decrement))
 	end
 	
 	def next_date
-		@listing.price_fade.created_at.beginning_of_day + 
-			(@listing.price_fade.price_interval * 
-				((@listing.price_fade.start_price - h.find_current_price(@listing.price_fade))/@listing.price_fade.price_decrement)).days
+		price_fade.created_at.beginning_of_day + 
+			(price_fade.price_interval * 
+				((price_fade.start_price - find_current_price)/price_fade.price_decrement)).days
 	end
 
 	def auction?
@@ -123,12 +143,12 @@ private
 
 	def price_fade_hash
 		date_price_array = []
-		start_date = @listing.price_fade.created_at.beginning_of_day + 21.hours
-		start_price = @listing.price_fade.start_price
-		current_price = h.find_current_price(@listing.price_fade)
+		start_date = price_fade.created_at.beginning_of_day + 21.hours
+		start_price = price_fade.start_price
+		current_price = find_current_price(@listing.price_fade)
 		for i in 0..7
-			date = start_date.to_date + (@listing.price_fade.price_interval * i)
-			price = start_price - (@listing.price_fade.price_decrement * i)
+			date = start_date.to_date + (price_fade.price_interval * i)
+			price = start_price - (price_fade.price_decrement * i)
 			date = "Current Price" if current_price == price
 			date_price_array << date << price
 		end

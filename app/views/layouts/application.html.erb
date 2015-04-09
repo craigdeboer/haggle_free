@@ -14,8 +14,9 @@
 		<div id="new-listing-button">
 			<ul>
 				<li><%= link_to "Create New Listing", new_listing_path, class: "button-large" %></li>
-			<li><%= link_to "My Listings", user_listings_path, class: "button-large" %></li>
-		</ul>
+				<li><%= link_to "My Listings", user_listings_path, class: "button-large" %></li>
+				<li><%= link_to "My Bids", bids_path, class: "button-large" %></li>
+			</ul>
 		</div>
 	<% end %>
 	<%= yield %>

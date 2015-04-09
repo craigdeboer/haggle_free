@@ -1,18 +1,1 @@
-<h1>Crop Your Picture</h1>
 
-
-
-<%= image_tag @image.picture.url(:large), id: "listingpic" %>
-
-
-
-<%= simple_form_for @image, url: listing_image_path do |f| %>
-
-	<%= f.input :ratio, as: :hidden, value: @image.ratio, input_html: { id: "image-ratio"} %>
-	<%= f.input :x_value, as: :hidden, input_html: { id: "x-value-input" } %>
-	<%= f.input :y_value, as: :hidden, input_html: { id: "y-value-input" } %>
-	<%= f.input :width_value, as: :hidden, input_html: { id: "width-value-input" } %>
-	<%= f.input :height_value, as: :hidden, input_html: { id: "height-value-input" } %>
-
-	<%= f.submit "Crop Picture", class: "button-normal" %>
-<% end %>

@@ -1,5 +1,25 @@
-<% @bids.each do |bid| %>
-	<%= bid.listing.title %>
-	<span>$<%= bid.price %></span>
-
-<% end %>
+<div id="bids-table">
+	<h3>Your current bids/offers:</h3>
+	<table>
+		<tr>
+			<th class="listing-title">Listing</th>
+			<th>Type</th>
+			<th>Price</th>
+			<th>Status</th>
+			<th></th>
+		</tr>
+		<% @bids.each do |bid| %>
+			<tr>
+				<td><%= bid.listing.title %></td>
+				<% if bid.listing.auction? %>
+					<td>Bid</td>
+				<% else %>
+					<td>Offer</td>
+				<% end %>
+				<td><%= number_to_currency(bid.price) %></td>
+				<td>Active</td>
+				<td><%= button_to "Delete", bid_path(bid), method: :delete, data: { confirm: "Are you sure?" }, class: "delete-button"  %></td>
+			</tr>
+		<% end %>
+	</table>
+</div>

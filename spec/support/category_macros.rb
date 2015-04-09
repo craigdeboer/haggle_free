@@ -3,7 +3,7 @@ module CategoryMacros
 	def create_category(name)
 		visit categories_path
 		click_button "Add Category"
-		fill_in "Name", with: name
+		fill_in "Category Name", with: name
 		click_button "Create Category"
 		wait_for_ajax
 	end

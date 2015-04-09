@@ -45,6 +45,14 @@ class ListingPresenter
 		h.button_to "Delete", h.listing_path(@listing), method: :delete, data: { confirm: "Are you sure?" }, class: "delete-button" if @listing.user == h.current_user
 	end
 
+	def edit_listing
+		h.button_to "Edit", h.edit_listing_path(@listing), method: :get, class: "button-normal" if @listing.user == h.current_user
+	end
+
+	def add_images
+		h.button_to "Add Pictures", h.new_listing_image_path(@listing), method: :get, class: "button-normal" if @listing.user == h.current_user
+	end
+
 	#Individual Listing Methods
 
 	def large_image 
@@ -61,6 +69,10 @@ class ListingPresenter
 		else
 			h.render 'price_fade_details'
 		end
+	end
+
+	def get_price
+		find_current_price
 	end
 
 	#Auction details partial method
@@ -145,7 +157,7 @@ private
 		date_price_array = []
 		start_date = price_fade.created_at.beginning_of_day + 21.hours
 		start_price = price_fade.start_price
-		current_price = find_current_price(@listing.price_fade)
+		current_price = find_current_price
 		for i in 0..7
 			date = start_date.to_date + (price_fade.price_interval * i)
 			price = start_price - (price_fade.price_decrement * i)

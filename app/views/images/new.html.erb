@@ -1,7 +1,20 @@
-<h1>Add A New Image For <%= @listing.title %></h1>
-
-<%= simple_form_for @image, url: listing_images_path, html: { multipart: true }, defaults: { error: false } do |f| %>
-	<%= render 'shared/error_messages', object: @image %>
-	<%= f.input :picture %>
-	<%= f.submit "Add Picture" %>
-<% end %>
+<div id="adding-pictures">
+	<h2>
+		You have added <%= pluralize(@listing.images.count, "picture") %> out of a maximum of 5 for <%= @listing.title %>. 
+	</h2>
+		<% @listing.images.each do |image| %>
+			<span class="all-thumbnails">
+				<%= image_tag image.picture.url(:thumb) %>
+				<%= link_to "Delete Image", listing_image_path(id: image), method: :delete, data: { confirm: "Are you sure?" } %>
+			</span>
+		<% end %>
+	<% if @listing.images.count < 5 %>
+		<%= simple_form_for @image, url: listing_images_path, html: { multipart: true }, defaults: { error: false } do |f| %>
+			<%= render 'shared/error_messages', object: @image %>
+			<%= f.input :picture, label: false %>
+			<%= f.submit "Add Picture", class: "button-large" %>
+		<% end %>
+	<% else %>
+		<h2>If you want to add another image, you'll have to delete an existing one first.</h2>
+	<% end %>
+</div>

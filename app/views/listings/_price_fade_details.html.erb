@@ -15,5 +15,5 @@
 			</tr>
 		<% end %>
 	</table>
-	<%= link_to "Submit Offer To Buy At The Current Price", new_listing_bid_path(@listing, price: find_current_price(@listing.price_fade)), class: "button-large" %> 
+	<%= link_to "Submit Offer To Buy At The Current Price", new_listing_bid_path(@listing, price: listing_presenter.get_price), class: "button-large" %> 
 <% end %>

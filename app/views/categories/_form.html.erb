@@ -1,5 +1,4 @@
-<%= form_for @category, remote: true do |f| %>
-	<%= f.label :name %>
-	<%= f.text_field :name %>
-	<%= f.submit %>
+<%= simple_form_for @category, remote: true, defaults: { error: false } do |f| %>
+	<%= f.input :name, label: "Category Name", required: false %>
+	<%= f.submit "Create Category", class: "button-large" %>
 <% end %>

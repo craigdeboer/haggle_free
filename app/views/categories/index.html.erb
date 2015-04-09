@@ -1,16 +1,17 @@
-<h1>Categories</h1>
-<div id="flash-message"></div>
-<div id="list-categories">
-	<%= render @categories %>
-</div>
-<div id="add-category-button">
-	<%= link_to new_category_path, remote: true do %>
-		<button>Add Category</button>
-	<% end %>
-</div>
+<div id="category-page">
+	<h1>Categories</h1>
+	<div id="flash-message"></div>
+	<div id="list-categories">
+		<%= render @categories %>
+	</div>
+	<div id="new-category-button">
+		<%= link_to new_category_path, remote: true do %>
+			<button class="button-large">Add Category</button>
+		<% end %>
+	</div>
 
-<div id="category-form-container">
-	<div id="new-category-form"></div>
+	<div id="category-form-container">
+		<div id="new-category-form"></div>
+	</div>
 </div>
-
  

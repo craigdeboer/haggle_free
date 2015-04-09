@@ -84,6 +84,25 @@ a {
 	margin: 20px;
 }
 
+/*** Error Messages ***/
+
+#error-explanation {
+	border: 4px solid red;
+	border-radius: 8px;
+	color: red;
+	width: 400px;
+	.alert {
+		background-color: red;
+		padding: 10px;
+		color: white;
+	}
+	ul {
+		padding-left: 10px;
+	}
+	li {
+		list-style: none;
+	}
+}
 
 /*** Forms ***/
 
@@ -219,25 +238,6 @@ form.simple_form {
 	@include box_sizing;
 }
 
-/*** Category Listing And Creation ***/
-
-#category-form-container {
-	height: 200px;
-	margin-top: 100px;
-}
-
-#flash-message {
-	.success {
-		color: green;
-	}
-	.error {
-		color: red;
-	}
-}
-
-#new-category-form {
-	display: none;
-}
 
 
 /*** Sub-Category Listing And Creation ***/

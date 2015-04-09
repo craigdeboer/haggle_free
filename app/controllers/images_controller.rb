@@ -5,13 +5,11 @@ class ImagesController < ApplicationController
 	end
 
 	def show
-		@image = Image.find(params[:id])
-		@image.ratio = params[:ratio]
 	end
 
 	def new
 		@image = Image.new
-		@listing = Listing.find(params[:listing_id])
+		@listing = Listing.includes(:images).find(params[:listing_id])
 	end
 
 	def create
@@ -20,7 +18,7 @@ class ImagesController < ApplicationController
 		ratio = @image.picture_geometry if @image.picture_file_size <= 1048576
 		@image.listing_id = params[:listing_id]
 		if @image.save
-			redirect_to listing_image_path(id: @image.id, ratio: ratio)
+			redirect_to edit_listing_image_path(id: @image.id, ratio: ratio)
 		else
 			flash[:notice] = "If you need help decreasing the size of your file, google 'image optimization'"
 			@image.errors[:picture_file_size].clear
@@ -30,16 +28,20 @@ class ImagesController < ApplicationController
 
 	def edit
 		@image = Image.find(params[:id])
+		@image.ratio = params[:ratio]
 	end
 
 	def update	
 		@image = Image.find(params[:id])
 		@image.update_attributes(crop_params)
     @image.picture.reprocess!  #crop the image and then save it.
-    redirect_to listing_path(id: params[:listing_id])
+    redirect_to new_listing_image_path(id: params[:listing_id])
 	end
 
 	def destroy
+		@image = Image.find(params[:id])
+		@image.destroy
+		redirect_to new_listing_image_path
 	end
 
 	private

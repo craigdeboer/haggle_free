@@ -4,9 +4,9 @@
 			<div class="listing-image"><%= listing_presenter.thumbnail %></div>
 			<div class="listing-title-container">
 				<div class="listing-title"><%= listing_presenter.title %></div>
-				<div class="listing-method">Listing Type: <%= listing.sell_method %></div>
-				<div class="price-or-bids">
+				<div class="sell-method-details">
 					<ul>
+						<li>Listing Type: <%= listing.sell_method %></li>
 						<li><%= listing_presenter.bids_or_offers %></li>
 						<li><%= listing_presenter.reserve_or_current_price %></li>
 						<li><%= listing_presenter.end_date_or_next_price %></li>
@@ -20,6 +20,8 @@
 		 		<span class="posted-by">Seller: <%= listing.user.user_name %></span>
 		 		<span>Posted On: <%= listing.created_at.strftime("%A %B %d, %Y") %></span>
 		 		<span><%= listing_presenter.delete_listing %></span>
+		 		<span><%= listing_presenter.edit_listing %></span>
+		 		<span><%= listing_presenter.add_images %></span>
 		 	</div> <!-- listing-footer -->
 	  </div>
   <% end %> <!-- present -->

@@ -1,11 +1,12 @@
 class ListingsController < ApplicationController
+  
   def index
     @listings = Listing.includes(:images).all
   end
 
   def subcategory
     @subcategory = SubCategory.find(params[:sub_category_id])
-    @listings = @subcategory.listings.includes(:images, :auction, :price_fade, :user).order(created_at: :desc)
+    @listings = Listing.subcategory_listings(@subcategory)
   end
 
   def user
@@ -14,8 +15,6 @@ class ListingsController < ApplicationController
 
   def show
     @listing = Listing.includes(:auction, :price_fade, :sub_category, :images, :bids).find(params[:id])
-    # @images = @listing.images.all
-    # @bids = @listing.bids.all
   end
 
   def new
@@ -31,18 +30,21 @@ class ListingsController < ApplicationController
     @listing.user_id = current_user.id
     if @listing.save
       flash[:success] = "Here is your new listing."
-      redirect_to @listing
+      redirect_to new_listing_image_path(@listing)
     else
       render 'new'
     end
   end
 
   def edit
-    @listing = Listing.find(params[:id])
+    @listing = Listing.includes(:images, :price_fade, :auction, :sub_category).find(params[:id])
     
   end
 
   def update
+    @listing = Listing.find(params[:id])
+    @listing.update_attributes(listing_params)
+    redirect_to @listing
   end
 
   def destroy

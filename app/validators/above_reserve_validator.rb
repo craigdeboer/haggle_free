@@ -1,7 +1,7 @@
 class AboveReserveValidator < ActiveModel::EachValidator
 
 	def validate_each(record, attribute, value)
-		if record.listing_id != nil && bid_too_low(record, value)
+		if record.listing_id != nil && value && bid_too_low(record, value)
 			record.errors[attribute] << ' must be above the reserve.'
 		end
 	end

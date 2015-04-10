@@ -1,0 +1,6 @@
+<%= simple_form_for @bid, defaults: { error: false } do |f| %>
+	<%= f.input :listing_id, as: :hidden %>
+	<%= render 'shared/error_messages', object: @bid %>
+	<%= f.input :price_string, as: :string, label: "Enter Your Bid", required: false, input_html: { class: "currency-string" } %>
+	<%= f.submit "Submit Your Bid", class: "button-large" %>
+<% end %>

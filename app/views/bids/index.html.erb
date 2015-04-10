@@ -19,6 +19,7 @@
 				<td><%= number_to_currency(bid.price) %></td>
 				<td>Active</td>
 				<td><%= button_to "Delete", bid_path(bid), method: :delete, data: { confirm: "Are you sure?" }, class: "delete-button"  %></td>
+				<td><%= button_to "Edit", edit_bid_path(bid), method: :get, class: "delete-normal"  %></td>
 			</tr>
 		<% end %>
 	</table>

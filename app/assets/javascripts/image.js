@@ -2,7 +2,7 @@
 // All this logic will automatically be available in application.js.
 // You can use CoffeeScript in this file: http://coffeescript.org/
 
-$(document).ready(function(){
+var ready = function() {
 
 	$("#listingpic").Jcrop({
 		onSelect: getCoords,
@@ -27,4 +27,7 @@ $(document).ready(function(){
 		$('#main-listing-image').html("<img class='main-image-display' src='" + imageLarge + "'>");
 	});
 
-});
+};
+
+$(document).ready(ready);
+$(document).on('page:load', ready);

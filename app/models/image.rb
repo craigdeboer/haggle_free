@@ -4,7 +4,7 @@ class Image < ActiveRecord::Base
 
   has_attached_file :picture, 
     styles: { thumb: ["140>", :jpg], large: ['600>', :jpg] }, 
-    convert_options: { thumb: '-quality 30 -strip', large: '-quality 70 -strip'},
+    convert_options: { thumb: '-quality 30 -strip', large: '-quality 70 -strip' },
     processors: [:cropper]
                               
                                                           
@@ -13,6 +13,8 @@ class Image < ActiveRecord::Base
   validates_attachment_size :picture, :less_than => 1.megabyte
   validates :listing_id, presence: true
   belongs_to :listing
+
+  around_create :get_ratio
 
   def cropping?
     !x_value.blank? && !y_value.blank?
@@ -26,6 +28,12 @@ class Image < ActiveRecord::Base
     else
       ratio = original_width / large_width
     end
+  end
+
+  def get_ratio
+    ratio = self.picture_geometry if self.picture_file_size <= 1048576
+    yield
+    self.ratio = ratio
   end
   
 end

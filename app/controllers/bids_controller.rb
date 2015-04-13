@@ -42,7 +42,7 @@ class BidsController < ApplicationController
 private
 
 	def bid_params
-		params.require(:bid).permit(:price_string, :listing_id).merge(user_id: current_user.id)
+		params.require(:bid).permit(:price, :price_string, :listing_id).merge(user_id: current_user.id)
 	end
 
 	def find_listing

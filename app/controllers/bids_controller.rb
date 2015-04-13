@@ -62,7 +62,7 @@ private
 
 	def bid_owner
 		if @bid.user != current_user
-			flash[:notice] = "You are trying to access data that isn't yours."
+			flash[:notice] = "You may not edit another user's bid."
 			redirect_to root_path
 		end
 	end

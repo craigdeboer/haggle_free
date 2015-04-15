@@ -2,7 +2,6 @@ class BidsController < ApplicationController
 
 	before_action :find_listing, only: [:new, :create]
 	before_action :find_bid, only: [:edit, :update, :destroy]
-	before_action :require_login
 	before_action :bid_owner, only: :edit
 	
 
@@ -51,13 +50,6 @@ private
 
 	def find_bid
 		@bid = Bid.find(params[:id])
-	end
-
-	def require_login
-		if !logged_in?
-			flash[:notice] = "You must be logged in to view the requested page."
-			redirect_to login_path
-		end
 	end
 
 	def bid_owner

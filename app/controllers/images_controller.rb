@@ -2,6 +2,8 @@ class ImagesController < ApplicationController
 
 	before_action :find_listing, only: [:new, :create]
 	before_action :find_image, only: [:edit, :update, :destroy]
+	before_action :listing_owner, only: :new
+	before_action :image_owner, only: :edit
 
 	def index
 	end
@@ -60,4 +62,19 @@ class ImagesController < ApplicationController
 		def find_image
 		  @image = Image.find(params[:id])
 		end
+
+		def listing_owner
+			if current_user.id != @listing.user_id
+				flash[:notice] = "You are trying to add an image to a listing that isn't yours."
+				redirect_to root_path
+			end
+		end
+
+		def image_owner
+			if current_user.id != @image.listing.user_id
+				flash[:notice] = "You are trying to edit an image that doesn't belong to you."
+				redirect_to root_path
+			end
+		end
+	
 end

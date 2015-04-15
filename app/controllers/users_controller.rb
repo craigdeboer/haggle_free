@@ -1,4 +1,7 @@
 class UsersController < ApplicationController
+
+  skip_before_action :require_login, only: :new
+  before_action :find_user, only: [:edit, :udpate, :destroy]
   
   def index
     @users = User.all
@@ -23,20 +26,17 @@ class UsersController < ApplicationController
   end
 
   def edit
-    @user = User.find(params[:id])
     render 'new'
   end
 
   def update
     @users = User.all
-    @user = User.find(params[:id])
     @user.update_attributes(user_params)
     render 'index'
   end
 
   def destroy
     @users = User.all
-    @user = User.find(params[:id])
     @user.destroy
     flash[:success] = "User deleted."
     render 'index'
@@ -46,5 +46,9 @@ class UsersController < ApplicationController
 
     def user_params
       params.require(:user).permit(:first_name, :last_name, :user_name, :email, :password, :password_confirmation, :admin)
+    end
+
+    def find_user
+      @user = User.find(params[:id])
     end
 end

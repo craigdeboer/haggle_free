@@ -1,4 +1,6 @@
 class ListingsController < ApplicationController
+
+  skip_before_action :require_login, only: [:index, :subcategory, :show] 
   
   def index
     @listings = Listing.includes(:images).all
@@ -18,8 +20,7 @@ class ListingsController < ApplicationController
   end
 
   def new
-    @user = current_user
-    @listing = @user.listings.new
+    @listing = Listing.new
     @listing.build_auction
     @listing.build_price_fade
   end
@@ -27,9 +28,8 @@ class ListingsController < ApplicationController
   def create
     @listing = Listing.new(listing_params)
     @listing.post_date = Date.today
-    @listing.user_id = current_user.id
     if @listing.save
-      flash[:success] = "Here is your new listing."
+      flash[:success] = "Your new listing has been created. Add some pictures."
       redirect_to new_listing_image_path(@listing)
     else
       render 'new'
@@ -53,10 +53,10 @@ class ListingsController < ApplicationController
     redirect_to sub_category_listings_path(sub_category_id: @listing.sub_category_id)
   end
 
-  private
+private
 
-    def listing_params
-      params.require(:listing).permit(:title, :description, :sell_method, :post_date, :sub_category_id, :user_id, auction_attributes: [:reserve, :show_reserve, :end_date], price_fade_attributes: [:start_price, :price_decrement, :price_interval])
-    end
+  def listing_params
+    params.require(:listing).permit(:title, :description, :sell_method, :post_date, :sub_category_id, :user_id, auction_attributes: [:reserve, :show_reserve, :end_date], price_fade_attributes: [:start_price, :price_decrement, :price_interval]).merge(user_id: current_user.id)
+  end
 
 end

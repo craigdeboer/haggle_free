@@ -1,6 +1,8 @@
 class SubCategoriesController < ApplicationController
 
+	skip_before_action :require_login, only: :index
 	before_action :all_categories_and_subcategories, only: [:index, :create, :destroy]
+	before_action :require_admin, only: [:new, :destroy]
 	respond_to :html, :js
 
 	def index

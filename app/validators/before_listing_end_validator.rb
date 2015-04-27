@@ -12,7 +12,7 @@ class BeforeListingEndValidator < ActiveModel::EachValidator
 			if record.listing.sell_method == "Auction"
 				record.listing.auction.end_date.beginning_of_day + 21.hours
 			else
-				(record.listing.post_date + (record.listing.price_fade.price_interval * 7).days).beginning_of_day + 21.hours
+				(record.listing.created_at + (record.listing.price_fade.price_interval * 7).days).beginning_of_day + 21.hours
 			end
 		end
 

@@ -1,7 +1,7 @@
 class BidsController < ApplicationController
 
-	before_action :find_listing, only: [:new, :create]
-	before_action :find_bid, only: [:edit, :update, :destroy]
+	before_action :set_listing, only: [:new, :create]
+	before_action :set_bid, only: [:edit, :update, :destroy]
 	before_action :bid_owner, only: :edit
 	
 
@@ -44,11 +44,11 @@ private
 		params.require(:bid).permit(:price, :price_string, :listing_id).merge(user_id: current_user.id)
 	end
 
-	def find_listing
+	def set_listing
 		@listing = Listing.find(params[:listing_id])
 	end
 
-	def find_bid
+	def set_bid
 		@bid = Bid.find(params[:id])
 	end
 

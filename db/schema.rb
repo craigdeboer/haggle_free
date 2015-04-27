@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150330162559) do
+ActiveRecord::Schema.define(version: 20150423222437) do
 
   create_table "auctions", force: :cascade do |t|
     t.decimal  "reserve",                precision: 7, scale: 2
@@ -57,7 +57,6 @@ ActiveRecord::Schema.define(version: 20150330162559) do
     t.string   "title",           limit: 255
     t.text     "description",     limit: 65535
     t.string   "sell_method",     limit: 255
-    t.date     "post_date"
     t.integer  "sub_category_id", limit: 4
     t.integer  "user_id",         limit: 4
     t.datetime "created_at",                                null: false

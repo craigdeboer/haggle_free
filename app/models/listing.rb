@@ -11,7 +11,6 @@ class Listing < ActiveRecord::Base
 	validates :title, presence: true, length: { maximum: 99}
 	validates :description, presence: true, length: { maximum: 1000}
 	validates :sell_method, presence: true
-	validates :post_date, presence: true
 	validates :sub_category_id, presence: true
 	validates :user_id, presence: true
 

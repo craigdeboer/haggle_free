@@ -20,10 +20,12 @@ class Bid < ActiveRecord::Base
 private
 
 	def strip_dollar_sign
-		if (price_string.tr('$', '') =~ /\A\d+\.?\d*\Z/) != nil
-			self.price = price_string.tr('$', '').to_f
-		else
-			self.price = price_string
+		if price_string
+			if (price_string.tr('$', '') =~ /\A\d+\.?\d*\Z/) != nil
+				self.price = price_string.tr('$', '').to_f
+			else
+				self.price = price_string
+			end
 		end
 	end
 end

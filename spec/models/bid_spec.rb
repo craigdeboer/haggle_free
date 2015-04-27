@@ -62,7 +62,7 @@ RSpec.describe Bid, type: :model do
   end
 
   it "is invalid if the bid is being entered after the price fade end date" do
-    @new_listing = create(:listing, sell_method: "Price", post_date: DateTime.now - 15.days)
+    @new_listing = create(:listing, sell_method: "Price", created_at: DateTime.now - 15.days)
     @price_fade = create(:price_fade, listing_id: @new_listing.id)
     @new_bid = build(:bid, listing_id: @new_listing.id)
     expect(@new_bid).to_not be_valid

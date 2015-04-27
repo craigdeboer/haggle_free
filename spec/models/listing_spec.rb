@@ -7,8 +7,7 @@ RSpec.describe Listing, type: :model do
   end
 
   it "should have the right attributes" do
-  	expect(@listing).to respond_to(:title, :description, :sell_method,
-  																 :post_date, :sub_category_id, :user_id)
+  	expect(@listing).to respond_to(:title, :description, :sell_method, :sub_category_id, :user_id)
   end
 
   it "is valid with title, description, sell method, post date, subcategory id, and user id" do
@@ -37,11 +36,6 @@ RSpec.describe Listing, type: :model do
 
   it "is invalid without a sell method" do
   	@listing.sell_method = ""
-  	expect(@listing).to_not be_valid
-  end
-
-  it "is invalid without a post_date" do
-  	@listing.post_date = ""
   	expect(@listing).to_not be_valid
   end
 

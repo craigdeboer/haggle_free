@@ -111,6 +111,7 @@ private
 		start_date = price_fade.created_at.beginning_of_day + 21.hours
 		current_time = DateTime.now
 		interval = price_fade.price_interval
+		current_price = 1000 if current_time > (start_date + (interval * 7).days)
 		for i in 0..7
 			date = start_date + (interval * i).days
 			next_date = date + interval.days

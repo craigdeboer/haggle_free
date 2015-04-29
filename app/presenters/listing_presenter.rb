@@ -35,7 +35,7 @@ class ListingPresenter
 
 	def end_date_or_next_price
 		if auction?
-			h.content_tag :li, "End Date: " + @listing.auction.end_date.strftime("%A %B %d")
+			h.content_tag :li, "End Date: " + @listing.auction.end_date.strftime("%A, %B %-d")
 		else 
 			h.content_tag :li, "Next Price: " + next_price + " on " + next_date.strftime("%B %d") 
 		end
@@ -80,7 +80,7 @@ class ListingPresenter
 	def reserve
 		if reserve?
 			if show_reserve?
-				h.content_tag :li, "Reserve: $#{@listing.auction.reserve}"
+				h.content_tag :li, "Reserve: #{h.number_to_currency(@listing.auction.reserve)}"
 			else
 				h.content_tag :li, "Reserve: Yes, but it's hidden." 
 			end
@@ -108,7 +108,7 @@ class ListingPresenter
 private
 
 	def find_current_price
-		start_date = price_fade.created_at.beginning_of_day + 21.hours
+		start_date = price_fade.created_at
 		current_time = DateTime.now
 		interval = price_fade.price_interval
 		current_price = 1000 if current_time > (start_date + (interval * 7).days)
@@ -133,7 +133,7 @@ private
 	end
 	
 	def next_date
-		price_fade.created_at.beginning_of_day + 
+		price_fade.created_at + 
 			(price_fade.price_interval * 
 				((price_fade.start_price - find_current_price)/price_fade.price_decrement)).days
 	end
@@ -156,7 +156,7 @@ private
 
 	def price_fade_hash
 		date_price_array = []
-		start_date = price_fade.created_at.beginning_of_day + 21.hours
+		start_date = price_fade.created_at
 		start_price = price_fade.start_price
 		current_price = find_current_price
 		for i in 0..7

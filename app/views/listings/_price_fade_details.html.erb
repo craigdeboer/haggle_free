@@ -1,5 +1,5 @@
 <% present @listing do |listing_presenter| %>
-	<h3>All price changes happen at 9 PM on the given day.</h3>
+	<h3>All price changes happen at <%= @listing.created_at.strftime("%l:%M %p") %> on the given day.</h3>
 	<table class="price-fade-list">
 		<tr>
 			<th class="decrease-date">Date</th>

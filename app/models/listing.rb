@@ -22,12 +22,18 @@ class Listing < ActiveRecord::Base
 		self.sell_method == "Price"
 	end
 
+	def self.active_listings
+		auction_listing = Listing.joins(:auction).merge(Auction.active).to_sql
+		price_fade_listing = Listing.joins(:price_fade).merge(PriceFade.active).to_sql
+		Listing.find_by_sql("(#{auction_listing}) UNION DISTINCT (#{price_fade_listing})")
+	end
+
 	def self.user_listings(user)
 		Listing.where("user_id = ?", user).includes(:images, :auction, :price_fade, :user).order(created_at: :desc)
 	end
 
 	def self.subcategory_listings(subcategory)
-		Listing.where("sub_category_id = ?", subcategory).includes(:images, :auction, :price_fade, :user).order(created_at: :desc)
+		Listing.where("sub_category_id = ?", subcategory).includes(:images, :auction, :price_fade, :user).order(created_at: :desc).merge(Listing.active_listings)
 	end
 
 

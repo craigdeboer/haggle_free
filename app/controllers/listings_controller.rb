@@ -3,7 +3,7 @@ class ListingsController < ApplicationController
   skip_before_action :require_login, only: [:index, :subcategory, :show] 
   
   def index
-    @listings = Listing.includes(:images).all
+    @listings = Listing.active_listings
   end
 
   def subcategory

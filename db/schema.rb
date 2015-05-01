@@ -11,12 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150430222839) do
+ActiveRecord::Schema.define(version: 20150501161132) do
 
   create_table "auctions", force: :cascade do |t|
     t.decimal  "reserve",                precision: 7, scale: 2
     t.boolean  "show_reserve", limit: 1
-    t.datetime "end_date"
     t.integer  "listing_id",   limit: 4
     t.datetime "created_at",                                     null: false
     t.datetime "updated_at",                                     null: false
@@ -62,6 +61,7 @@ ActiveRecord::Schema.define(version: 20150430222839) do
     t.datetime "created_at",                                null: false
     t.datetime "updated_at",                                null: false
     t.integer  "bids_count",      limit: 4,     default: 0, null: false
+    t.datetime "end_date"
   end
 
   add_index "listings", ["sub_category_id"], name: "index_listings_on_sub_category_id", using: :btree
@@ -74,7 +74,6 @@ ActiveRecord::Schema.define(version: 20150430222839) do
     t.datetime "created_at",                                                        null: false
     t.datetime "updated_at",                                                        null: false
     t.integer  "price_interval",  limit: 4
-    t.datetime "end_date"
     t.boolean  "sale_pending",    limit: 1,                         default: false
   end
 

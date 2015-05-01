@@ -44,8 +44,8 @@ class ListingPresenter
 	end
 
 	def end_date_or_next_price
-		if auction?
-			h.content_tag :li, "End Date: " + @listing.auction.end_date.strftime("%A, %B %-d")
+		if auction? 
+			h.content_tag :li, "End Date: " + @listing.end_date.strftime("%A, %B %-d") if @listing.end_date != nil
 		elsif number_of_intervals != 7
 			h.content_tag :li, "Next Price: " + next_price + " on " + next_date.strftime("%B %d")
 		else

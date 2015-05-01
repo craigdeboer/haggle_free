@@ -17,10 +17,6 @@ RSpec.describe ListingsController, type: :controller do
 		describe "GET #index" do
 			it "assigns active listings to @listings" do
 				get :index
-				puts "active auction #{@active_auction.end_date}"
-				puts "ended #{@ended_auction.end_date}"
-				puts "active price #{@active_price_fade.end_date}"
-				puts "ended #{@ended_price_fade.end_date}"
       	expect(assigns(:listings)).to match_array([@active_auction.listing, @active_price_fade.listing])
 			end
 		end 

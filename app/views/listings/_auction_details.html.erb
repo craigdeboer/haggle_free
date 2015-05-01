@@ -2,7 +2,7 @@
 	<%= content_tag :ul do %>
 		<%= listing_presenter.reserve %>
 		<%= content_tag :li, "Number Of Bids: #{@listing.bids_count}" %>
-		<%= content_tag :li, "Auction Ends: #{@listing.auction.end_date.strftime("%A %B %-d, %Y at %l:%M %p")}" %>
+		<%= content_tag :li, "Auction Ends: #{@listing.end_date.strftime("%A %B %-d, %Y at %l:%M %p")}" %>
 	<% end %>
 	<%= button_to "Bid On This Item", new_listing_bid_path(@listing), method: :get, class: "button-large" %>
 <% end %>

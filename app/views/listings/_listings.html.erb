@@ -20,10 +20,12 @@
 		 	<div class="listing-footer">
 		 		<span class="posted-by">Seller: <%= listing.user.user_name %></span>
 		 		<span>Posted On: <%= listing.created_at.strftime("%A %B %d, %Y") %></span>
-		 		<span><%= listing_presenter.delete_listing %></span>
-		 		<span><%= listing_presenter.edit_listing %></span>
-		 		<span><%= listing_presenter.add_images %></span>
+		 		<% if session[:user_listings] %>
+			 		<span><%= listing_presenter.delete_listing %></span>
+			 		<span><%= listing_presenter.edit_listing %></span>
+			 		<span><%= listing_presenter.add_images %></span>
+			 	<% end %>
 		 	</div> <!-- listing-footer -->
 	  </div>
-  <% end %> <!-- present -->
+  <% end %> <!-- presenter -->
 <% end %> <!-- @listings.each -->

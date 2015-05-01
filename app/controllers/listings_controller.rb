@@ -1,9 +1,11 @@
 class ListingsController < ApplicationController
 
   skip_before_action :require_login, only: [:index, :subcategory, :show] 
+  before_action :set_my_listings, only: :user
+  before_action :clear_my_listings, except: :user
   
   def index
-    @listings = Listing.active_listings
+    @listings = Listing.active.order(created_at: :desc)
   end
 
   def subcategory
@@ -49,13 +51,21 @@ class ListingsController < ApplicationController
   def destroy
     @listing = Listing.find(params[:id])
     @listing.destroy
-    redirect_to sub_category_listings_path(sub_category_id: @listing.sub_category_id)
+    redirect_to user_listings_path
   end
 
 private
 
   def listing_params
     params.require(:listing).permit(:title, :description, :sell_method, :sub_category_id, :user_id, auction_attributes: [:reserve, :show_reserve, :end_date], price_fade_attributes: [:start_price, :price_decrement, :price_interval]).merge(user_id: current_user.id)
+  end
+
+  def set_my_listings
+    session[:user_listings] = true
+  end
+
+  def clear_my_listings
+    session[:user_listings] = false
   end
 
 end

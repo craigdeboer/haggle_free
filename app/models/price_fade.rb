@@ -10,6 +10,10 @@ class PriceFade < ActiveRecord::Base
 
 	before_save :set_end_date
 
+	def bid_received
+		self.update_column(:sale_pending, true)
+	end
+
 private
 
 	def set_end_date

@@ -17,11 +17,21 @@ class ListingPresenter
 		h.link_to @listing.title, h.listing_path(@listing)
 	end
 
+	def sale_pending_message
+		h.content_tag :li, "SALE PENDING", class: "sale-pending" if sale_pending?
+	end
+
+	def sale_pending_information
+		if sale_pending?
+			h.content_tag :div, "There is a sale pending on this item and #{@listing.bids_count - 1} of the allowed 2 backup #{'offer'.pluralize(@listing.bids_count - 1)}."
+		end
+	end
+
 	def bids_or_offers
 		if @listing.sell_method == "Auction"
-			h.content_tag :li, "Bids: " + @listing.bids_count.to_s 
+			"Bids: " + @listing.bids_count.to_s 
 		else
-			h.content_tag :li, "Offers: #{h.pluralize(@listing.bids_count, 'offer')} pending." 
+			"Offers: #{h.pluralize(@listing.bids_count, 'offer')} to buy." 
 		end	
 	end
 
@@ -36,8 +46,10 @@ class ListingPresenter
 	def end_date_or_next_price
 		if auction?
 			h.content_tag :li, "End Date: " + @listing.auction.end_date.strftime("%A, %B %-d")
-		else 
-			h.content_tag :li, "Next Price: " + next_price + " on " + next_date.strftime("%B %d") 
+		elsif number_of_intervals != 7
+			h.content_tag :li, "Next Price: " + next_price + " on " + next_date.strftime("%B %d")
+		else
+			h.content_tag :li, "Current price = Lowest price."
 		end
 	end
 
@@ -131,11 +143,13 @@ private
 	def next_price
 		h.number_to_currency(find_current_price - (price_fade.price_decrement))
 	end
+
+	def number_of_intervals
+		(price_fade.start_price - find_current_price)/price_fade.price_decrement
+	end
 	
 	def next_date
-		price_fade.created_at + 
-			(price_fade.price_interval * 
-				((price_fade.start_price - find_current_price)/price_fade.price_decrement)).days
+		price_fade.created_at + (price_fade.price_interval * (number_of_intervals + 1)).days
 	end
 
 	def auction?
@@ -168,7 +182,13 @@ private
 		the_hash = Hash[*date_price_array]
 	end
 				
-
+	def sale_pending?
+		if @listing.sell_method == "Price"
+			price_fade.sale_pending
+		else
+			false
+		end
+	end
 end
 
 

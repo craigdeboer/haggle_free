@@ -33,7 +33,7 @@ class Listing < ActiveRecord::Base
 	end
 
 	def self.subcategory_listings(subcategory)
-		Listing.where("sub_category_id = ?", subcategory).includes(:images, :auction, :price_fade, :user).order(created_at: :desc).merge(Listing.active_listings)
+		Listing.active_listings.where("sub_category_id = ?", subcategory).includes(:images, :auction, :price_fade, :user).order(created_at: :desc)
 	end
 
 

@@ -9,6 +9,7 @@
 <% present @listing do |listing_presenter| %>
 	<div class="individual-listing">
 		<div class="title"><%= @listing.title %></div>
+		<%= listing_presenter.sale_pending_information %>
 		<div id="main-listing-image"><%= listing_presenter.large_image %></div>
 		<div id="listing-thumbnails"><%= listing_presenter.thumbnails %></div>
 		<div class="description"><%= simple_format(@listing.description) %></div>

@@ -12,6 +12,7 @@ class Bid < ActiveRecord::Base
 	validates :created_at, before_listing_end: true
 
 	before_validation :strip_dollar_sign
+	after_save :set_sale_pending
 
 	def price_string
 		@price_string || ("$" + price.to_s if price)
@@ -27,5 +28,9 @@ private
 				self.price = price_string
 			end
 		end
+	end
+
+	def set_sale_pending
+		self.listing.price_fade.bid_received if self.listing.sell_method == "Price"
 	end
 end

@@ -345,6 +345,9 @@ form.simple_form {
 			list-style: none;
 			margin: 0;
 			padding: 0;
+			li.sale-pending {
+				color: red;
+			}
 		}
 		.listing-image {
 				width: 170px;

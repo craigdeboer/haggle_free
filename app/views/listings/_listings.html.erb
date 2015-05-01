@@ -7,6 +7,7 @@
 				<div class="sell-method-details">
 					<ul>
 						<li>Listing Type: <%= listing.sell_method %></li>
+						<%= listing_presenter.sale_pending_message %>
 						<li><%= listing_presenter.bids_or_offers %></li>
 						<li><%= listing_presenter.reserve_or_current_price %></li>
 						<li><%= listing_presenter.end_date_or_next_price %></li>

@@ -4,6 +4,8 @@ class ApplicationController < ActionController::Base
   self.responder = ApplicationResponder
   respond_to :html
 
+  before_action :require_login
+
   include SessionsHelper
 
   # Prevent CSRF attacks by raising an exception.

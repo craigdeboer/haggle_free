@@ -35,10 +35,14 @@ gem "paperclip", "~> 4.2"
 gem "aws-sdk", '< 2.0'
 
 # Use Unicorn as the app server
-# gem 'unicorn'
+gem 'unicorn'
 
 # Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
+group :development do
+    gem 'capistrano'
+    gem 'capistrano-rvm'
+    gem 'capistrano-rails'
+end
 group :test do 
 	gem 'factory_girl_rails', '~> 4.5.0'
 	gem 'capybara', '~> 2.4.4'

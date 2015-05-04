@@ -35,4 +35,11 @@ class SubCategoriesController < ApplicationController
 			@subcategories = SubCategory.all
 		end
 
+		def require_admin
+			if !admin?
+				flash[:notice] = "You must be an admin user to access the requested page."
+				redirect_to root_path
+			end
+		end
+
 end

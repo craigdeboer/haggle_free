@@ -1,7 +1,8 @@
 class Auction < ActiveRecord::Base
-	belongs_to :listing
 
 	attr_accessor :end_date
+
+	belongs_to :listing
 
  	validates :reserve, presence: true
 	

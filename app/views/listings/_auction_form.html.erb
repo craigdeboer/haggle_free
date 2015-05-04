@@ -1,5 +1,5 @@
 <%= f.simple_fields_for :auction do |a| %>
 	<%= a.input :reserve, as: :string, placeholder: "00.00", input_html: { id: "reserve-input"} %>
 	<%= a.input :show_reserve, input_html: {checked: false} %>
-	<%= a.input :end_date, as: :select, label: "Auction End Date", collection: Date.today..(Date.today + 21), prompt: "Select an end date" %>
+	<%= a.input :end_date, as: :select, label: "Auction End Date", collection: (Date.today + 1)..(Date.today + 21), prompt: "Select an end date" %>
 <% end %>

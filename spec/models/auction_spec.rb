@@ -3,24 +3,20 @@ require 'rails_helper'
 RSpec.describe Auction, type: :model do
   
   before do
-  	@auction = build(:auction)
+    @listing = build(:listing)
+  	@auction = build(:auction, listing_id: @listing.id)
   end
 
   it "should have the right attributes" do
   	expect(@auction).to respond_to(:reserve, :show_reserve, :end_date)
   end
 
-  it "is valid with a reserve, show reserve, and end_date" do
+  it "is valid with a reserve" do
   	expect(@auction).to be_valid
   end
 
   it "is invalid without a reserve" do
   	@auction.reserve = ""
-  	expect(@auction).to_not be_valid
-  end
-
-  it "is invalid without an end date" do
-  	@auction.end_date = ""
   	expect(@auction).to_not be_valid
   end
 

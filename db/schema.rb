@@ -11,14 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150501161132) do
+ActiveRecord::Schema.define(version: 20150501202329) do
 
   create_table "auctions", force: :cascade do |t|
     t.decimal  "reserve",                precision: 7, scale: 2
-    t.boolean  "show_reserve", limit: 1
+    t.boolean  "show_reserve", limit: 1,                         default: false
     t.integer  "listing_id",   limit: 4
-    t.datetime "created_at",                                     null: false
-    t.datetime "updated_at",                                     null: false
+    t.datetime "created_at",                                                     null: false
+    t.datetime "updated_at",                                                     null: false
   end
 
   add_index "auctions", ["listing_id"], name: "index_auctions_on_listing_id", using: :btree

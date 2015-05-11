@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Auction, type: :model do
   
   before do
-    @listing = build(:listing)
+    @listing = build(:auction_listing)
   	@auction = build(:auction, listing_id: @listing.id)
   end
 
@@ -21,13 +21,12 @@ RSpec.describe Auction, type: :model do
   end
 
   it "has a belongs to association with listing" do
-  	@listing = build(:listing)
   	@auction = @listing.build_auction(attributes_for(:auction))
   	expect(@auction).to be_valid
   end
 
   it "is saved when a listing is saved with the Auction attributes nested in it" do
-    @listing = build(:listing, auction_attributes:(attributes_for(:auction)))
+    @listing = build(:auction_listing, auction_attributes:(attributes_for(:auction)))
     expect{ @listing.save }.to change(Auction, :count).by(1)
   end
 end

@@ -9,7 +9,8 @@ RSpec.describe User, type: :model do
   it "should have the right attributes" do
   	expect(@user).to respond_to(:first_name, :last_name, 
   														  :user_name, :email, :admin,
-                                :password, :password_confirmation)
+                                :password, :password_confirmation, 
+                                :remember_token)
   end
 
   it "is valid with firstname, lastname, username, email, password, and password_confirmation" do
@@ -49,11 +50,6 @@ RSpec.describe User, type: :model do
   end
 
   it "is invalid with a username that is too short" do
-    @user.user_name = "a" * 5
-    expect(@user).not_to be_valid
-  end
-
-  it "is invalid with a username that contains anything other than letters or numbers" do
     @user.user_name = "a" * 5
     expect(@user).not_to be_valid
   end

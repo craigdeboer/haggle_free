@@ -40,7 +40,7 @@ private
 	def set_end_date
 		if self.sell_method == "Auction"
 			self.end_date = DateTime.now + (self.auction.end_date.to_date - Date.today).to_i.days
-		else
+		elsif self.sell_method == "Price"
 			self.end_date = DateTime.now + (self.price_fade.price_interval * 7).days
 		end
 	end

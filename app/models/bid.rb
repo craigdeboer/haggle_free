@@ -21,10 +21,14 @@ class Bid < ActiveRecord::Base
 private
 
 	def strip_dollar_sign
+		# If price_string is present (if not, price is used in the form submission and no action is needed).
 		if price_string
+			# Remove the dollar sign and see if input is an acceptable format with only numbers and a single decimal point (the conditional statement will return nil if the input doesn't match the regex).
 			if (price_string.tr('$', '') =~ /\A\d+\.?\d*\Z/) != nil
+				# Set the price attribute to the value of the input without the dollar sign and convert to a floating point.
 				self.price = price_string.tr('$', '').to_f
 			else
+				# If the input is not a valid format, set the value of the price attribute to the invalid format. The price attribute will then fail the numericality validation instead of the presence validation (if the price attribute wasn't set) and will give the user the correct error message when the form is rendered again.
 				self.price = price_string
 			end
 		end

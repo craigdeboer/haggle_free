@@ -3,7 +3,8 @@ require 'rails_helper'
 RSpec.describe PriceFade, type: :model do
  
 	before do
-  	@price_fade = build(:price_fade)
+    listing = build(:price_fade_listing)
+  	@price_fade = build(:price_fade, listing: listing)
   end
 
   it "should have the right attributes" do
@@ -38,5 +39,11 @@ RSpec.describe PriceFade, type: :model do
   it "is saved when a listing is saved with the price_fade attributes nested in it" do
     @listing = build(:listing, sell_method: "Price", price_fade_attributes:(attributes_for(:price_fade)))
     expect{ @listing.save }.to change(PriceFade, :count).by(1)
+  end
+
+  it "sets the sale-pending boolean to true" do
+    @price_fade.save
+    @price_fade.bid_received
+    expect(@price_fade.sale_pending).to eq true
   end
 end

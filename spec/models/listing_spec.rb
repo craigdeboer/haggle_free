@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Listing, type: :model do
   
   before do
-  	@listing = build(:listing)
+  	@listing = build(:auction_listing, auction_attributes:(attributes_for(:auction)))
   end
 
   it "should have the right attributes" do

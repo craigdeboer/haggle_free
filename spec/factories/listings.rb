@@ -5,7 +5,15 @@ FactoryGirl.define do
 		association :sub_category
 		title { Faker::Lorem.sentence(3) }
 		description { Faker::Lorem.paragraph(2) }
-		sell_method "Auction"
+
+		factory :auction_listing do
+			sell_method "Auction"
+		end
+
+		factory :price_fade_listing do
+			sell_method "Price"
+		end
+	
 	end
 
 end

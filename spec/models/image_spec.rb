@@ -3,7 +3,8 @@ require 'rails_helper'
 RSpec.describe Image, type: :model do
   
   before do
-  	@image = build(:image)
+    listing = create(:price_fade_listing, price_fade_attributes:(attributes_for(:price_fade, listing: listing))) 
+  	@image = build(:image, listing: listing)
   end
 
   it "should have the right attributes" do
@@ -29,8 +30,13 @@ RSpec.describe Image, type: :model do
   	expect(@image).to_not be_valid
   end
 
+  it "is valid with a file size that is under 2.5 MB" do
+    @image.picture_file_size = '2490000'
+    expect(@image).to be_valid
+  end
+
   it "is invalid with a file size that is too large" do
-  	@image.picture_file_size = '1200000'
+  	@image.picture_file_size = '2622000'
   	expect(@image).to_not be_valid
   end
 end

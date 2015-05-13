@@ -17,6 +17,8 @@ class BidsController < ApplicationController
 	def create
 		@bid = Bid.new(bid_params)
 		if @bid.save
+			listing_owner = User.find(@bid.listing.user_id)
+			UserMailer.bid_received(listing_owner, @bid.listing, @bid, current_user).deliver_later
 			flash[:success] = "Your bid has been accepted! Good luck!"
 			redirect_to @listing
 		else

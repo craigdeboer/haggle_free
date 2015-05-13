@@ -31,6 +31,7 @@ class UsersController < ApplicationController
 
   def update
     @users = User.all
+    @user = User.find(params[:id])
     @user.update_attributes(user_params)
     render 'index'
   end

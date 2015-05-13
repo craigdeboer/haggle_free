@@ -1,0 +1,11 @@
+<h1>Hi <%= @user.first_name %></h1>
+
+<p><%= @bidder.user_name %> has just bid on your <%= @listing.title %> listing.</p>
+
+<p>The bid is $<%= @bid.price.to_s %></p>
+
+<p>Here is the bidder's email address... <%= @bidder.email %></p>
+
+<p>Here's what you can do with this information...</p>
+
+<p>Thanks for using Haggle Free Victoria and have a great day!</p>

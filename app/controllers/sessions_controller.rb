@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
 		if @user && @user.authenticate(params[:session][:password])
 			log_in(@user)
 			remember(@user)
-			redirect_to root_path
+			redirect_back_or root_path
 		else
 			flash.now[:error] = "Invalid email/password combination."
 			render 'new'

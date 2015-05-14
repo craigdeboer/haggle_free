@@ -2,6 +2,8 @@
 
 <p>A potential buyer has asked just asked a question about your listing with the title <%= @listing.title %></p>
 
-<p>You can click <%= link_to "here", @listing %> to answer the question.</p>
+<p><%= @question.question %></p>
+
+<p>You can click <%= link_to "here", new_listing_answer_url(listing_id: @listing.id, question_id: @question.id) %> to answer the question.</p>
 
 <p>Thanks for using Haggle Free Victoria and have a great day!</p>

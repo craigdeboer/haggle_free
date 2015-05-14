@@ -16,6 +16,7 @@ private
 
 	def require_login
     if !logged_in? 
+      store_location
       flash[:notice] = "You must be logged in to view the requested page."
       redirect_to login_path
     end

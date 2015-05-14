@@ -15,7 +15,7 @@ Rails.application.routes.draw do
   resources :listings do
     resources :images
     resources :bids, only: [:new, :create]
-    resources :questions, only: [:new, :create]
+    resources :questions, only: [:new, :create] 
     resources :answers, only: [:new, :create]
   end
   resources :categories 

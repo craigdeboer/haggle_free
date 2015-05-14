@@ -23,7 +23,7 @@ class ListingPresenter
 
 	def sale_pending_information
 		if sale_pending?
-			h.content_tag :div, "There is a sale pending on this item and #{@listing.bids_count - 1} of the allowed 2 backup #{'offer'.pluralize(@listing.bids_count - 1)}."
+			h.content_tag :div, "There is a sale pending on this item and #{@listing.bids_count - 1} of the allowed 2 backup offers."
 		end
 	end
 

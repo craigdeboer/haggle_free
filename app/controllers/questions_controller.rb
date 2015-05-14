@@ -9,7 +9,7 @@ class QuestionsController < ApplicationController
 		@listing = Listing.find(params[:listing_id])
 		@question = Question.new(question_params)
 		if @question.save
-			UserMailer.question_received(@listing.user, @question.question, @listing).deliver_later
+			UserMailer.question_received(@listing.user, @question, @listing).deliver_later
 			flash[:success] = "Your question has been sent to the seller."
 			redirect_to listing_path(@listing)
 		else 

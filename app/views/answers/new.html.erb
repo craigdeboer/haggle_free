@@ -1,0 +1,6 @@
+<%= simple_form_for @answer, url: listing_answers_path, defaults: { error: false } do |f| %>
+	<%= render 'shared/error_messages', object: @answer %>
+	<%= f.input :question_id, as: :hidden, input_html: { value: @question.id } %>
+	<%= f.input :answer %>
+	<%= f.submit %>
+<% end %>

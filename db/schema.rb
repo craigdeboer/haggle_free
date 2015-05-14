@@ -11,7 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150512212907) do
+ActiveRecord::Schema.define(version: 20150513205320) do
+
+  create_table "answers", force: :cascade do |t|
+    t.text     "answer",      limit: 65535
+    t.integer  "question_id", limit: 4
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+  end
+
+  add_index "answers", ["question_id"], name: "index_answers_on_question_id", using: :btree
 
   create_table "auctions", force: :cascade do |t|
     t.decimal  "reserve",                precision: 7, scale: 2
@@ -94,6 +103,17 @@ ActiveRecord::Schema.define(version: 20150512212907) do
   end
 
   add_index "price_fades", ["listing_id"], name: "index_price_fades_on_listing_id", using: :btree
+
+  create_table "questions", force: :cascade do |t|
+    t.text     "question",   limit: 65535
+    t.integer  "listing_id", limit: 4
+    t.integer  "user_id",    limit: 4
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+  end
+
+  add_index "questions", ["listing_id"], name: "index_questions_on_listing_id", using: :btree
+  add_index "questions", ["user_id"], name: "index_questions_on_user_id", using: :btree
 
   create_table "sub_categories", force: :cascade do |t|
     t.string   "name",           limit: 255

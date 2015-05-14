@@ -18,7 +18,7 @@ class ListingsController < ApplicationController
   end
 
   def show
-    @listing = Listing.includes(:auction, :price_fade, :sub_category, :images, :bids).find(params[:id])
+    @listing = Listing.includes(:auction, :price_fade, :sub_category, :images, :bids, :questions).find(params[:id])
   end
 
   def new

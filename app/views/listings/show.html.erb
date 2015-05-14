@@ -13,7 +13,14 @@
 		<div id="main-listing-image"><%= listing_presenter.large_image %></div>
 		<div id="listing-thumbnails"><%= listing_presenter.thumbnails %></div>
 		<div class="description"><%= simple_format(@listing.description) %></div>
-		<div class="question-button"><%= button_to "Ask The Seller A Question", '#', class: "button-normal" %></div>
+		<div class="q-and-a">
+			<h2>Q & A</h2>
+			<%= listing_presenter.q_and_a do |question, answer| %>
+				<%= content_tag :p, question, class: "question" %>
+				<%= content_tag :p, answer, class: "answer" %>
+			<% end %>
+		</div>
+		<div class="question-button"><%= button_to "Ask The Seller A Question", new_listing_question_path(@listing), method: :get, class: "button-normal" %></div>
 		<div class="listing-details">
 			<ul>
 				<%= content_tag :li, "Seller: #{@listing.user.user_name}" %>

@@ -75,6 +75,25 @@ class ListingPresenter
 		h.render 'thumbnail_display' if images?
 	end
 
+	def q_and_a
+		if @listing.questions.any?
+			@listing.questions.each do |question|
+				user_question = "#{question.user.user_name} asks: #{question.question}"
+				if question.answer == nil
+					if @listing.user == h.current_user
+						answer = h.link_to "Answer Question", h.new_listing_answer_path(@listing, question_id: question.id), class: "button-normal" 
+					else
+						answer = "This question has not yet been answered by the seller."
+					end
+				else
+					answer = question.answer.answer
+				end
+				yield(user_question, answer)
+			end
+		end
+		return
+	end
+
 	def sell_method_details
 		if auction?
 			h.render 'auction_details'

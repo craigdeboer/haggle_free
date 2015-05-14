@@ -9,5 +9,9 @@ class PriceFade < ActiveRecord::Base
 	def bid_received
 		self.update_column(:sale_pending, true)
 	end
+
+	def bid_deleted
+		self.update_column(:sale_pending, false)
+	end
 	
 end

@@ -36,6 +36,9 @@ class BidsController < ApplicationController
 
 	def destroy
 		@bid.destroy
+		if @bid.listing.sell_method == "Price" && @bid.listing.bids_count == 1
+			@bid.listing.price_fade.bid_deleted
+		end
 		flash[:success] = "Bid successfully deleted."
 		redirect_to bids_path
 	end
@@ -43,7 +46,7 @@ class BidsController < ApplicationController
 private
 
 	def bid_params
-		params.require(:bid).permit(:price, :price_string, :listing_id).merge(user_id: current_user.id)
+		params.require(:bid).permit(:price, :price_string).merge(user_id: current_user.id, listing_id: params[:listing_id])
 	end
 
 	def set_listing

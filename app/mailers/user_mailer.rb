@@ -7,8 +7,14 @@ class UserMailer < ApplicationMailer
 		@listing = listing
 		@bid = bid
 		@bidder = bidder
-		sleep 10
 		mail(to: user.email, subject: "Bid Received")
+	end
+
+	def question_received(user, question, listing)
+		@user = user
+		@question = question
+		@listing = listing
+		mail(to: user.email, subject: "Question about #{@listing.title}")
 	end
 
 end

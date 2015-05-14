@@ -26,6 +26,7 @@ Rails.application.configure do
   password: ENV["MANDRILL_API_KEY"]
   }
 
+  config.action_mailer.default_url_options = {host: "localhost:3000"}
   config.active_job.queue_adapter = :delayed_job
 
   # Print deprecation notices to the Rails logger.

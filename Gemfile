@@ -36,6 +36,8 @@ gem "aws-sdk", '< 2.0'
 
 gem 'delayed_job_active_record'
 
+gem 'will_paginate', '~> 3.0.6'
+
 # Use Unicorn as the app server
 # gem 'unicorn'
 

@@ -10,11 +10,11 @@ class ListingsController < ApplicationController
 
   def subcategory
     @subcategory = SubCategory.find(params[:sub_category_id])
-    @listings = Listing.subcategory_listings(@subcategory)
+    @listings = Listing.subcategory_listings(@subcategory).page(params[:page]).per_page(5)
   end
 
   def user
-    @listings = Listing.user_listings(current_user)
+    @listings = Listing.user_listings(current_user).page(params[:page]).per_page(5)
   end
 
   def show

@@ -1,3 +1,4 @@
+<%= will_paginate @listings %>
 <% @listings.each do |listing| %>
 	<% present listing do |listing_presenter| %>
 	  <div class="listing-index-container">
@@ -29,3 +30,4 @@
 	  </div>
   <% end %> <!-- presenter -->
 <% end %> <!-- @listings.each -->
+<%= will_paginate @listings %>

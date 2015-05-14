@@ -31,7 +31,7 @@ class Image < ActiveRecord::Base
   end
 
   def get_ratio
-    ratio = self.picture_geometry if self.picture_file_size <= 1048576
+    ratio = self.picture_geometry if self.picture_file_size < 2.5.megabyte
     yield
     self.ratio = ratio
   end

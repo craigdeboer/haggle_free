@@ -31,6 +31,7 @@ class BidsController < ApplicationController
 
 	def update
 		@bid.update_attributes(price_string: bid_params[:price_string])
+		UserMailer.bid_change(@bid.listing.user.email, @bid.listing.title, @bid.price.to_f, current_user.user_name).deliver_later
 		redirect_to bids_path
 	end
 

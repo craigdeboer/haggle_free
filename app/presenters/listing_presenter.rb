@@ -78,7 +78,7 @@ class ListingPresenter
 	def q_and_a
 		if @listing.questions.any?
 			@listing.questions.each do |question|
-				user_question = "#{question.user.user_name} asks: #{question.question}"
+				user_question = question.question
 				if question.answer == nil
 					if @listing.user == h.current_user
 						answer = h.link_to "Answer Question", h.new_listing_answer_path(@listing, question_id: question.id), class: "button-normal" 

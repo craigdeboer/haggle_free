@@ -10,6 +10,7 @@ class AnswersController < ApplicationController
 		@listing = Listing.find(params[:listing_id])
 		@answer = Answer.new(answer_params)
 		if @answer.save
+			UserMailer.answer_received(@answer.question.user.email, @answer.question.question, @answer.answer, @listing.title).deliver_later
 			flash[:success] = "Your answer has been sent to the questioner."
 			redirect_to listing_path(@listing)
 		else 

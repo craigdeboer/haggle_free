@@ -415,6 +415,15 @@ form.simple_form {
 		margin: 20px 0 0;
 		font-size: 1.25em;
 	}
+	.q-and-a {
+		font-size: 1.25em;
+		.question {
+			font-weight: bold;
+		}
+		.answer {
+			margin-left: 15px;
+		}
+	}
 	.question-button {
 		margin: 20px 0 20px;
 	}

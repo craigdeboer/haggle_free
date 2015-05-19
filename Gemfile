@@ -38,6 +38,8 @@ gem 'delayed_job_active_record'
 
 gem 'will_paginate', '~> 3.0.6'
 
+gem 'daemons', '~> 1.2.2'
+
 # Use Unicorn as the app server
 # gem 'unicorn'
 

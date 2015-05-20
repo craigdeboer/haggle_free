@@ -5,10 +5,10 @@
 
 # Example:
 #
-set :output, "#{path}/log/cron_log.log"
+set :output, "#{path}/log/cron_job.log"
 #
 every '0,15,30,45 8-22 * * *' do
-  command "RAILS_ENV=production bin/delayed_job start --exit-on-complete"
+  command "RAILS_ENV=production #{path}/bin/delayed_job start --exit-on-complete"
 end
 
 every :hour do

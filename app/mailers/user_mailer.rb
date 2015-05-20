@@ -31,4 +31,11 @@ class UserMailer < ApplicationMailer
 		@bidder = bidder
 		mail(to: listing_owner_email, subject: "Bid change for listing: #{listing_title}")
 	end
+
+	def listing_expired(email, title, bids_summary)
+		@email = email
+		@title = title
+		@bids_summary = bids_summary
+		mail(to: email, subject: "Summary for ended listing: #{title}")
+	end
 end

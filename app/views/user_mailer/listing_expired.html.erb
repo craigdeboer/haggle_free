@@ -1,0 +1,12 @@
+<h2>Your listing with the title, <%= @title %> has ended.</h2>
+
+<% if @bids_summary.empty? %>
+	<p>There were no bids for this item.</p>
+<% else %>
+	<h2>Here is a summary of the bids you received for this item:</h2>
+	<% @bids_summary.each do |bid| %>
+		<p><%= bid[0] %> bid <%= number_to_currency(bid[1]) %>. Bidder's email: <%= bid[2] %></p>
+	<% end %>
+<% end %>
+
+<p>Thanks for using Haggle Free Victoria!</p>

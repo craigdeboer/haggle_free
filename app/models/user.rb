@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
   has_many :listings, dependent: :destroy
   has_many :bids, dependent: :destroy
   has_many :questions, dependent: :destroy
+  has_many :expired_listings, dependent: :destroy
 
 	attr_accessor :remember_token
 	before_save { self.email = email.downcase }

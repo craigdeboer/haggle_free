@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150513205320) do
+ActiveRecord::Schema.define(version: 20150519235030) do
 
   create_table "answers", force: :cascade do |t|
     t.text     "answer",      limit: 65535
@@ -64,6 +64,18 @@ ActiveRecord::Schema.define(version: 20150513205320) do
   end
 
   add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
+
+  create_table "expired_listings", force: :cascade do |t|
+    t.integer  "original_listing_id", limit: 4
+    t.string   "title",               limit: 255
+    t.integer  "number_of_bids",      limit: 4
+    t.decimal  "highest_bid",                     precision: 7, scale: 2
+    t.datetime "end_date"
+    t.integer  "user_id",             limit: 4
+    t.boolean  "sold",                limit: 1,                           default: false
+    t.datetime "created_at",                                                              null: false
+    t.datetime "updated_at",                                                              null: false
+  end
 
   create_table "images", force: :cascade do |t|
     t.integer  "listing_id",           limit: 4

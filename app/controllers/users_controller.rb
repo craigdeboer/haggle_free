@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
 
   skip_before_action :require_login, only: [:new, :create]
-  before_action :find_user, only: [:edit, :udpate, :destroy]
+  before_action :find_user, only: [:edit, :update, :destroy]
   
   def index
     @users = User.all
@@ -31,7 +31,6 @@ class UsersController < ApplicationController
 
   def update
     @users = User.all
-    @user = User.find(params[:id])
     @user.update_attributes(user_params)
     render 'index'
   end

@@ -18,6 +18,10 @@ class Bid < ActiveRecord::Base
 		@price_string || ("$" + price.to_s if price)
 	end
 
+	def self.get_bids(listing_id)
+		@bids = Bid.where("listing_id = ?", listing_id).order(price: :desc)
+	end
+
 private
 
 	def strip_dollar_sign

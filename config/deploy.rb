@@ -3,6 +3,7 @@ lock '3.4.0'
 
 set :application, 'hagglefree'
 set :repo_url, 'https://github.com/craigdeboer/haggle_free.git'
+set :whenever_identifier, ->{ "#{fetch(:application)}_#{fetch(:stage)}" }
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
@@ -23,7 +24,7 @@ set :deploy_to, '/home/craig/apps/hagglefree'
 # set :pty, true
 
 # Default value for :linked_files is []
-set :linked_files, %w{config/database.yml config/application.yml log/production.log}
+set :linked_files, %w{config/database.yml config/application.yml log/production.log log/cron_job.log}
 
 # Default value for linked_dirs is []
 # set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', 'public/system')

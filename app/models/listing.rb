@@ -18,8 +18,6 @@ class Listing < ActiveRecord::Base
 
 	before_validation :set_end_date
 
-	scope :active, -> { where("end_date > ?", DateTime.now) }
-
 	def auction?
 		self.sell_method == "Auction"
 	end
@@ -33,10 +31,39 @@ class Listing < ActiveRecord::Base
 	end
 
 	def self.subcategory_listings(subcategory)
-		Listing.active.where("sub_category_id = ?", subcategory).includes(:images, :auction, :price_fade, :user).order(created_at: :desc)
+		Listing.where("sub_category_id = ?", subcategory).includes(:images, :auction, :price_fade, :user).order(created_at: :desc)
+	end
+
+	def self.recently_ended
+		expired_listings = Listing.where("end_date < ?", DateTime.now).includes(:bids)
+		expired_listings.each do |listing|
+			@bids = Bid.get_bids(listing.id)
+			bid_count = @bids.length
+			highest_bid = @bids[0].price.to_f if bid_count != 0
+			ExpiredListing.convert(listing, bid_count, highest_bid)
+			send_summary_email(listing, @bids)
+			listing.destroy
+		end
 	end
 
 private
+
+	def self.send_summary_email(listing, bids)
+		bids_summary = bid_details(bids)
+		seller_email = listing.user.email
+		listing_title = listing.title
+		UserMailer.listing_expired(seller_email, listing_title, bids_summary).deliver_later
+	end
+
+	def self.bid_details(bids)
+		bid_details_array = []
+		temp_array = []
+		bids.each do |bid|
+			temp_array << bid.user.user_name << bid.price.to_f << bid.user.email
+			bid_details_array << temp_array
+		end
+		bid_details_array
+	end
 
 	def set_end_date
 		if self.sell_method == "Auction"

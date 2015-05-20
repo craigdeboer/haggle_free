@@ -40,6 +40,8 @@ gem 'will_paginate', '~> 3.0.6'
 
 gem 'daemons', '~> 1.2.2'
 
+gem 'whenever', require: false
+
 # Use Unicorn as the app server
 # gem 'unicorn'
 

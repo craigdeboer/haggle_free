@@ -22,6 +22,13 @@ class Bid < ActiveRecord::Base
 		@bids = Bid.where("listing_id = ?", listing_id).order(price: :desc)
 	end
 
+	def self.purge(listing_id)
+		@expired_bids = Bid.where("listing_id = ?", listing_id)
+		@expired_bids.each do |expired_bid|
+			expired_bid.destroy
+		end
+	end
+
 private
 
 	def strip_dollar_sign

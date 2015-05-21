@@ -5,7 +5,7 @@ class ListingsController < ApplicationController
   before_action :clear_my_listings, except: :user
   
   def index
-    @listings = Listing.active.order(created_at: :desc)
+    @listings = Listing.order(created_at: :desc)
   end
 
   def subcategory
@@ -17,8 +17,12 @@ class ListingsController < ApplicationController
     @listings = Listing.user_listings(current_user).page(params[:page]).per_page(5)
   end
 
+  def user_show
+    @listing = Listing.includes(:auction, :price_fade, :sub_category, :images, :bids, questions: :answers).find(params[:id])
+  end
+
   def show
-    @listing = Listing.includes(:auction, :price_fade, :sub_category, :images, :bids, :questions).find(params[:id])
+    @listing = Listing.includes(:auction, :price_fade, :sub_category, :images, :bids, questions: :answers).find(params[:id])
   end
 
   def new

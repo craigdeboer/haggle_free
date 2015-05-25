@@ -1,0 +1,5 @@
+<%= simple_form_for @answer, defaults: { error: false } do |f| %>
+	<%= render 'shared/error_messages', object: @answer %>
+	<%= f.input :answer %>
+	<%= f.submit %>
+<% end %>

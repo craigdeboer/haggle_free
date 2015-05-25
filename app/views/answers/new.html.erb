@@ -1,12 +1,11 @@
-<h2>This is the question from a potential purchaser regarding your listing with the title: <%= @listing.title %></h2>
+<h2>This is the question from a potential purchaser regarding your listing with the title: <%= @question.listing.title %></h2>
 
 <h2>The question is:</h2>
 
 <h3><%= @question.question %></h3>
 
-<%= simple_form_for @answer, url: listing_answers_path, defaults: { error: false } do |f| %>
+<%= simple_form_for @answer, url: question_answers_path, defaults: { error: false } do |f| %>
 	<%= render 'shared/error_messages', object: @answer %>
-	<%= f.input :question_id, as: :hidden, input_html: { value: @question.id } %>
 	<%= f.input :answer %>
 	<%= f.submit %>
 <% end %>

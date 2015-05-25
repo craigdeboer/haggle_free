@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150519235030) do
+ActiveRecord::Schema.define(version: 20150521224858) do
 
   create_table "answers", force: :cascade do |t|
     t.text     "answer",      limit: 65535
@@ -76,6 +76,9 @@ ActiveRecord::Schema.define(version: 20150519235030) do
     t.datetime "created_at",                                                              null: false
     t.datetime "updated_at",                                                              null: false
   end
+
+  add_index "expired_listings", ["original_listing_id"], name: "index_expired_listings_on_original_listing_id", using: :btree
+  add_index "expired_listings", ["user_id"], name: "index_expired_listings_on_user_id", using: :btree
 
   create_table "images", force: :cascade do |t|
     t.integer  "listing_id",           limit: 4

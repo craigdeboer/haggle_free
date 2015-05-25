@@ -1,30 +1,30 @@
 class AnswersController < ApplicationController
 
 	def new
-		@listing = Listing.find(params[:listing_id])
-		@question = Question.find(params[:question_id])
+		@question = Question.includes(:listing).find(params[:question_id])
 		@answer = @question.build_answer
 	end
 
 	def create
-		@listing = Listing.find(params[:listing_id])
-		@answer = Answer.new(answer_params)
+		@question = Question.find(params[:question_id])
+		@answer = @question.build_answer(answer_params)
 		if @answer.save
-			UserMailer.answer_received(@answer.question.user.email, @answer.question.question, @answer.answer, @listing.title).deliver_later
+			UserMailer.answer_received(@answer.question.user.email, @answer.question.question, @answer.answer, @question.listing.title).deliver_later
 			flash[:success] = "Your answer has been sent to the questioner."
-			redirect_to listing_path(@listing)
+			redirect_to @question.listing
 		else 
 			render 'new'	
 		end
 	end
 
 	def edit
+		@answer = Answer.find(params[:id])
 	end
 
 	def update
-	end
-
-	def destroy
+		@answer = Answer.find(params[:id])
+		@answer.update_attributes(answer_params)
+		redirect_to @answer.question.listing
 	end
 
 private

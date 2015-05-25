@@ -79,16 +79,21 @@ class ListingPresenter
 		if @listing.questions.any?
 			@listing.questions.each do |question|
 				user_question = question.question
+				if @listing.user == h.current_user
+					user_link = h.link_to "Delete Question", h.question_path(question), method: :delete, data: {confirm: "Are you sure?"}, class: "delete-link"
+				else
+					user_link = ""
+				end 
 				if question.answer == nil
 					if @listing.user == h.current_user
-						answer = h.link_to "Answer Question", h.new_listing_answer_path(@listing, question_id: question.id), class: "button-normal" 
+						answer = h.link_to "Answer Question", h.new_question_answer_path(question), class: "button-normal" 
 					else
 						answer = "This question has not yet been answered by the seller."
 					end
 				else
 					answer = question.answer.answer
 				end
-				yield(user_question, answer)
+				yield(user_question, user_link, answer)
 			end
 		end
 		return

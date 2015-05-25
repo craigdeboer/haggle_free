@@ -1,12 +1,17 @@
 class BidsController < ApplicationController
 
-	before_action :set_listing, only: [:new, :create]
+	before_action :set_listing, only: [:index, :new, :create]
 	before_action :set_bid, only: [:edit, :update, :destroy]
 	before_action :bid_owner, only: :edit
 	
 
 	def index
+		@bids = @listing.bids.all
+	end
+
+	def user
 		@bids = current_user.bids.includes(:listing).all
+		render 'index'
 	end
 
 	def new
@@ -32,7 +37,7 @@ class BidsController < ApplicationController
 	def update
 		@bid.update_attributes(price_string: bid_params[:price_string])
 		UserMailer.bid_change(@bid.listing.user.email, @bid.listing.title, @bid.price.to_f, current_user.user_name).deliver_later
-		redirect_to bids_path
+		redirect_to user_bids_path
 	end
 
 	def destroy
@@ -41,7 +46,7 @@ class BidsController < ApplicationController
 			@bid.listing.price_fade.bid_deleted
 		end
 		flash[:success] = "Bid successfully deleted."
-		redirect_to bids_path
+		redirect_to user_bids_path
 	end
 
 private

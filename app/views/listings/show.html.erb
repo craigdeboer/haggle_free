@@ -15,8 +15,11 @@
 		<div class="description"><%= simple_format(@listing.description) %></div>
 		<div class="q-and-a">
 			<h2>Q & A</h2>
-			<%= listing_presenter.q_and_a do |question, answer| %>
-				<%= content_tag :p, question, class: "question" %>
+			<%= listing_presenter.q_and_a do |question, user_link, answer| %>
+				<%= content_tag :p, class: "question" do %>
+					<%= question %>
+					<%= content_tag :span, user_link %>
+				<% end %>
 				<%= content_tag :p, answer, class: "answer" %>
 			<% end %>
 		</div>

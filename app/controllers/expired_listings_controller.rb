@@ -12,4 +12,8 @@ class ExpiredListingsController < ApplicationController
 
 	end
 
+	def mark_as_sold
+
+	end
+
 end

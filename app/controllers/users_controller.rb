@@ -2,6 +2,7 @@ class UsersController < ApplicationController
 
   skip_before_action :require_login, only: [:new, :create]
   before_action :find_user, only: [:edit, :update, :destroy]
+  before_action :require_admin, only: :index
   
   def index
     @users = User.all
@@ -26,7 +27,12 @@ class UsersController < ApplicationController
   end
 
   def edit
-    render 'new'
+    if current_user == @user
+      render 'new'
+    else
+      flash[:notice] = "You are attempting to edit another user's data. Please don't!"
+      redirect_to root_path
+    end
   end
 
   def update
@@ -51,5 +57,12 @@ private
   def find_user
     @user = User.find(params[:id])
   end
+
+  def require_admin
+      if !admin?
+        flash[:notice] = "You must be an admin user to access the requested page."
+        redirect_to root_path
+      end
+    end
   
 end

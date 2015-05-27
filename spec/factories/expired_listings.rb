@@ -2,6 +2,7 @@ FactoryGirl.define do
 
 	factory :expired_listing do
 		association :user
+		association :sub_category
 		original_listing_id 22
 		title { Faker::Lorem.sentence(3) }
 		number_of_bids 3

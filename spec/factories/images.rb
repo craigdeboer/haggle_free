@@ -4,6 +4,6 @@ FactoryGirl.define do
 		association :listing
 		picture_file_name "cool_motorcycle.jpeg"
 		picture_content_type "image/jpeg"
-		picture_file_size "2490000"
+		picture_file_size "2300000"
 	end
 end

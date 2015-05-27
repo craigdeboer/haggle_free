@@ -9,12 +9,12 @@ class SubCategoriesController < ApplicationController
 	end
 
 	def new
-		@category = Category.find(params[:id])
+		@category = Category.find(params[:category_id])
 		@subcategory = @category.sub_categories.new
 	end
 
 	def create
-		@category = Category.find(params[:sub_category][:id])
+		@category = Category.find(params[:category_id])
 		@subcategory = @category.sub_categories.new(subcategory_params)
 		@subcategory.save
 	end
@@ -27,7 +27,7 @@ class SubCategoriesController < ApplicationController
 	private
 
 		def subcategory_params
-			params.require(:sub_category).permit(:name, :category_id)
+			params.require(:sub_category).permit(:name)
 		end
 
 		def all_categories_and_subcategories

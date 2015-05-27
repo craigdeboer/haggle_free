@@ -14,23 +14,24 @@ Rails.application.routes.draw do
   resources :listings do
     get 'user', on: :collection
     get 'user_show', on: :member
-    resources :images
+    resources :images, shallow: true
     resources :bids, shallow: true
     resources :questions, only: [:new, :create] 
   end
-  resources :categories 
-  resources :sub_categories do
+  resources :categories do
+    resource :sub_category, only: [:new, :create]
+  end
+  resources :sub_categories, only: [:index, :destroy] do
     get 'listings' => 'listings#subcategory'
+    get 'expired_listings' => 'expired_listings#subcategory'
   end
   resources :users
   resources :questions, only: [:edit, :update, :destroy] do
     resources :answers, shallow: true
   end
   resources :expired_listings, only: :index do
-    collection do
-      get 'subcategory'
-      get 'user'
-    end
+    get 'user', on: :collection
+    post 'mark_as_sold', on: :member
   end
 
 

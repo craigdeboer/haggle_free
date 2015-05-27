@@ -1,7 +1,7 @@
 <% categories.each do |category| %>	
 	<div class="category-heading">
 		<span><%= category.name %></span>
-		<%= button_to "Add Sub-Category For #{category.name}", new_sub_category_path(id: category.id), method: :get, remote: true, class: "button-normal" if admin? %>
+		<%= button_to "Add Sub-Category For #{category.name}", new_category_sub_category_path(category), method: :get, remote: true, class: "button-normal" if admin? %>
 	</div>
 	<div class="all-subcategory-display">
 		<% subcategories.each do |subcategory| %>

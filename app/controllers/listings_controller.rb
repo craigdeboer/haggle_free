@@ -19,6 +19,8 @@ class ListingsController < ApplicationController
 
   def user_show
     @listing = Listing.includes(:auction, :price_fade, :sub_category, :images, :bids, questions: :answer).find(params[:id])
+    listing_owner
+    render "show"
   end
 
   def show
@@ -43,7 +45,7 @@ class ListingsController < ApplicationController
 
   def edit
     @listing = Listing.includes(:images, :price_fade, :auction, :sub_category).find(params[:id])
-    
+    listing_owner
   end
 
   def update
@@ -70,6 +72,13 @@ private
 
   def clear_my_listings
     session[:user_listings] = false
+  end
+
+  def listing_owner
+    if @listing.user != current_user
+      flash[:notice] = "You may not edit another user's listing."
+      redirect_to root_path
+    end
   end
 
 end

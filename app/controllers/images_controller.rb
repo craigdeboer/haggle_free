@@ -8,9 +8,6 @@ class ImagesController < ApplicationController
 	def index
 	end
 
-	def show
-	end
-
 	def new
 		@image = Image.new
 	end

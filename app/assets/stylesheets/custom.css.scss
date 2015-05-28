@@ -230,19 +230,74 @@ form.simple_form {
 
 #menu {
 	margin: 0;
-	padding: 0;
-	margin-top: 15px;
-	ul {
-		margin: 0;
-		padding: 0 0 15px;
-		list-style: none;
-		text-align: center;
-		li {
-			display: inline-block;
-			margin-right: 15px;
+	padding: 0 0 10px;
+	list-style: none;
+	text-align: center;
+	div.arrow-down {
+		display: inline-block;
+		width: 0; 
+		height: 0; 
+		border-left: 8px solid transparent;
+		border-right: 8px solid transparent;
+		border-top: 8px solid white;
+	}
+	> li {
+		display: inline-block;
+		margin-right: 15px;
+		position: relative;
+		&#user-options-dropdown {
+			// width: 85px;
+			// z-index: 15;
+			// background-image: image-url("arrow.png");
+			// background-repeat: no-repeat;
+			// background-position: right center;
+			// a {
+
 			a {
-				color: white;
-			}		
+				position: relative;
+				left: 17px;
+		  	padding-right: 20px;
+			}
+		}
+		ul {
+			padding: 0;
+			width: 200px;
+			position: absolute;
+			top: 25px;
+			background-color: blue;
+			text-align: left;
+			list-style: none;
+			display: none;	
+			li {
+				padding-top: 10px;
+				padding-bottom: 10px;
+			}
+		}
+	}
+		a {
+			padding: 5px;
+			color: white;
+		}		
+}
+
+#generic-links {
+	
+	width: 100%;
+	list-style: none;
+	color: white;
+	font-size: 1em;
+	text-align: center;
+	padding: 0;
+	li {
+		background-color: blue;
+		padding-top: 10px;
+		padding-bottom: 10px;
+		margin-bottom: 10px;
+		a {
+			padding: 10px;
+		}
+		a:visited {
+			color: white;
 		}
 	}
 }
@@ -538,21 +593,6 @@ form.simple_form {
 
 /*** Sub-Category Listing And Creation ***/
 
-#new-listing-button {
-	margin: 20px 20px 0 0;
-	width: 50%;
-	float: right;
-	ul {
-		display: inline-block;
-		float: right;
-		list-style: none;
-		li {
-			margin-bottom: 25px;
-		}
-	}
-
-}
-
 #new-subcategory-form {
 	display: none;
 	height: 100px;
@@ -567,30 +607,34 @@ form.simple_form {
 		display: inline-block;
 	}
 	.category-heading {
-		background-color: #999;
+		margin-top: 30px;
+		border-radius: 15px;
+		background-color: #196385;
+		a {
+			color: white;
+		}
 		span {
 			display: inline-block;
+			font-size: 1.5em;
 			padding: 10px;
 		}
 	}
 	.all-subcategory-display {
-		border: 1px solid #000;
-		background-color: #aaa;
+		padding-left: 15px;
+		font-size: 1.25em;
 	}
 }
 
-.category-heading {
-	margin-top: 30px;
-	border: 1px solid #000;
-	span {
-		font-size: 1.5em;
-	}
-}
+// .category-heading {
+// 	margin-top: 30px;
+// 	span {
+// 		font-size: 1.5em;
+// 	}
+// }
 
 
 .each-subcategory-display {
-	padding-top: 10px;
-	margin-bottom: 10px;
+	margin-top: 10px;
 	a {
 		padding: 5px;
 		font-size: 1em;

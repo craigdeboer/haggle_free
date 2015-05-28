@@ -1,20 +1,26 @@
 class ListingsController < ApplicationController
 
-  skip_before_action :require_login, only: [:index, :subcategory, :show] 
+  skip_before_action :require_login, only: [:index, :subcategory, :category, :show] 
   before_action :set_my_listings, only: :user
   before_action :clear_my_listings, except: :user
   
   def index
-    @listings = Listing.order(created_at: :desc)
+    puts 24.hours.ago
+    @listings = Listing.where("created_at > ?", 24.hours.ago).order(created_at: :desc).page(params[:page]).per_page(10)
+  end
+
+  def category
+    @category = Category.find(params[:category_id])
+    @listings = @category.listings.all.order(created_at: :desc).page(params[:page]).per_page(10)
   end
 
   def subcategory
-    @subcategory = SubCategory.find(params[:sub_category_id])
-    @listings = Listing.subcategory_listings(@subcategory).page(params[:page]).per_page(5)
+    @subcategory = SubCategory.includes(:category).find(params[:sub_category_id])
+    @listings = Listing.subcategory_listings(@subcategory).page(params[:page]).per_page(10)
   end
 
   def user
-    @listings = Listing.user_listings(current_user).page(params[:page]).per_page(5)
+    @listings = Listing.user_listings(current_user).page(params[:page]).per_page(10)
   end
 
   def user_show

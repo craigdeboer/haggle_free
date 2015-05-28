@@ -31,8 +31,7 @@ class SubCategoriesController < ApplicationController
 		end
 
 		def all_categories_and_subcategories
-			@categories = Category.all
-			@subcategories = SubCategory.all
+			@categories = Category.includes(:sub_categories).all
 		end
 
 		def require_admin

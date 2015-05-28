@@ -19,6 +19,7 @@ Rails.application.routes.draw do
     resources :questions, only: [:new, :create] 
   end
   resources :categories do
+    get 'listings' => 'listings#category'
     resource :sub_category, only: [:new, :create]
   end
   resources :sub_categories, only: [:index, :destroy] do

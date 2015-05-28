@@ -1,6 +1,7 @@
 class Listing < ActiveRecord::Base
 	belongs_to :user
 	belongs_to :sub_category, counter_cache: true
+	has_many :categories, through: :sub_category
 	has_one :price_fade, dependent: :destroy
 	has_one :auction, dependent: :destroy
 	has_many :images, dependent: :destroy

@@ -13,9 +13,11 @@ RSpec.describe ListingsController, type: :controller do
 
   context "with a non logged-in user" do
 		describe "GET #index" do
-			it "assigns all listings to @listings" do
+			it "assigns all recent listings to @listings" do
+				@price_fade_listing2.created_at = 2.days.ago
+				@price_fade_listing2.save
 				get :index
-      	expect(assigns(:listings)).to match_array [@auction_listing1, @auction_listing2, @price_fade_listing1, @price_fade_listing2]
+      	expect(assigns(:listings)).to match_array [@auction_listing1, @auction_listing2, @price_fade_listing1]
 			end
 			it "renders the index template" do
 				get :index
@@ -30,6 +32,16 @@ RSpec.describe ListingsController, type: :controller do
 			it "renders the subcategory template" do
 				get :subcategory, sub_category_id: @subcategory.id
 				expect(response).to render_template :subcategory
+			end
+		end
+		describe "GET #category" do
+			it "assigns all the listings with the given category to @listings" do
+				get :category, category_id: @subcategory.category.id
+				expect(assigns(:listings)).to match_array [@auction_listing1, @price_fade_listing1]
+			end
+			it "renders the category template" do
+				get :category, category_id: @subcategory.category.id
+				expect(response).to render_template :category
 			end
 		end
 		describe "GET #show" do

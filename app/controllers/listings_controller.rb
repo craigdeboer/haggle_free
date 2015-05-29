@@ -5,7 +5,6 @@ class ListingsController < ApplicationController
   before_action :clear_my_listings, except: :user
   
   def index
-    puts 24.hours.ago
     @listings = Listing.where("created_at > ?", 24.hours.ago).order(created_at: :desc).page(params[:page]).per_page(10)
   end
 

@@ -3,7 +3,7 @@
 	<span> >> </span>
 	<%= link_to @listing.sub_category.name.upcase, sub_category_listings_path(@listing.sub_category_id) %>
 	<span> >> </span>
-	<%= @listing.title.upcase %>
+	<span><%= @listing.title.upcase %></span>
 </div>
 
 <% present @listing do |listing_presenter| %>

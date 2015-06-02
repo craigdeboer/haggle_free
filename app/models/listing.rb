@@ -19,6 +19,8 @@ class Listing < ActiveRecord::Base
 
 	before_validation :set_end_date
 
+	scope :by_newest, -> { order("created_at DESC") }
+
 	def auction?
 		self.sell_method == "Auction"
 	end
@@ -27,8 +29,20 @@ class Listing < ActiveRecord::Base
 		self.sell_method == "Price"
 	end
 
+	def self.listings_select(params)
+		if params[:category_id]
+			@category = Category.find(params[:category_id])
+    	@listings = @category.listings.includes(:images, :auction, :price_fade, :user).all.by_newest	
+    elsif params[:sub_category_id]
+    	@subcategory = SubCategory.find(params[:sub_category_id])
+    	@listings = Listing.subcategory_listings(@subcategory).by_newest
+    else
+    	@listings = Listing.where("created_at > ?", 24.hours.ago).includes(:images, :auction, :price_fade, :user).by_newest
+    end
+	end
+
 	def self.user_listings(user)
-		Listing.where("user_id = ?", user).includes(:images, :auction, :price_fade, :user).order(created_at: :desc)
+		Listing.where("user_id = ?", user).includes(:images, :auction, :price_fade, :user).by_newest
 	end
 
 	def self.subcategory_listings(subcategory)

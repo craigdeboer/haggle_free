@@ -15,7 +15,7 @@ class ImagesController < ApplicationController
 	def create
 		@image = Image.new(image_params)
 		if @image.save
-			redirect_to edit_listing_image_path(id: @image.id, ratio: @image.ratio)
+			redirect_to edit_image_path(@image, ratio: @image.ratio)
 		else
 			flash[:notice] = "If you need help decreasing the size of your file, google 'image optimization'"
 			@image.errors[:picture_file_size].clear
@@ -30,12 +30,12 @@ class ImagesController < ApplicationController
 	def update	
 		@image.update_attributes(crop_params)
     @image.picture.reprocess!  #crop the image and then save it.
-    redirect_to new_listing_image_path(id: params[:listing_id])
+    redirect_to new_listing_image_path(@image.listing)
 	end
 
 	def destroy
 		@image.destroy
-		redirect_to new_listing_image_path
+		redirect_to new_listing_image_path(@image.listing)
 	end
 
 	private

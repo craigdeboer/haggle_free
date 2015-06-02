@@ -24,15 +24,19 @@
 body {
 	margin: 0;
 	padding: 0;
+	font-size: 32px;
 }
 
+h1 {
+	font-size: 2em;
+}
 .delete-link {
 	color: red;
 }
 
 .button-large {
 	padding: 10px;
-	font-size: 1.25em;
+	font-size: 1.5em;
 	background-color: blue;
 	color: white;
 	border: none;
@@ -49,10 +53,20 @@ body {
 	top: -2px;
 	border-radius: 4px;
 }
-
+.submit-button {
+	width: 254px;
+	height: 34px;
+	padding: 5px;
+	margin: 25px auto 0;
+	font-size: 1.5em;
+	background-color: #40708E;
+	color: white;
+	border: none;
+	border-radius: 4px;
+}
 .delete-button {
 	background-color: red;
-	font-size: .75em;
+	font-size: 1em;
 	color: white;
 	padding: 4px;
 	border: none;
@@ -80,47 +94,46 @@ a {
 	text-align: center;
 }
 
-.breadcrumb {
-	margin: 20px;
-}
+
 
 /*** Pagination ***/
 
 .pagination {
   background: white;
   cursor: default;
-  /* self-clearing method: */ }
+  /* self-clearing method: */ 
+}
   .pagination a, .pagination span, .pagination em {
-    padding: 0.2em 0.5em;
+  	font-size: 1em;
+  	height: 1em;
+    padding: 10px 20px;
     display: block;
     float: left;
-    margin-right: 1px; }
+    margin: 1em 0;
+  }
   .pagination .disabled {
-    display: none }
+    display: none 
+  }
   .pagination .current {
     font-style: normal;
     font-weight: bold;
     background: #2e6ab1;
     color: white;
-    border: 1px solid #2e6ab1; }
+    border: 3px solid #2e6ab1; 
+  }
   .pagination a {
     text-decoration: none;
     color: #105cb6;
-    border: 1px solid #9aafe5; }
-    .pagination a:hover, .pagination a:focus {
-      color: #000033;
-      border-color: #000033; }
-  .pagination .page_info {
-    background: #2e6ab1;
-    color: white;
-    padding: 0.4em 0.6em;
-    width: 22em;
-    margin-bottom: 0.3em;
-    text-align: center; }
-    .pagination .page_info b {
-      color: #000033;
-      background: #6aa6ed;
-      padding: 0.1em 0.25em; }
+    border: 3px solid #2e6ab1; 
+    border-left: none;
+    &.previous_page {
+    	border-left: 3px solid #2e6ab1;
+    }
+  }
+  .pagination a:hover, .pagination a:focus {
+    color: #000033;
+    border-color: #000033; 
+  }
   .pagination:after {
     content: ".";
     display: block;
@@ -180,6 +193,12 @@ form.simple_form {
 			width: 150px;
 		}
 	}
+	input.email, input.password {
+		height: 30px;
+		width: 250px;
+		border: 1px solid #000;
+		border-radius: 5px;
+	}
 	input[type=radio], 
 	input[type=checkbox] {
 		margin-right: 5px;
@@ -230,40 +249,33 @@ form.simple_form {
 
 #menu {
 	margin: 0;
-	padding: 0 0 10px;
+	padding: 0 0 1em;
 	list-style: none;
 	text-align: center;
 	div.arrow-down {
 		display: inline-block;
 		width: 0; 
 		height: 0; 
-		border-left: 8px solid transparent;
-		border-right: 8px solid transparent;
-		border-top: 8px solid white;
+		border-left: 0.8em solid transparent;
+		border-right: 0.8em solid transparent;
+		border-top: 0.8em solid white;
 	}
 	> li {
 		display: inline-block;
-		margin-right: 15px;
+		margin-right: 0.5em;
 		position: relative;
 		&#user-options-dropdown {
-			// width: 85px;
-			// z-index: 15;
-			// background-image: image-url("arrow.png");
-			// background-repeat: no-repeat;
-			// background-position: right center;
-			// a {
-
 			a {
 				position: relative;
-				left: 17px;
-		  	padding-right: 20px;
+				left: 0.7em;
+		  	padding-right: 1em;
 			}
 		}
 		ul {
 			padding: 0;
-			width: 200px;
+			width: 12em;
 			position: absolute;
-			top: 25px;
+			top: 2.25em;
 			background-color: #5DB774;
 			text-align: left;
 			list-style: none;
@@ -276,30 +288,42 @@ form.simple_form {
 	}
 	a {
 		padding: 5px;
+		font-size: 1.5em;
 		color: white;
 	}		
 }
 
-#generic-links {
-	
-	width: 100%;
+.generic-links {
+	width: 90%;
+	margin: 1em auto 0;
 	list-style: none;
 	color: white;
-	font-size: 1em;
 	text-align: center;
 	padding: 0;
 	li {
 		background-color: #5DB774;
-		padding-top: 10px;
-		padding-bottom: 10px;
-		margin-bottom: 10px;
+		padding-top: 1em;
+		padding-bottom: 1em;
+		margin-bottom: 1em;
+		border-radius: 1em;
 		a {
-			padding: 10px;
+			padding: 0.5em;
 		}
 		a:visited {
 			color: white;
 		}
 	}
+	a {
+		font-size: 1em;
+	}
+}
+
+/*** Breadcrumbs ***/
+
+.breadcrumb {
+	width: 90%;
+	margin: 2em auto 0;
+	font-size: 0.5em;
 }
 
 /*** Messages and Alerts ***/
@@ -316,18 +340,19 @@ form.simple_form {
 }
 
 .alert-error {
-	width: 100%;
-	height: 50px;
-	margin-left: 20px;
-	line-height: 50px;
+	width: 90%;
+	margin: 25px auto 0;
+	padding: 10px 0;
 	background-color: red;
 	color: white;
-	font-size: 1.5em;
+	text-align: center;
+	font-size: 1.25em;
+	border-radius: 8px;
 	@include box_sizing;
 }
 
 .alert-notice {
-	width: 100%;
+	width: 90%;
 	height: 50px;
 	padding-left: 20px;
 	line-height: 50px;
@@ -335,6 +360,13 @@ form.simple_form {
 	color: white;
 	font-size: 1.25em;
 	@include box_sizing;
+}
+
+/*** Log In Form ***/
+
+.login-form {
+	width: 254px;
+	margin: 40px auto 0;
 }
 
 /*** New Listing Form ***/
@@ -360,7 +392,7 @@ form.simple_form {
 }
 
 
-/*** Subcategory/Users/Index Listings ***/
+/*** Index Listings ***/
 
 .all-listings {
 	clear: both;
@@ -369,8 +401,8 @@ form.simple_form {
 	margin: 50px auto 0;
 	.listing-index-container {
 		width: 100%;
-		margin: 10px 0 10px;
-		border: 2px solid #000;
+		margin: 0.5em 0 0.5em;
+		border: 3px solid #000;
 		border-radius: 10px;
 		padding: 0;
 		float: left;
@@ -383,12 +415,12 @@ form.simple_form {
 			}
 		}
 		.listing-image {
-				width: 170px;
-				height: 120px;
+				width: 11em;
+				height: 8em;
 				float: left;
-				padding: 10px;
+				padding: 1em;
 				@include box_sizing;
-				.listing-image-display {
+				.listing-image-display img {
 					width: 100%;
 					border-radius: 5px;
 					@include box_sizing;
@@ -396,22 +428,21 @@ form.simple_form {
 			}
 		.listing-title-container {
 			@include box_sizing;
-			width: 25%;
-			padding-top: 10px;
 			float: left;
+			margin: 0 auto 0;
 			.listing-title {
 				font-size: 1.5em;
 				width: 100%;	
-				margin-top: 10px;	
+				margin-top: 0.67em;	
+				// padding-left: 0.66em;
 				a {
-					padding: 10px;
+					padding: 0.67em;
 				}
 			}
-			.listing-method, 
-			.price-or-bids {
+			.sell-method-details {
 				width: 100%;
 				font-size: 1em;	
-				padding-left: 10px;	
+				padding-left: 1em;	
 				margin-top: 10px; 
 			}
 		
@@ -420,8 +451,8 @@ form.simple_form {
 
 		.listing-description {
 			@include box_sizing;
-			width: 50%;
-			background-color: #AAA;
+			width: 100%;
+			background-color: #DDD;
 			border-radius: 10px;
 			padding: 20px;
 			margin-top: 20px;
@@ -456,14 +487,12 @@ form.simple_form {
 	#main-listing-image {
 		margin: 20px auto 0;
 		.main-image-display {
-			width: 600px;
-			height: 400px;
+			width: 100%;
 		}
 	}
 
 	.thumbnail-display {
-		height: 76px;
-		width: 114px;
+		width: 18%;
 	}
 	.description {
 		width: 90%;
@@ -480,6 +509,7 @@ form.simple_form {
 		}
 	}
 	.question-button {
+		font-size: 2em;
 		margin: 20px 0 20px;
 	}
 	.listing-details {
@@ -497,10 +527,11 @@ form.simple_form {
 		}
 	}
 	table {
+		margin-bottom: 1em;
 		th,
 		td {
-			font-size: 1.25em;
-			height: 35px;
+			font-size: 1.5em;
+			height: 1.6em;
 			text-align: left;
 		}
 		.price-level {
@@ -508,7 +539,7 @@ form.simple_form {
 		}
 		.before-current-price, 
 		.after-current-price {
-			width: 150px;
+			width: 10em;
 		}
 		.before-current-price {
 			text-decoration: line-through;
@@ -610,14 +641,18 @@ form.simple_form {
 		margin-top: 30px;
 		border-radius: 15px;
 		background-color: #40708E;
+		font-size: 2em;
 		a {
 			color: white;
 		}
 		span {
 			display: inline-block;
-			font-size: 1.5em;
 			padding: 10px;
 		}
+	}
+	.add-subcategory {
+		margin-top: 15px;
+		font-size: 1.5em;
 	}
 	.all-subcategory-display {
 		padding-left: 15px;
@@ -625,19 +660,10 @@ form.simple_form {
 	}
 }
 
-// .category-heading {
-// 	margin-top: 30px;
-// 	span {
-// 		font-size: 1.5em;
-// 	}
-// }
-
-
 .each-subcategory-display {
 	margin-top: 10px;
 	a {
 		padding: 5px;
-		font-size: 1em;
 	}
 }
 

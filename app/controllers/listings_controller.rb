@@ -5,27 +5,11 @@ class ListingsController < ApplicationController
   before_action :clear_my_listings, except: :user
   
   def index
-    @listings = Listing.where("created_at > ?", 24.hours.ago).order(created_at: :desc).page(params[:page]).per_page(10)
-  end
-
-  def category
-    @category = Category.find(params[:category_id])
-    @listings = @category.listings.all.order(created_at: :desc).page(params[:page]).per_page(10)
-  end
-
-  def subcategory
-    @subcategory = SubCategory.includes(:category).find(params[:sub_category_id])
-    @listings = Listing.subcategory_listings(@subcategory).page(params[:page]).per_page(10)
+    @listings = Listing.listings_select(params).page(params[:page]).per_page(10)  
   end
 
   def user
     @listings = Listing.user_listings(current_user).page(params[:page]).per_page(10)
-  end
-
-  def user_show
-    @listing = Listing.includes(:auction, :price_fade, :sub_category, :images, :bids, questions: :answer).find(params[:id])
-    listing_owner
-    render "show"
   end
 
   def show
@@ -83,6 +67,23 @@ private
     if @listing.user != current_user
       flash[:notice] = "You may not edit another user's listing."
       redirect_to root_path
+    end
+  end
+
+  def page_title
+    @page_title ||= determine_listings_request
+  end
+  helper_method :page_title
+
+  def determine_listings_request
+    if params[:category_id]
+      @page_title = Category.find(params[:category_id])
+    elsif params[:sub_category_id]
+      @page_title = SubCategory.includes(:category).find(params[:sub_category_id])
+    elsif session[:user_listings]
+      @page_title = "Here are your listings #{current_user.first_name}"
+    else
+      @page_title = "Recent Listings"
     end
   end
 

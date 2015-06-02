@@ -5,7 +5,7 @@
 		<% @listing.images.each do |image| %>
 			<span class="all-thumbnails">
 				<%= image_tag image.picture.url(:thumb) %>
-				<%= link_to "Delete Image", listing_image_path(id: image), method: :delete, data: { confirm: "Are you sure?" } %>
+				<%= link_to "Delete Image", image_path(id: image), method: :delete, data: { confirm: "Are you sure?" } %>
 			</span>
 		<% end %>
 	<% if @listing.images.count < 5 %>

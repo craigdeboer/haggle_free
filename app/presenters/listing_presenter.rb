@@ -10,7 +10,7 @@ class ListingPresenter
 	end
 
 	def thumbnail
-		h.image_tag @listing.images.first.picture.url(:thumb), class: "listing-image-display" if @listing.images.any?
+		h.link_to h.image_tag(@listing.images.first.picture.url(:thumb)), h.listing_path(@listing), class: "listing-image-display" if @listing.images.any?
 	end
 
 	def title

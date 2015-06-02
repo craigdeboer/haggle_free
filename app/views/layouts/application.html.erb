@@ -9,8 +9,8 @@
 </head>
 <body>
 	<%= render 'layouts/header' %>
-	<ul id="generic-links">
-		<li>RECENT LISTINGS</li>
+	<ul class="generic-links">
+		<li><%= link_to "RECENT LISTINGS", listings_path %></li>
 		<li><%= link_to "CREATE NEW LISTING", new_listing_path %></li>
 	</ul>
 	<%= render 'layouts/flash' %>

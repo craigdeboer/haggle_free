@@ -1,12 +1,12 @@
 <% categories.each do |category| %>	
 	<div class="category-heading">
-		<span><%= link_to category.name, category_listings_path(category) %></span>
-		<%= button_to "Add Sub-Category For #{category.name}", new_category_sub_category_path(category), method: :get, remote: true, class: "button-normal" if admin? %>
+		<span><%= link_to category.name, listings_path(category_id: category) %></span>
 	</div>
+	<div class="add-subcategory"><%= button_to "Add Sub-Category For #{category.name}", new_category_sub_category_path(category), method: :get, remote: true, class: "button-normal" if admin? %></div>
 	<div class="all-subcategory-display">
 		<% category.sub_categories.each do |subcategory| %>
 			<div class="each-subcategory-display">
-			<%= link_to subcategory.name, sub_category_listings_path(subcategory.id) %>
+			<%= link_to subcategory.name, listings_path(sub_category_id: subcategory) %>
 			<%= content_tag :span, "(#{subcategory.listings.size})" %>
 			<%= button_to("Delete #{subcategory.name}", sub_category_path(id: subcategory.id), method: :delete, remote: true, data: {confirm: "Are you sure you want to delete this sub-category?" }, class: "delete-button") if admin? %>
 			</div>

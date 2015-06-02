@@ -1,5 +1,7 @@
-<%= simple_form_for :session, url: login_path do |f| %>
-	<%= f.input :email %>
-	<%= f.input :password %>
-	<%= f.button :submit, "Log In" %>
-<% end %>
+<div class="login-form">
+	<%= simple_form_for :session, url: login_path, defaults: { error: false, required: false } do |f| %>
+		<%= f.input :email %>
+		<%= f.input :password %>
+		<%= f.button :submit, "Log In", class: "submit-button" %>
+	<% end %>
+</div>

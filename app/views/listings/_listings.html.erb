@@ -1,3 +1,22 @@
+<div class="breadcrumb">
+	<%= link_to "ALL CATEGORIES", root_path %>
+	<% if page_title.class != String %>
+		<% if params[:category_id] %>
+			<span> >> </span>
+			<span><%= page_title.name.upcase %></span>
+		<% else %>
+			<span> >> </span>
+			<%= link_to page_title.category.name.upcase, listings_path(category_id: page_title.category) %>
+			<span> >> </span>
+			<span><%= page_title.name.upcase %></span>
+		<% end %>
+	<% end %>
+</div>
+
+<h1 class="center">
+	<%= page_title if page_title.class == String %>
+	<%= page_title.name if page_title.class != String %>
+</h2>
 <%= will_paginate @listings %>
 <% @listings.each do |listing| %>
 	<% present listing do |listing_presenter| %>
@@ -30,4 +49,4 @@
 	  </div>
   <% end %> <!-- presenter -->
 <% end %> <!-- @listings.each -->
-<%= will_paginate @listings %>
+<div><%= will_paginate @listings %></div>

@@ -1,4 +1,4 @@
-<div id="new-listing-form">
+
 	<h1>New Listing</h1>
 	<%= simple_form_for @listing, url: listings_path, defaults: { error: false, required: false } do |f| %>
 		<%= render 'shared/error_messages', object: @listing %>
@@ -10,4 +10,4 @@
 			<div id="nested-price-fade-form"><%= render 'price_fade_form', f: f %></div>
 		<%= f.submit "Create Listing", class: "button-large" %>
 	<% end %>
-</div>
+

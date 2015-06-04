@@ -1,9 +1,9 @@
-<h2>Edit Your Listing</h2>
 
-<%= simple_form_for @listing, url: listing_path, defaults: { error: false, required: false } do |f| %>
+	<h2>Edit Your Listing</h2>
+	<%= simple_form_for @listing, url: listing_path, defaults: { error: false, required: false } do |f| %>
 		<%= render 'shared/error_messages', object: @listing %>
 		<%= f.association :sub_category, prompt: "Choose a Subcategory" %>
 		<%= f.input :title %>
 		<%= f.input :description %>
-		<%= f.submit %>
-<% end %>
+		<%= f.button :submit, "Save Changes", class: "submit-button" %>
+	<% end %>

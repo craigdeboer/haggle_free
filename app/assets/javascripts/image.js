@@ -27,6 +27,14 @@ var ready = function() {
 		$('#main-listing-image').html("<img class='main-image-display' src='" + imageLarge + "'>");
 	});
 
+	$('#standin-button').click( function() {
+		$('#image_picture').click();
+	});
+
+	$('#image_picture').change( function() {
+		$('#standin-input').val($(this).val());	
+	});
+
 };
 
 $(document).ready(ready);

@@ -1,7 +1,7 @@
 <div class="breadcrumb">
 	<%= link_to "ALL CATEGORIES", root_path %>
 	<span> >> </span>
-	<%= link_to @listing.sub_category.name.upcase, sub_category_listings_path(@listing.sub_category_id) %>
+	<%= link_to @listing.sub_category.name.upcase, listings_path(sub_category_id: @listing.sub_category) %>
 	<span> >> </span>
 	<span><%= @listing.title.upcase %></span>
 </div>
@@ -14,7 +14,7 @@
 		<div id="listing-thumbnails"><%= listing_presenter.thumbnails %></div>
 		<div class="description"><%= simple_format(@listing.description) %></div>
 		<div class="q-and-a">
-			<h2>Q & A</h2>
+			<h2><span>Q & A</span><span class="ask-question-button"><%= button_to "Ask The Seller A Question", new_listing_question_path(@listing), method: :get, class: "button-normal" %></span></h2>
 			<%= listing_presenter.q_and_a do |question, user_link, answer| %>
 				<%= content_tag :p, class: "question" do %>
 					<%= question %>
@@ -22,14 +22,26 @@
 				<% end %>
 				<%= content_tag :p, answer, class: "answer" %>
 			<% end %>
+			
 		</div>
-		<div class="question-button"><%= button_to "Ask The Seller A Question", new_listing_question_path(@listing), method: :get, class: "button-normal" %></div>
 		<div class="listing-details">
 			<ul>
-				<%= content_tag :li, "Seller: #{@listing.user.user_name}" %>
-				<%= content_tag :li, "Posted On: #{@listing.created_at.strftime("%A %B %d, %Y")}" %>
-				<li>Listing Type: <%= @listing.sell_method %></li>
-			</ul>
+				<li>
+					<span class="attribute">Listing Number: </span> 
+					<span><%= @listing.id %></span>
+				</li>
+				<li>
+					<span class="attribute">Seller: </span> 
+					<span><%= @listing.user.user_name %></span>
+				</li>
+				<li>
+					<span class="attribute">Posted: </span> 
+					<span><%= @listing.created_at.strftime("%a, %B %d") %></span>
+				</li>
+				<li>
+					<span class="attribute">Listing Type: </span> 
+					<span><%= @listing.sell_method %></span>
+				</li>
 				<%= listing_presenter.sell_method_details %>
 		</div>
 	</div>

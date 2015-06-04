@@ -23,7 +23,7 @@ Rails.application.routes.draw do
     resource :sub_category, only: [:new, :create]
   end
   resources :sub_categories, only: [:index, :destroy] do
-    get 'listings' => 'listings#subcategory'
+    # get 'listings' => 'listings#subcategory'
     get 'expired_listings' => 'expired_listings#subcategory'
   end
   resources :users

@@ -26,11 +26,34 @@
 				<div class="listing-title"><%= listing_presenter.title %></div>
 				<div class="sell-method-details">
 					<ul>
-						<li>Listing Type: <%= listing.sell_method %></li>
+						<li>
+							<span class="attribute">Listing Number: </span>
+							<span><%= listing.id %></span>
+						</li>
+						<li>
+							<span class="attribute">Listing Type: </span>
+							<span><%= listing.sell_method %></span>
+						</li>
 						<%= listing_presenter.sale_pending_message %>
-						<li><%= listing_presenter.bids_or_offers %></li>
-						<li><%= listing_presenter.reserve_or_current_price %></li>
-						<li><%= listing_presenter.end_date_or_next_price %></li>
+						<li>
+							<%= listing_presenter.bids_or_offers do |attribute_name, value| %>
+								<%= attribute_name %>
+								<%= value %>
+							<% end %>
+						</li>
+						<li>
+							<%= listing_presenter.reserve_or_current_price do |attribute_name, value| %>
+								<%= content_tag :span, attribute_name, class: "attribute" %>
+								<%= content_tag :span, value %>
+							<% end %>
+						</li>
+						<li>
+							<%= listing_presenter.end_date_or_next_price do |attribute_name, value| %>
+								<%= attribute_name %>
+								<%= value %>
+							<% end %>
+						</li>
+						
 					</ul>		
 				</div>
 	 		</div> <!-- listing-index-container -->

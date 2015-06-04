@@ -28,29 +28,39 @@ class ListingPresenter
 	end
 
 	def bids_or_offers
-		if @listing.sell_method == "Auction"
-			"Bids: " + @listing.bids_count.to_s 
+		if auction?
+			attribute_name = h.content_tag :span, "Bids: ", class: "attribute"
+			value = h.content_tag :span, @listing.bids_count.to_s 
 		else
-			"Offers: #{h.pluralize(@listing.bids_count, 'offer')} to buy." 
+			attribute_name = h.content_tag :span, "Offers: ", class: "attribute"
+			value = h.content_tag :span, "#{h.pluralize(@listing.bids_count, 'offer')} to buy." 
 		end	
+		yield(attribute_name, value)
 	end
 
 	def reserve_or_current_price
 		if auction?
-			reserve 
+			attribute_name = "Reserve: "
+			value = reserve
 		else
-			h.content_tag :li, "Current Price: #{h.number_to_currency(find_current_price)}" 
+			attribute_name = "Current Price: "
+			value = h.number_to_currency(find_current_price) 
 		end
+		yield(attribute_name, value)
 	end
 
 	def end_date_or_next_price
 		if auction? 
-			h.content_tag :li, "End Date: " + @listing.end_date.strftime("%A, %B %-d") if @listing.end_date != nil
+			attribute_name = h.content_tag :span, "End Date: ", class: "attribute" 
+			value = @listing.end_date.strftime("%A, %B %-d") 
 		elsif number_of_intervals != 7
-			h.content_tag :li, "Next Price: " + next_price + " on " + next_date.strftime("%B %d")
+			attribute_name = h.content_tag :span, "Next Price: ", class: "attribute" 
+			value = h.content_tag :span, next_price + " on " + next_date.strftime("%B %d")
 		else
-			h.content_tag :li, "Current price = Lowest price."
+			attribute_name = h.content_tag :span, "Next Price: ", class: "attribute" 
+			value = "This auction has recently ended."
 		end
+		yield(attribute_name, value)
 	end
 
 	def delete_listing
@@ -78,21 +88,21 @@ class ListingPresenter
 	def q_and_a
 		if @listing.questions.any?
 			@listing.questions.each do |question|
-				user_question = question.question
-				if @listing.user == h.current_user
-					user_link = h.link_to "Delete Question", h.question_path(question), method: :delete, data: {confirm: "Are you sure?"}, class: "delete-link"
-				else
-					user_link = ""
-				end 
-				if question.answer == nil
-					if @listing.user == h.current_user
-						answer = h.link_to "Answer Question", h.new_question_answer_path(question), class: "button-normal" 
-					else
-						answer = "This question has not yet been answered by the seller."
-					end
-				else
+				if question.answer != nil
+					user_question = question.question
 					answer = question.answer.answer
-				end
+					user_link = h.link_to "Delete Question", h.question_path(question), method: :delete, data: {confirm: "Are you sure?"}, class: "delete-link" if @listing.user == h.current_user
+				else
+					if @listing.user == h.current_user
+						user_link = h.link_to "Delete Question", h.question_path(question), method: :delete, data: {confirm: "Are you sure?"}, class: "delete-link"
+						user_question = question.question
+						answer = h.link_to "Answer Question", h.new_question_answer_path(question), class: "button-normal"
+					else
+						user_question = ""
+						answer = ""
+						user_link = ""
+					end
+				end 
 				yield(user_question, user_link, answer)
 			end
 		end
@@ -114,14 +124,12 @@ class ListingPresenter
 	#Auction details partial method
 
 	def reserve
-		if reserve?
-			if show_reserve?
-				h.content_tag :li, "Reserve: #{h.number_to_currency(@listing.auction.reserve)}"
-			else
-				h.content_tag :li, "Reserve: Yes, but it's hidden." 
-			end
+		if show_reserve?
+			h.number_to_currency(@listing.auction.reserve)
+		elsif reserve?
+			"Yes, but it's hidden." 
 		else
-			h.content_tag :li, "No Reserve"
+			"No Reserve"
 		end
 	end
 

@@ -13,8 +13,10 @@
 		<li><%= link_to "RECENT LISTINGS", listings_path %></li>
 		<li><%= link_to "CREATE NEW LISTING", new_listing_path %></li>
 	</ul>
-	<%= render 'layouts/flash' %>
-	<%= yield %>
+	<div class="main-content">
+		<%= render 'layouts/flash' %>
+		<%= yield %>
+	</div>
 	<%= debug(params) if Rails.env.development? %>
 </body>
 </html>

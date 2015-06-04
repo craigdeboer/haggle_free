@@ -9,11 +9,15 @@
 			</span>
 		<% end %>
 	<% if @listing.images.count < 5 %>
-		<%= simple_form_for @image, url: listing_images_path, html: { multipart: true }, defaults: { error: false } do |f| %>
-			<%= render 'shared/error_messages', object: @image %>
-			<%= f.input :picture, label: false %>
-			<%= f.submit "Add Picture", class: "button-large" %>
-		<% end %>
+		<div class="file-upload-standin">
+			<%= link_to "Upload Picture", '#', class: "button-large", id: "standin-button" %>
+			<input type="text" class="text" id="standin-input" value="No File Chosen">
+			<%= simple_form_for @image, url: listing_images_path, html: { multipart: true }, defaults: { error: false } do |f| %>
+				<%= render 'shared/error_messages', object: @image %>
+				<%= f.input :picture, label: false %>
+				<%= f.submit "Add Picture", class: "button-large" %>
+			<% end %>
+		</div>
 	<% else %>
 		<h2>If you want to add another image, you'll have to delete an existing one first.</h2>
 	<% end %>

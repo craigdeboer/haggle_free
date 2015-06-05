@@ -24,7 +24,7 @@
 body {
 	margin: 0;
 	padding: 0;
-	font-size: 16px;
+	font-size: 32px;
 }
 .main-content {
 	width: 90%;
@@ -690,7 +690,7 @@ form.simple_form {
 #image-crop {
 	margin-left: 25px;
 	.button-large {
-		margin-top: 25px;
+		margin: 2em 0;
 	}
 	.all-thumbnails {
 		display: inline-block;
@@ -702,6 +702,10 @@ form.simple_form {
 		
 	}
 }
+
+// #listingpic {
+// 	width: 18.75em;
+// }
 
 	
 

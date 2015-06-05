@@ -5,6 +5,7 @@ class Image < ActiveRecord::Base
   has_attached_file :picture, 
     styles: { thumb: ["140>", :jpg], large: ['600>', :jpg] }, 
     convert_options: { thumb: '-quality 30 -strip', large: '-quality 70 -strip' },
+    :source_file_options =>  { :all => '-auto-orient' },
     processors: [:cropper]
                               
                                                           
@@ -21,7 +22,12 @@ class Image < ActiveRecord::Base
   end
 
   def picture_geometry
-    original_width = Paperclip::Geometry.from_file(self.picture.queued_for_write[:original]).width
+    orientation = Paperclip::Geometry.from_file(self.picture.queued_for_write[:original]).auto_orient
+    if orientation != nil
+      original_width = Paperclip::Geometry.from_file(self.picture.queued_for_write[:original]).height
+    else
+      original_width = Paperclip::Geometry.from_file(self.picture.queued_for_write[:original]).width
+    end
     large_width = Paperclip::Geometry.from_file(self.picture.queued_for_write[:large]).width
     if original_width <= 600
       ratio = 1

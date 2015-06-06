@@ -688,17 +688,18 @@ form.simple_form {
 
 #adding-pictures,
 #image-crop {
+	width: 100%;
 	margin-left: 25px;
 	.button-large {
 		margin: 2em 0;
 	}
 	.all-thumbnails {
+		width: 45%;
 		display: inline-block;
 		text-align: center;
 		img {
 			width: 100%;
-		}
-		
+		}	
 	}
 }
 

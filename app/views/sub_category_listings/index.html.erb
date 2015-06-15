@@ -1,0 +1,11 @@
+<div class="breadcrumb">
+	<%= link_to "ALL CATEGORIES", root_path %>
+	<span> >> </span>
+	<%= link_to category.name.upcase, '#' %>
+	<span> >> </span>
+	<span><%= sub_category.name.upcase %></span>
+</div>
+
+<h2 class="center"><%= sub_category.name %></h2>
+
+<%= render 'shared/listings', collection: @listings %>

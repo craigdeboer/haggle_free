@@ -10,20 +10,19 @@ Rails.application.routes.draw do
   post   'login'  => 'sessions#create'
   delete 'logout' => 'sessions#destroy'
   get    'bids/user' => 'bids#user', as: 'user_bids'
+  get    'user_listings' => 'user_listings#index'
 
   resources :listings do
-    get 'user', on: :collection
-    get 'user_show', on: :member
     resources :images, shallow: true
     resources :bids, shallow: true
     resources :questions, only: [:new, :create] 
   end
   resources :categories do
-    get 'listings' => 'listings#category'
+    get 'listings' => 'category_listings#index'
     resource :sub_category, only: [:new, :create]
   end
   resources :sub_categories, only: [:index, :destroy] do
-    # get 'listings' => 'listings#subcategory'
+    get 'listings' => 'sub_category_listings#index'
     get 'expired_listings' => 'expired_listings#subcategory'
   end
   resources :users

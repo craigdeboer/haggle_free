@@ -384,7 +384,6 @@ form.simple_form {
 /*** Index Listings ***/
 
 .all-listings {
-	clear: both;
 	@include box_sizing;
 	margin-top: 1.5em; 
 	.listing-index-container {
@@ -682,7 +681,7 @@ form.simple_form {
 		width: 90%;
 	}
 	input[type=file] {
-		// opacity: 0;
+		opacity: 0;
 	}
 }
 
@@ -707,7 +706,13 @@ form.simple_form {
 // 	width: 18.75em;
 // }
 
-	
+/*** Media Queries ***/
+
+@media (min-width: 350px) {
+	body {
+		font-size: 16px;
+	}
+}
 
 
 

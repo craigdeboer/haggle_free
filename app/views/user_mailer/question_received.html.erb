@@ -4,6 +4,6 @@
 
 <p><%= @question.question %></p>
 
-<p>You can click <%= link_to "here", new_listing_answer_url(listing_id: @listing.id, question_id: @question.id) %> to answer the question.</p>
+<p>You can click <%= link_to "here", new_question_answer_url(listing_id: @listing.id, question_id: @question.id) %> to answer the question.</p>
 
 <p>Thanks for using Haggle Free Victoria and have a great day!</p>

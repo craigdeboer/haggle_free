@@ -1,7 +1,8 @@
 class SubCategoryListingsController < ApplicationController
 
+	include SharedFilters
 	skip_before_action :require_login
-
+	
 	def index
 		@listings = Listing.subcategory_listings(sub_category).page(params[:page]).per_page(10) 
 	end

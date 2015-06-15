@@ -4,7 +4,7 @@ class ExpiredListing < ActiveRecord::Base
 	belongs_to :sub_category
 
 	def self.convert(listing, bid_count, highest_bid)
-		@expired_listing = ExpiredListing.new(original_listing_id: listing.id, subcategory_id: listing.subcategory_id, title: listing.title, number_of_bids: bid_count, highest_bid: highest_bid, end_date: listing.end_date, user_id: listing.user_id)
+		@expired_listing = ExpiredListing.new(original_listing_id: listing.id, subcategory_id: listing.sub_category_id, title: listing.title, number_of_bids: bid_count, highest_bid: highest_bid, end_date: listing.end_date, user_id: listing.user_id)
 		@expired_listing.save
 	end
 

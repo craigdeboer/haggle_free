@@ -2,7 +2,7 @@ module SharedFilters
 	extend ActiveSupport::Concern
 
 	included do
-		before_filter :clear_my_listings
+		before_action :clear_my_listings
 	end
 
 	def clear_my_listings

@@ -7,7 +7,7 @@
 #
 set :output, "#{path}/log/cron_job.log"
 #
-every '0,15,30,45 8-22 * * *' do
+every '0,15,30,45 0,9-23 * * *' do
   command "RAILS_ENV=production #{path}/bin/delayed_job start --exit-on-complete"
 end
 

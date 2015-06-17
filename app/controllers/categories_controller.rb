@@ -5,8 +5,6 @@ class CategoriesController < ApplicationController
 	respond_to :html, :js
 	
 	def index
-		puts "In the index action"
-		puts @categories[0].name
 	end
 
 	def new

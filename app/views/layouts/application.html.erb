@@ -10,8 +10,11 @@
 <body>
 	<%= render 'layouts/header' %>
 	<ul class="generic-links">
-		<li><%= link_to "RECENT LISTINGS", listings_path %></li>
-		<li><%= link_to "CREATE NEW LISTING", new_listing_path %></li>
+		<li><%= link_to "BROWSE LISTINGS", sub_categories_path %></li>
+		<li><%= link_to "VIEW RECENT LISTINGS", listings_path %></li>
+		<% if logged_in? %> 
+			<li><%= link_to "CREATE NEW LISTING", new_listing_path %></li>
+		<% end %>
 	</ul>
 	<div class="main-content">
 		<%= render 'layouts/flash' %>

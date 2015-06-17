@@ -20,8 +20,11 @@
 
 
 /*** Global ***/
-
+html {
+	height: 100%;
+}
 body {
+	height: 100%;
 	margin: 0;
 	padding: 0;
 	font-size: 32px;
@@ -237,15 +240,68 @@ form.simple_form {
 	}
 }
 
+
+/*** Welcome Page Header ***/
+
+#welcome-header {
+	margin: 0;
+	padding: 0;
+	width: auto;
+	height: 100%;
+	background-image: image-url("VictoriaCity.jpg");
+	background-repeat: no-repeat;
+	background-position: fixed;
+	background-size: cover;
+	// position: relative;
+}
+#welcome-menu {
+	margin: 0;
+	list-style: none;
+	text-align: center;
+	position: relative;
+	top: 13%;
+	li {
+		display: inline-block;
+		margin-right: 2em;
+	}
+	a {
+		padding: 0.25em;
+		font-size: 1.5em;
+		color: rgb(64, 112, 142);
+	}		
+}
+#welcome-message {
+	color: #FFF;
+	width: 75%;
+	margin: auto;
+	padding: 2em;
+	
+	position: relative;
+	top: 20%;
+	:first-child {
+		margin: 0;
+		font-size: 2em;	
+	}
+	:nth-child(2) {
+		background-color: rgba(64,112,142,0.8);
+		border-radius: 1em;
+		margin: 3em auto 0;
+		font-size: 3em;
+		width: 14em;
+	}
+}
+
+
 /*** Header ***/
 
 #header {
 	margin-top: 0;
 	padding: 0;
 	width: 100%;
-	background-color: #5DB774;
+	background-color: #638ca7;
 	@include box_sizing;
 }
+
 
 #logo {
 	padding: 25px 0 25px;
@@ -316,7 +372,7 @@ form.simple_form {
 	text-align: center;
 	padding: 0;
 	li {
-		background-color: #5DB774;
+		background-color: #638ca7;
 		padding-top: 1em;
 		padding-bottom: 1em;
 		margin-bottom: 1em;
@@ -372,7 +428,9 @@ form.simple_form {
 	// }
 	.submit-button {
 		font-size: 1em;
+		padding: 1em;
 		width: 100%;
+		text-transform: uppercase;
 	}
 }
 
@@ -431,18 +489,6 @@ form.simple_form {
 				color: red;
 			}
 		}
-		.listing-image {
-				width: 11em;
-				height: 8em;
-				float: left;
-				padding: 1em;
-				@include box_sizing;
-				.listing-image-display img {
-					width: 100%;
-					border-radius: 5px;
-					@include box_sizing;
-				}
-			}
 		.listing-title-container {
 			@include box_sizing;
 			float: left;
@@ -456,11 +502,23 @@ form.simple_form {
 					padding: 0.67em;
 				}
 			}
+			.listing-image {
+				width: 11em;
+				height: 8em;
+				float: left;
+				padding: 1em;
+				@include box_sizing;
+				.listing-image-display img {
+					width: 100%;
+					border-radius: 5px;
+					@include box_sizing;
+				}
+			}
 			.sell-method-details {
-				width: 100%;
+				width: 50%;
 				font-size: 1em;	
-				padding-left: 1em;	
-				margin-top: 10px; 
+				padding: 1em;	
+				float: left;
 			}
 		
 			
@@ -718,7 +776,7 @@ form.simple_form {
 #adding-pictures,
 #image-crop {
 	width: 100%;
-	margin-left: 25px;
+	margin-left: 2em;
 	.button-large {
 		margin: 2em 0;
 	}
@@ -742,7 +800,37 @@ form.simple_form {
 	body {
 		font-size: 16px;
 	}
+	#adding-pictures {
+		.all-thumbnails {
+			width: 140px;
+		}
+	}
+	.individual-listing {
+		width: 60%;
+	}
+	.generic-links {
+		li {
+			display: inline-block;
+			width: 30%;
+			margin: 0 0.5em 1em;
+		}
+	}
+	.all-listings {
+		.listing-index-container {
+			// .listing-image {
+			// 	width: 25%;
+			// }
+			.listing-title-container {
+				width: 50%;
+			}
+			.listing-description {
+				width: 50%;
+			}
+		}
+	}
 }
+
+
 
 
 

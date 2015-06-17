@@ -3,9 +3,9 @@
 	<% @listings.each do |listing| %>
 		<% present listing do |listing_presenter| %>
 		  <div class="listing-index-container">
-				<div class="listing-image"><%= listing_presenter.thumbnail %></div>
-				<div class="listing-title-container">
-					<div class="listing-title"><%= listing_presenter.title %></div>
+		  	<div class="listing-title-container">
+		  		<div class="listing-title"><%= listing_presenter.title %></div>
+					<div class="listing-image"><%= listing_presenter.thumbnail %></div>
 					<div class="sell-method-details">
 						<ul>
 							<li>

@@ -29,7 +29,7 @@ class BidsController < ApplicationController
 		else
 			if @bid.errors.include?(:ended)
 				flash[:error] = "Your bid was not accepted, the auction has ended."
-				redirect_to listings_path(sub_category_id: @bid.listing.sub_category)
+				redirect_to sub_category_listings_path(sub_category_id: @bid.listing.sub_category)
 			else
 				render 'new'
 			end

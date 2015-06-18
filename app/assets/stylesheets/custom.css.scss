@@ -267,7 +267,7 @@ form.simple_form {
 	a {
 		padding: 0.25em;
 		font-size: 1.5em;
-		color: rgb(64, 112, 142);
+		color: #638ca7;
 	}		
 }
 #welcome-message {
@@ -283,9 +283,10 @@ form.simple_form {
 		font-size: 2em;	
 	}
 	:nth-child(2) {
-		background-color: rgba(64,112,142,0.8);
+		background-color: rgba(0,0,0,0.3);
+		padding: 0.25em;
 		border-radius: 1em;
-		margin: 3em auto 0;
+		margin: 3.5em auto 0;
 		font-size: 3em;
 		width: 14em;
 	}

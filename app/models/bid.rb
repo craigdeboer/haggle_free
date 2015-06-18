@@ -22,6 +22,10 @@ class Bid < ActiveRecord::Base
 		@bids = Bid.where("listing_id = ?", listing_id).order(price: :desc)
 	end
 
+	def self.set_expired(bids)
+		bids.each { |bid| bid.update_column(:expired, true) }
+	end
+
 	def self.purge(listing_id)
 		@expired_bids = Bid.where("listing_id = ?", listing_id)
 		@expired_bids.each do |expired_bid|

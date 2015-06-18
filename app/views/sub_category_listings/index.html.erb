@@ -1,7 +1,7 @@
 <div class="breadcrumb">
 	<%= link_to "ALL CATEGORIES", root_path %>
 	<span> >> </span>
-	<%= link_to category.name.upcase, '#' %>
+	<%= link_to category.name.upcase, category_listings_path(category_id: category) %>
 	<span> >> </span>
 	<span><%= sub_category.name.upcase %></span>
 </div>

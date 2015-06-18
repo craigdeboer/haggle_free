@@ -8,25 +8,6 @@
 			<th>Status</th>
 			<th></th>
 		</tr>
-		<% @bids.each do |bid| %>
-			<tr>
-				<td><%= link_to bid.listing.title, listing_path(bid.listing) %></td>
-				<% if bid.listing.auction? %>
-					<td>Bid</td>
-				<% else %>
-					<td>Offer</td>
-				<% end %>
-				<td><%= number_to_currency(bid.price) %></td>
-				<% if bid.listing.end_date > DateTime.now %>
-					<td>Active</td>
-				<% else %>
-					<td>This listing has recently ended.</td>
-				<% end %>
-				<td><%= button_to "Delete", bid_path(bid), method: :delete, data: { confirm: "Are you sure?" }, class: "delete-button"  %></td>
-				<% if bid.listing.auction? %>
-					<td><%= button_to "Edit", edit_bid_path(bid), method: :get, class: "delete-normal"  %></td>
-				<% end %>
-			</tr>
-		<% end %>
+		<%= render 'shared/bids', collection: @bids %>
 	</table>
 </div>

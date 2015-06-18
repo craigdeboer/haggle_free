@@ -54,6 +54,7 @@ class Listing < ActiveRecord::Base
 		expired_listings = Listing.where("end_date < ?", DateTime.now).includes(:bids)
 		expired_listings.each do |listing|
 			@bids = Bid.get_bids(listing.id)
+			Bid.set_expired(@bids)
 			bid_count = @bids.length
 			highest_bid = @bids[0].price.to_f if bid_count != 0
 			ExpiredListing.convert(listing, bid_count, highest_bid)

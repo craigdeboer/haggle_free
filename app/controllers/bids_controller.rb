@@ -9,11 +9,6 @@ class BidsController < ApplicationController
 		@bids = @listing.bids.all
 	end
 
-	def user
-		@bids = current_user.bids.includes(:listing).all
-		render 'index'
-	end
-
 	def new
 		@bid = @listing.bids.new
 		@bid.price = params[:price] if params[:price]

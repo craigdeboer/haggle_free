@@ -1,0 +1,12 @@
+<% expired_bids.each do |bid| %>
+	<tr>
+		<td><%= @user_bids.expired_listing_title(bid.id) %></td>
+		<td></td>
+		<td><%= number_to_currency(bid.price) %></td>
+		<% if [1..3].include? bid.rank %>
+			<td><%= bid.rank %></td>
+		<% else %>
+			<td>Your bid was not in the top three but the seller may contact you as a back up.</td>
+		<% end %>
+	</tr>
+<% end %>

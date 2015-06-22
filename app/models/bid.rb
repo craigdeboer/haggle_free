@@ -19,11 +19,21 @@ class Bid < ActiveRecord::Base
 	end
 
 	def self.get_bids(listing_id)
-		@bids = Bid.where("listing_id = ?", listing_id).order(price: :desc)
+		@bids = Bid.where("listing_id = ?", listing_id).order(price: :desc, created_at: :asc)
 	end
 
 	def self.set_expired(bids)
 		bids.each { |bid| bid.update_column(:expired, true) }
+	end
+
+	def self.set_rank(bids)
+		bids.each_with_index do |bid, index|
+			if [0..2].include? index
+				bid.update_column(:rank, index + 1)
+			else
+				bid.update_column(:rank, 4)
+			end
+		end
 	end
 
 	def self.purge(listing_id)

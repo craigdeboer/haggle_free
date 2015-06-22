@@ -58,7 +58,7 @@ h1 {
 	border: none;
 	position: relative;
 	top: -2px;
-	border-radius: 4px;
+	border-radius: 0.25em;
 }
 .submit-button {
 	width: 9.5em;
@@ -74,9 +74,9 @@ h1 {
 	background-color: red;
 	font-size: 1em;
 	color: white;
-	padding: 4px;
+	padding: 0.4em;
 	border: none;
-	border-radius: 4px;
+	border-radius: 0.25em;
 	position: relative;
 	top: -2px;
 }
@@ -180,11 +180,12 @@ form.simple_form {
 		background-position: right center;
 	}
 	input[type=text] {
-		font-size: 1em;
+		// font-size: 1em;
 		padding: 0.4em;
 		width: 20em;
 		border: 3px solid #000;
 		border-radius: 0.5em;
+		@include box_sizing;
 		&.currency-string {
 			width: 14em;
 		}
@@ -198,9 +199,9 @@ form.simple_form {
 	}
 	input.email, input.password {
 		width: 100%;
-		padding: 0.2em;
+		padding: 0.4em;
 		border: 3px solid #000;
-		border-radius: 5px;
+		border-radius: 0.5em;
 		@include box_sizing;
 	}
 	input[type=radio], 
@@ -288,7 +289,7 @@ form.simple_form {
 		border-radius: 1em;
 		margin: 3.5em auto 0;
 		font-size: 3em;
-		width: 14em;
+		width: 8em;
 	}
 }
 
@@ -348,7 +349,8 @@ form.simple_form {
 			width: 12em;
 			position: absolute;
 			top: 2.25em;
-			background-color: #5DB774;
+			background-color: #4e7289;
+			border-radius: 0.8em;
 			text-align: left;
 			list-style: none;
 			display: none;	
@@ -401,6 +403,7 @@ form.simple_form {
 .alert-success,
 .alert-error,
 .alert-notice {
+	margin: 1em auto 2em;
 	padding: 0.5em;
 	color: white;
 	font-size: 1.25em;
@@ -415,23 +418,47 @@ form.simple_form {
 	background-color: red;
 }
 .alert-notice {
-	background-color: red;
+	background-color: blue;
 }
 
 /*** Log In Form ***/
 
-.login-form {
+.login-form,
+.signup-form {
 	font-size: 1em;
 	width: 15em;
 	margin: 2em auto 0;
-	// label {
-	// 	text-align: left;
-	// }
+	#user_first_name,
+	#user_last_name,
+	#user_user_name {
+		width: 100%;
+	}
 	.submit-button {
 		font-size: 1em;
 		padding: 1em;
 		width: 100%;
 		text-transform: uppercase;
+	}
+}
+
+
+/*** User Show Page ***/
+
+.user-show {
+	list-style: none;
+	padding: 0;
+	width: 50%;
+	margin: 2em 0 0 40%;
+	li {
+		font-size: 1.5em;
+		margin: 1em 0;
+	}
+	.delete-button,
+	.button-normal {
+		font-size: 0.75em;
+	}
+	.delete-link {
+		font-size: 1em;
 	}
 }
 
@@ -651,15 +678,16 @@ form.simple_form {
 	}
 	th {
 		width: 15%;
-		height: 30px;
+		height: 2em;
 		text-decoration: underline;
 		&.listing-title {
 			width: 25%;
 		}
 	}
 	td {
-		height: 25px;
+		height: 2em;
 	}
+
 }
 
 #bid-page {
@@ -726,7 +754,7 @@ form.simple_form {
 		margin-top: 30px;
 		border-radius: 15px;
 		background-color: #40708E;
-		font-size: 2em;
+		font-size: 1.5em;
 		a {
 			color: white;
 		}
@@ -829,6 +857,13 @@ form.simple_form {
 			}
 		}
 	}
+	.alert-success,
+	.alert-error,
+	.alert-notice {
+		width: 50%;
+
+	}
+
 }
 
 

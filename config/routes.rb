@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   get    'login'  => 'sessions#new'
   post   'login'  => 'sessions#create'
   delete 'logout' => 'sessions#destroy'
-  get    'bids/user' => 'bids#user', as: 'user_bids'
+  get    'bids/user' => 'user_bids#index'
   get    'user_listings' => 'user_listings#index'
 
   resources :listings do

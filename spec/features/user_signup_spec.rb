@@ -1,10 +1,7 @@
 require 'rails_helper'
 
-
-describe "User management" do
-
-	context "sign up of new user" do
-
+describe "Signing up a new user" do
+	context "successfully" do
 		before do
 			@user = build(:user)
 			visit root_path
@@ -16,13 +13,11 @@ describe "User management" do
 			fill_in "Password", with: @user.password
 			fill_in "Password confirmation", with: @user.password_confirmation
 		end
-
 		it "saves a new user" do
-			expect{ click_button "Create User" }.to change(User, :count).by(1)
+			expect{ click_button "Sign Up" }.to change(User, :count).by(1)
 		end
-
 		it "logs in the user immediately after signup" do
-			click_button "Create User"
+			click_button "Sign Up"
 			expect(page).to have_link("LOG OUT")
 		end
 	end

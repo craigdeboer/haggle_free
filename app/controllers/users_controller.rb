@@ -1,7 +1,9 @@
 class UsersController < ApplicationController
 
+  include SharedFilters
+
   skip_before_action :require_login, only: [:new, :create]
-  before_action :find_user, only: [:edit, :update, :destroy]
+  before_action :find_user, only: [:show, :edit, :update, :destroy]
   before_action :require_admin, only: :index
   
   def index
@@ -9,6 +11,7 @@ class UsersController < ApplicationController
   end
 
   def show
+
   end
 
   def new
@@ -27,42 +30,35 @@ class UsersController < ApplicationController
   end
 
   def edit
-    if current_user == @user
-      render 'new'
-    else
+    if !correct_user?(@user)
       flash[:notice] = "You are attempting to edit another user's data. Please don't!"
       redirect_to root_path
     end
   end
 
   def update
-    @users = User.all
-    @user.update_attributes(user_params)
-    render 'index'
+    if correct_user?(@user) && @user.update_attributes(user_params)
+      flash[:success] = "Your profile has been updated."
+      redirect_to root_path
+    else
+      render 'edit'
+    end
   end
 
   def destroy
-    @users = User.all
     @user.destroy
-    flash[:success] = "User deleted."
-    render 'index'
+    flash[:success] = "Your account has been deleted."
+    redirect_to root_path
   end
 
 private
 
   def user_params
-    params.require(:user).permit(:first_name, :last_name, :user_name, :email, :password, :password_confirmation, :admin)
+    params.require(:user).permit(:first_name, :last_name, :user_name, :email, :password, :password_confirmation)
   end
 
   def find_user
     @user = User.find(params[:id])
   end
 
-  def require_admin
-      if !admin?
-        flash[:notice] = "You must be an admin user to access the requested page."
-        redirect_to root_path
-      end
-    end
-  
 end

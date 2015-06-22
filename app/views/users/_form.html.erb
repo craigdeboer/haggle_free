@@ -1,11 +1,12 @@
-<%= simple_form_for @user, defaults: { error: false } do |f| %>
-	<%= render 'shared/error_messages', object: @user %>
-	<%= f.input :first_name %>
-	<%= f.input :last_name %>
-	<%= f.input :user_name %>
-	<%= f.input :email %>
-	<%= f.input :password %>
-	<%= f.input :password_confirmation %>
-	<%= f.input :admin %>
-	<%= f.submit %>
-<% end %>
+<div class="signup-form">
+	<%= simple_form_for @user, defaults: { error: false } do |f| %>
+		<%= render 'shared/error_messages', object: @user %>
+		<%= f.input :first_name %>
+		<%= f.input :last_name %>
+		<%= f.input :user_name %>
+		<%= f.input :email %>
+		<%= f.input :password %>
+		<%= f.input :password_confirmation %>
+		<%= f.button :submit, submit_text, class: "submit-button" %>
+	<% end %>
+</div>

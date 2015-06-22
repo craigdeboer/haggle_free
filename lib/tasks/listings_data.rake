@@ -4,11 +4,13 @@ namespace :db do
 
 	task populate: :environment do
 
+		category_names = ["Motor Vehicles", "Sporting Goods", "Electronics"]
+		subcategory_names = ["Cars", "Motorcycles", "Vans", "Winter Sports", "Golf", "Bikes", "Computers", "Tablets and Phones", "Gaming"]
 		3.times do |n|
-			category = Category.create!(name: "Category#{n}")
+			category = Category.create!(name: category_names[n])
 			3.times do |count|
-				subcategory = category.sub_categories.create!(name: "Subcategory#{count}")
-				create_the_listings(subcategory)
+				subcategory = category.sub_categories.create!(name: subcategory_names[count + (3 * n)])
+					create_the_listings(subcategory)
 			end
 		end
 	end

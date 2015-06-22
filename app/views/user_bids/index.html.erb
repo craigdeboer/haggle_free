@@ -1,0 +1,14 @@
+<div id="bids-table">
+	<h3>Your current bids/offers:</h3>
+	<table>
+		<tr>
+			<th class="listing-title">Listing</th>
+			<th>Type</th>
+			<th>Price</th>
+			<th>Status</th>
+			<th></th>
+		</tr>
+		<%= render 'shared/bids', bids: @user_bids.bids %>
+		<%= render 'shared/expired_bids', expired_bids: @user_bids.expired_bids %>
+	</table>
+</div>

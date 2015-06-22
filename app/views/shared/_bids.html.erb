@@ -1,4 +1,4 @@
-<% @bids.each do |bid| %>
+<% bids.each do |bid| %>
 	<tr>
 		<td><%= link_to bid.listing.title, listing_path(bid.listing) %></td>
 		<% if bid.listing.auction? %>
@@ -9,12 +9,12 @@
 		<td><%= number_to_currency(bid.price) %></td>
 		<% if bid.listing.end_date > DateTime.now %>
 			<td>Active</td>
+			<td><%= button_to "Delete", bid_path(bid), method: :delete, data: { confirm: "Are you sure?" }, class: "delete-button"  %></td>
+			<% if bid.listing.auction? %>
+				<td><%= button_to "Edit", edit_bid_path(bid), method: :get, class: "button-normal"  %></td>
+			<% end %>
 		<% else %>
-			<td>This listing has recently ended.</td>
-		<% end %>
-		<td><%= button_to "Delete", bid_path(bid), method: :delete, data: { confirm: "Are you sure?" }, class: "delete-button"  %></td>
-		<% if bid.listing.auction? %>
-			<td><%= button_to "Edit", edit_bid_path(bid), method: :get, class: "delete-normal"  %></td>
+			<td>Listing recently ended.</td>
 		<% end %>
 	</tr>
 <% end %>

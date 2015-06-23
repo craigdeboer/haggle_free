@@ -1,2 +1,9 @@
-<h1>Users#show</h1>
-<p>Find me in app/views/users/show.html.erb</p>
+<h1 class="center">User Profile for <%= @user.first_name %></h1>
+<ul class="user-show">
+	<li><%= @user.first_name %></li>
+	<li><%= @user.last_name %></li>
+	<li><%= @user.user_name %></li>
+	<li><%= link_to "Edit Your Profile", edit_user_path(current_user), class: "button-normal" %></li>
+	<li><%= link_to "Delete Your Account", user_path(current_user), class: "delete-button", method: :delete, data: { confirm: "Are you sure?" } %></li>
+	<li class="delete-link">Deleting your account will delete all listings and bids associated with your account!</li>
+</ul>

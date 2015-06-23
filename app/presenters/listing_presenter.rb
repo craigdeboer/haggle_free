@@ -91,19 +91,21 @@ class ListingPresenter
 				if question.answer != nil
 					user_question = question.question
 					answer = question.answer.answer
-					user_link = h.link_to "Delete Question", h.question_path(question), method: :delete, data: {confirm: "Are you sure?"}, class: "delete-link" if @listing.user == h.current_user
+					delete_link = h.link_to "Delete Question", h.question_path(question), method: :delete, data: {confirm: "Are you sure?"}, class: "delete-link" if (@listing.user == h.current_user) && (question.answer.created_at < 15.minutes.ago)
+					edit_link = h.link_to "Edit Answer", h.edit_answer_path(question.answer), class: "button-normal" if @listing.user == h.current_user
 				else
 					if @listing.user == h.current_user
-						user_link = h.link_to "Delete Question", h.question_path(question), method: :delete, data: {confirm: "Are you sure?"}, class: "delete-link"
+						delete_link = h.link_to "Delete Question", h.question_path(question), method: :delete, data: {confirm: "Are you sure?"}, class: "delete-link"
 						user_question = question.question
 						answer = h.link_to "Answer Question", h.new_question_answer_path(question), class: "button-normal"
 					else
 						user_question = ""
 						answer = ""
-						user_link = ""
+						delete_link = ""
+						edit_link = ""
 					end
 				end 
-				yield(user_question, user_link, answer)
+				yield(user_question, delete_link, answer, edit_link)
 			end
 		end
 		return

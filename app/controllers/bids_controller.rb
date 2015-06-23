@@ -9,11 +9,6 @@ class BidsController < ApplicationController
 		@bids = @listing.bids.all
 	end
 
-	def user
-		@bids = current_user.bids.includes(:listing).all
-		render 'index'
-	end
-
 	def new
 		@bid = @listing.bids.new
 		@bid.price = params[:price] if params[:price]
@@ -29,7 +24,7 @@ class BidsController < ApplicationController
 		else
 			if @bid.errors.include?(:ended)
 				flash[:error] = "Your bid was not accepted, the auction has ended."
-				redirect_to listings_path(sub_category_id: @bid.listing.sub_category)
+				redirect_to sub_category_listings_path(sub_category_id: @bid.listing.sub_category)
 			else
 				render 'new'
 			end

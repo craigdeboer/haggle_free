@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150525233340) do
+ActiveRecord::Schema.define(version: 20150622210501) do
 
   create_table "answers", force: :cascade do |t|
     t.text     "answer",      limit: 65535
@@ -36,8 +36,10 @@ ActiveRecord::Schema.define(version: 20150525233340) do
     t.integer  "user_id",    limit: 4
     t.integer  "listing_id", limit: 4
     t.decimal  "price",                precision: 7, scale: 2
-    t.datetime "created_at",                                   null: false
-    t.datetime "updated_at",                                   null: false
+    t.datetime "created_at",                                                   null: false
+    t.datetime "updated_at",                                                   null: false
+    t.boolean  "expired",    limit: 1,                         default: false
+    t.integer  "rank",       limit: 4
   end
 
   add_index "bids", ["listing_id"], name: "index_bids_on_listing_id", using: :btree

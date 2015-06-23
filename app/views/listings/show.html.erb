@@ -1,7 +1,9 @@
 <div class="breadcrumb">
 	<%= link_to "ALL CATEGORIES", root_path %>
 	<span> >> </span>
-	<%= link_to @listing.sub_category.name.upcase, listings_path(sub_category_id: @listing.sub_category) %>
+	<%= link_to @listing.categories.name.upcase, category_listings_path(category_id: @listing.categories) %>
+	<span> >> </span>
+	<%= link_to @listing.sub_category.name.upcase, sub_category_listings_path(sub_category_id: @listing.sub_category) %>
 	<span> >> </span>
 	<span><%= @listing.title.upcase %></span>
 </div>
@@ -15,12 +17,15 @@
 		<div class="description"><%= simple_format(@listing.description) %></div>
 		<div class="q-and-a">
 			<h2><span>Q & A</span><span class="ask-question-button"><%= button_to "Ask The Seller A Question", new_listing_question_path(@listing), method: :get, class: "button-normal" %></span></h2>
-			<%= listing_presenter.q_and_a do |question, user_link, answer| %>
+			<%= listing_presenter.q_and_a do |question, delete_link, answer, edit_link| %>
 				<%= content_tag :p, class: "question" do %>
 					<%= question %>
-					<%= content_tag :span, user_link %>
+					<%= content_tag :span, delete_link %>
 				<% end %>
-				<%= content_tag :p, answer, class: "answer" %>
+				<%= content_tag :p, class: "answer" do %>
+					<%= answer %>
+					<%= content_tag :span, edit_link %>
+				<% end %>
 			<% end %>
 			
 		</div>

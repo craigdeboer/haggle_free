@@ -9,7 +9,7 @@ class ExpiredListing < ActiveRecord::Base
 	end
 
 	def self.purge
-		@expired_listings = ExpiredListing.where("created_at > ?", 14.days.ago)
+		@expired_listings = ExpiredListing.where("created_at < ?", 14.days.ago)
 		@expired_listings.each do |expired_listing|
 			Bid.purge(expired_listing.original_listing_id)
 			expired_listing.destroy

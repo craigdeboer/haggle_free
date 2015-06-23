@@ -12,6 +12,7 @@
 !/log/.keep
 /tmp/cache
 /tmp/capybara
+/tmp/miniprofiler
 
 # Ignore files with sensitive data.
 /config/database.yml

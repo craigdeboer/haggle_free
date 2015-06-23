@@ -44,7 +44,7 @@ RSpec.describe UsersController, type: :controller do
         expect(assigns(:user)).to eq @user1
       end
       it "renders the new template" do
-        expect(response).to render_template :new
+        expect(response).to render_template :edit
       end
       
     end

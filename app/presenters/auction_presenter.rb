@@ -19,7 +19,7 @@ class AuctionPresenter
 		end
 	end
 
-  private
+private
 
 	def reserve?
 		@auction.reserve != 0

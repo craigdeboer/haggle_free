@@ -9,6 +9,8 @@ class ListingPresenter
 		@template
 	end
 
+	#Listing index methods
+
 	def thumbnail
 		h.link_to h.image_tag(@listing.images.first.picture.url(:thumb)), h.listing_path(@listing), class: "listing-image-display" if @listing.images.any?
 	end
@@ -29,13 +31,11 @@ class ListingPresenter
 		end	
 	end
 
-
-	#Individual Listing Methods
+	#Listing show methods
 
   def sale_pending_information
-    h.content_tag :div, "There is a sale pending on this item and #{@listing.bids_count - 1} of 2 allowed backup offers.", class: "sale-sale_pending" if sale_pending? 
- end
-
+    h.content_tag :div, "* There is a sale pending on this item and #{@listing.bids_count - 1} of 2 allowed backup offers.", class: "sale-pending" if sale_pending? 
+ 	end
 
 	def large_image 
 		h.image_tag @listing.images.first.picture.url(:large), class: "main-image-display" if images?
@@ -44,7 +44,6 @@ class ListingPresenter
 	def thumbnails
 		h.render 'thumbnail_display' if images?
 	end
-
 
 	def delete_listing
 		h.button_to "Delete", h.listing_path(@listing), method: :delete, data: { confirm: "Are you sure?" }, class: "delete-button" if @listing.user == h.current_user
@@ -66,17 +65,7 @@ class ListingPresenter
 		end
 	end
 
-	def get_price
-		find_current_price
-	end
-
-
-
-	#Price fade details partial methods
-
-
 private
-
 
 	def price_fade
 		@listing.price_fade

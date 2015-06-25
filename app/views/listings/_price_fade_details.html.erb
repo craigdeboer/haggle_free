@@ -19,6 +19,6 @@
 	<% if listing.bids_count < 3 %>
 		<%= link_to "Submit Offer To Buy At The Current Price", new_listing_bid_path(listing, price: price_fade_presenter.get_price), class: "button-large" %> 
 	<% else %>
-		<%= content_tag :p, "There is an sale pending on the first offer and 2 backup offers. No further offers are being accepted." %>
+		<%= content_tag :p, "There is a sale pending on the first offer and 2 backup offers. No further offers are being accepted." %>
 	<% end %>
 <% end %>

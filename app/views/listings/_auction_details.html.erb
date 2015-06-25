@@ -1,16 +1,16 @@
-<% present @listing do |listing_presenter| %>
+<% present auction do |auction_presenter| %>
 		<li>
 			<span class="attribute">Reserve: </span>
-			<span><%= listing_presenter.reserve %></span>
+			<span><%= auction_presenter.reserve %></span>
 		</li>
 		<li>
 			<span class="attribute">Number of Bids: </span>
-			<span><%= @listing.bids_count %></span>
+			<span><%= listing.bids_count %></span>
 		</li>
 		<li>
 			<span class="attribute">Auction Ends: </span>
-			<span><%= @listing.end_date.strftime("%a, %B %-d at %l:%M %p") %></span>
+			<span><%= listing.end_date.strftime("%a, %B %-d at %l:%M %p") %></span>
 		</li>
 	</ul>
-	<%= button_to "Bid On This Item", new_listing_bid_path(@listing), method: :get, class: "button-large" %>
+	<%= button_to "Bid On This Item", new_listing_bid_path(listing), method: :get, class: "button-large" %>
 <% end %>

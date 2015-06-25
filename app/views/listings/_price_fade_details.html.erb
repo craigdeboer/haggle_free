@@ -1,6 +1,6 @@
-<% present @listing do |listing_presenter| %>
+<% present price_fade do |price_fade_presenter| %>
 	</ul>
-	<h3>All price changes happen at <%= @listing.created_at.strftime("%l:%M %p") %> on the given day.</h3>
+	<h3>All price changes happen at <%= listing.created_at.strftime("%l:%M %p") %> on the given day.</h3>
 	<table class="price-fade-list">
 		<tr>
 			<th class="decrease-date">Date</th>
@@ -9,15 +9,15 @@
 			<th></th>
 			<th></th>
 		</tr>
-		<%= listing_presenter.pricing_table do |date, price, html_class| %>
+		<%= price_fade_presenter.pricing_table do |date, price, html_class| %>
 			<tr>
 				<%= content_tag :td, date, class: html_class %>
 				<%= content_tag :td, number_to_currency(price), class: html_class %>
 			</tr>
 		<% end %>
 	</table>
-	<% if @listing.bids_count < 3 %>
-		<%= link_to "Submit Offer To Buy At The Current Price", new_listing_bid_path(@listing, price: listing_presenter.get_price), class: "button-large" %> 
+	<% if listing.bids_count < 3 %>
+		<%= link_to "Submit Offer To Buy At The Current Price", new_listing_bid_path(listing, price: price_fade_presenter.get_price), class: "button-large" %> 
 	<% else %>
 		<%= content_tag :p, "There is an sale pending on the first offer and 2 backup offers. No further offers are being accepted." %>
 	<% end %>

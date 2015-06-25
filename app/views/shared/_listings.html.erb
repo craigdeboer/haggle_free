@@ -24,8 +24,8 @@
               <%= render 'shared/auction_listing', auction: listing.auction, end_date: listing.end_date if listing.sell_method == "Auction" %>
               <%= render 'shared/price_fade_listing', price_fade: listing.price_fade if listing.sell_method == "Price" %>
 						</ul>		
-					</div>
-		 		</div> <!-- listing-index-container -->
+					</div><!-- sell-method-details -->
+		 		</div> <!-- listing-title-container -->
 			 	<div class="listing-description">
 			 		<%= truncate(listing.description, length: 150) %>
 			 	</div> <!-- listing-description -->
@@ -38,7 +38,7 @@
 				 		<span><%= listing_presenter.add_images %></span>
 				 	<% end %>
 			 	</div> <!-- listing-footer -->
-		  </div>
+      </div> <!-- listing-index-container -->
 	  <% end %> <!-- presenter -->
 	<% end %> <!-- @listings.each -->
 </div>

@@ -16,18 +16,23 @@
 		<div id="listing-thumbnails"><%= listing_presenter.thumbnails %></div>
 		<div class="description"><%= simple_format(@listing.description) %></div>
 		<div class="q-and-a">
-			<h2><span>Q & A</span><span class="ask-question-button"><%= button_to "Ask The Seller A Question", new_listing_question_path(@listing), method: :get, class: "button-normal" %></span></h2>
-			<%= listing_presenter.q_and_a do |question, delete_link, answer, edit_link| %>
-				<%= content_tag :p, class: "question" do %>
-					<%= question %>
-					<%= content_tag :span, delete_link %>
-				<% end %>
-				<%= content_tag :p, class: "answer" do %>
-					<%= answer %>
-					<%= content_tag :span, edit_link %>
-				<% end %>
-			<% end %>
-			
+      <h2>
+        <span>Q & A</span>
+        <span class="ask-question-button"><%= button_to "Ask The Seller A Question", new_listing_question_path(@listing), method: :get, class: "button-normal" %></span>
+      </h2>
+      <% if @listing.questions.any? %> 
+        <% questions_presenter = QuestionsPresenter.new(@listing.questions, @listing.user, self) %>
+			  <%= questions_presenter.q_and_a do |question, delete_link, answer, edit_info| %>
+          <%= content_tag :p, class: "question" do %>
+            <%= question %>
+            <%= content_tag :span, delete_link %>
+          <% end %>
+          <%= content_tag :p, class: "answer" do %>
+            <%= answer %>
+            <%= content_tag :span, edit_info %>
+          <% end %>
+        <% end %>
+		  <% end %>	
 		</div>
 		<div class="listing-details">
 			<ul>

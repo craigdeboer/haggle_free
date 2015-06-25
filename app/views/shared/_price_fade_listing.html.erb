@@ -1,0 +1,10 @@
+<% present price_fade do |price_fade_presenter| %>
+  <li>
+  <span class="attribute">Current Price: </span>
+  <%= price_fade_presenter.current_price %>
+  </li>  
+  <li>
+    <span class="attribute">Next Price: </span>
+    <%= price_fade_presenter.next_price_display %>
+  </li>
+<% end %>

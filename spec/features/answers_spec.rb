@@ -12,7 +12,7 @@ feature "User answers a question" do
 		visit root_path
 		click_on "My Listings"
 		click_link @listing.title
-		click_on "Answer the question"
+		click_on "Answer Question"
 		fill_in "Answer", with: "Yes, there are three."	
 	end
 

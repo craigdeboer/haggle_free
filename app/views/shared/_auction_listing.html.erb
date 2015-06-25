@@ -1,0 +1,12 @@
+<% present auction do |auction_presenter| %>
+
+  <li>
+    <span class="attribute">Reserve: </span>
+    <%= auction_presenter.reserve %>
+  </li> 
+  <li>
+    <span class="attribute">End Date: </span>
+    <%= end_date.strftime("%A, %B %-d")  %>
+  </li>
+    
+<% end %>

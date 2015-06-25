@@ -2,7 +2,7 @@
 	<div id="logo">
 		<%= link_to "Haggle Free Victoria", root_path, id: "logo" %>
 	</div><!-- logo -->
-		<ul id="menu">
+      		<ul id="menu">
 			<% if logged_in? %>
 				<li id="user-options-dropdown"><%= link_to current_user.user_name , '#'%><div class="arrow-down"></div>
 					<ul id="user-dropdown-links">

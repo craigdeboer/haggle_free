@@ -29,39 +29,36 @@ class ListingPresenter
 
 	def bids_or_offers
 		if auction?
-			attribute_name = h.content_tag :span, "Bids: ", class: "attribute"
-			value = h.content_tag :span, @listing.bids_count.to_s 
+			h.content_tag :span, "Bids: ", class: "attribute"
 		else
-			attribute_name = h.content_tag :span, "Offers: ", class: "attribute"
-			value = h.content_tag :span, "#{h.pluralize(@listing.bids_count, 'offer')} to buy." 
+			h.content_tag :span, "Offers: ", class: "attribute"
 		end	
-		yield(attribute_name, value)
 	end
 
-	def reserve_or_current_price
-		if auction?
-			attribute_name = "Reserve: "
-			value = reserve
-		else
-			attribute_name = "Current Price: "
-			value = h.number_to_currency(find_current_price) 
-		end
-		yield(attribute_name, value)
-	end
-
-	def end_date_or_next_price
-		if auction? 
-			attribute_name = h.content_tag :span, "End Date: ", class: "attribute" 
-			value = @listing.end_date.strftime("%A, %B %-d") 
-		elsif number_of_intervals != 7
-			attribute_name = h.content_tag :span, "Next Price: ", class: "attribute" 
-			value = h.content_tag :span, next_price + " on " + next_date.strftime("%B %d")
-		else
-			attribute_name = h.content_tag :span, "Next Price: ", class: "attribute" 
-			value = "This auction has recently ended."
-		end
-		yield(attribute_name, value)
-	end
+#	def reserve_or_current_price
+#		if auction?
+#			attribute_name = "Reserve: "
+#			value = reserve
+#		else
+#			attribute_name = "Current Price: "
+#			value = h.number_to_currency(find_current_price) 
+#		end
+#		yield(attribute_name, value)
+#	end
+#
+#	def end_date_or_next_price
+#		if auction? 
+#			attribute_name = h.content_tag :span, "End Date: ", class: "attribute" 
+#			value = @listing.end_date.strftime("%A, %B %-d") 
+#		elsif number_of_intervals != 7
+#			attribute_name = h.content_tag :span, "Next Price: ", class: "attribute" 
+#			value = h.content_tag :span, next_price + " on " + next_date.strftime("%B %d")
+#		else
+#			attribute_name = h.content_tag :span, "Next Price: ", class: "attribute" 
+#			value = "This auction has recently ended."
+#		end
+#		yield(attribute_name, value)
+#	end
 
 	def delete_listing
 		h.button_to "Delete", h.listing_path(@listing), method: :delete, data: { confirm: "Are you sure?" }, class: "delete-button" if @listing.user == h.current_user
@@ -125,15 +122,6 @@ class ListingPresenter
 
 	#Auction details partial method
 
-	def reserve
-		if show_reserve?
-			h.number_to_currency(@listing.auction.reserve)
-		elsif reserve?
-			"Yes, but it's hidden." 
-		else
-			"No Reserve"
-		end
-	end
 
 	#Price fade details partial methods
 
@@ -194,9 +182,6 @@ private
 		!@listing.images.empty?
 	end
 
-	def reserve?
-		@listing.auction.reserve != 0
-	end
 
 	def show_reserve?
 		@listing.auction.show_reserve

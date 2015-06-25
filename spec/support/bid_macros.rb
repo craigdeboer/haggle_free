@@ -14,14 +14,12 @@ module BidMacros
 
 	def create_auction_listing
 		@auction_subcategory = create(:sub_category)
-		@auction_listing = create(:listing, sub_category_id: @auction_subcategory.id)
-		@auction = create(:auction, listing_id: @auction_listing.id)
+		@auction_listing = create(:auction_listing, sub_category_id: @auction_subcategory.id, auction_attributes:(attributes_for(:auction)))
 	end
 
 	def create_price_fade_listing
 		@price_fade_subcategory = create(:sub_category)
-		@price_fade_listing = create(:listing, sell_method: "Price", sub_category_id: @price_fade_subcategory.id)
-		@price_fade = create(:price_fade, listing_id: @price_fade_listing.id)
+		@price_fade_listing = create(:price_fade_listing, sub_category_id: @price_fade_subcategory.id, price_fade_attributes:(attributes_for(:price_fade)))
 	end
 
 	def bid_on_auction

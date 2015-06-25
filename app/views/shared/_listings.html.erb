@@ -18,24 +18,11 @@
 							</li>
 							<%= listing_presenter.sale_pending_message %>
 							<li>
-								<%= listing_presenter.bids_or_offers do |attribute_name, value| %>
-									<%= attribute_name %>
-									<%= value %>
-								<% end %>
+                <span class="attribute"><%= listing_presenter.bids_or_offers %></span>
+                <span><%= listing.bids_count.to_s %></span>
 							</li>
-							<li>
-								<%= listing_presenter.reserve_or_current_price do |attribute_name, value| %>
-									<%= content_tag :span, attribute_name, class: "attribute" %>
-									<%= content_tag :span, value %>
-								<% end %>
-							</li>
-							<li>
-								<%= listing_presenter.end_date_or_next_price do |attribute_name, value| %>
-									<%= attribute_name %>
-									<%= value %>
-								<% end %>
-							</li>
-							
+              <%= render 'shared/auction_listing', auction: listing.auction, end_date: listing.end_date if listing.sell_method == "Auction" %>
+              <%= render 'shared/price_fade_listing', price_fade: listing.price_fade if listing.sell_method == "Price" %>
 						</ul>		
 					</div>
 		 		</div> <!-- listing-index-container -->

@@ -6,7 +6,8 @@ feature "Bid Management" do
 	feature "User bids on listing" do
 
 		before do
-				log_in create(:user)
+			        @user = create(:user)	
+				log_in @user 
 				create_auction_listing
 				create_price_fade_listing
 			end
@@ -35,7 +36,8 @@ feature "Bid Management" do
 	feature "User views his/her bids" do
 
 		before do
-			log_in create(:user)
+			@user = create(:user)
+			log_in @user
 			create_auction_listing
 			create_price_fade_listing
 			select_auction_listing
@@ -46,7 +48,8 @@ feature "Bid Management" do
 			visit root_path
 		end
 
-		scenario "when user has active bids" do
+		scenario "when user has active bids", js: true do
+		        click_on @user.user_name	
 			click_on "My Bids"
 			expect(page).to have_content @auction_listing.title
 		end
@@ -57,7 +60,8 @@ feature "Bid Management" do
 	feature "User deletes a bid" do
 
 		before do
-			log_in create(:user)
+			@user = create(:user)
+			log_in @user
 			create_auction_listing
 			select_auction_listing
 			bid_on_auction
@@ -65,6 +69,7 @@ feature "Bid Management" do
 		end
 
 		scenario "successfully", js: true do
+			click_on @user.user_name
 			click_on "My Bids"
 			click_on("Delete", :match => :first)
 			page.driver.browser.switch_to.alert.accept

@@ -585,6 +585,11 @@ form.simple_form {
 .individual-listing {
 	@include box_sizing;
 	margin-top: 1.5em;
+	.sale-pending {
+		color: red;
+		font-size: 1.5em;
+		margin-top: 1em;
+	}
 	.title {
 		@include box_sizing;
 		font-size: 2em;

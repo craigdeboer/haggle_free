@@ -25,7 +25,7 @@ class QuestionsPresenter
     return
   end
 
-  private
+private
 
   def listing_owner?
     h.current_user == @listing_owner

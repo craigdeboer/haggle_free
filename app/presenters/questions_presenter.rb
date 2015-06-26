@@ -20,7 +20,7 @@ class QuestionsPresenter
           answer = answer_link(question)
           edit_info = ''
         end 
-        yield(user_question, delete_link(question), answer, edit_info)
+        yield(user_question, delete_link(question), answer, edit_info,)
     end
     return
   end

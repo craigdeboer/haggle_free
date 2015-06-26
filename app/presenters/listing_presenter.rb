@@ -66,9 +66,6 @@ class ListingPresenter
 		end
 	end
 
-	def get_price
-		find_current_price
-	end
 
 
 

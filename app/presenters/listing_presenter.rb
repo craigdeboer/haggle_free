@@ -65,15 +65,6 @@ class ListingPresenter
 		end
 	end
 
-<<<<<<< HEAD
-
-
-
-	#Price fade details partial methods
-
-
-=======
->>>>>>> 616f4a3ccadc8a417edffaca7e4a5d94098ab902
 private
 
 	def price_fade

@@ -1,25 +1,29 @@
 class AnswersController < ApplicationController
 
-	def new
+	def new 
+    @answer_builder = AnswerBuilder.new(params[:question_id])
 	end
 
 	def create
-		@answer = question.build_answer(answer_params)
+    @answer_creator = AnswerCreator.new(params)
+		@answer = @answer_creator.answer(answer_params)
 		if @answer.save
-			UserMailer.answer_received(questioner.email, question.question, @answer.answer, listing.title).deliver_later
+			UserMailer.answer_received(@answer_creator.questioner_email, @answer_creator.question, @answer.answer, @answer_creator.listing_title).deliver_later
 			flash[:success] = "Your answer has been sent to the questioner."
-			redirect_to listing
+			redirect_to @answer_creator.listing
 		else 
 			render 'new'	
 		end
 	end
 
-	def edit
+def edit
+		@answer = Answer.find(params[:id])
 	end
 
 	def update
-		if answer.update_attributes(answer_params)
-			redirect_to answer.question.listing, notice: "Your answer has been updated." 
+    @answer = Answer.find(params[:id])
+		if @answer.update_attributes(answer_params)
+			redirect_to associated_listing(@answer), notice: "Your answer has been updated." 
 		end
 	end
 
@@ -29,26 +33,12 @@ private
 		params.require(:answer).permit(:answer, :question_id)
 	end
 
-	def question
-		@question ||= Question.includes(:listing).find(params[:question_id])
-	end
-	helper_method :question
+  def associated_listing(answer)
+    associated_question(answer).listing
+  end
 
-	def answer
-		if params[:id]
-			@answer ||= Answer.find(params[:id])
-		else
-			@answer = question.build_answer
-		end
-	end
-	helper_method :answer
-
-	def questioner
-		@question.user
-	end
-
-	def listing
-		question.listing
-	end
+  def associated_question(answer)
+   answer.question
+  end 
 
 end

@@ -34,6 +34,11 @@ Rails.application.routes.draw do
     post 'mark_as_sold', on: :member
   end
 
+  namespace :api do
+    namespace :v1 do
+      get 'listings' => 'listings#index'
+    end
+  end
 
 
 

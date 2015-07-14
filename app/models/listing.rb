@@ -29,21 +29,16 @@ class Listing < ActiveRecord::Base
 		self.sell_method == "Price"
 	end
 
-	def self.listings_select(params)
-		if params[:category_id]
-			@category = Category.find(params[:category_id])
-    	@listings = @category.listings.includes(:images, :auction, :price_fade, :user).all.by_newest	
-    else
-    	@listings = Listing.where("created_at > ?", 24.hours.ago).includes(:images, :auction, :price_fade, :user).by_newest
-    end
+	def self.recent_listings
+    @listings = Listing.where("created_at > ?", 24.hours.ago).includes(:images, :auction, :price_fade, :user).by_newest
 	end
-
+  
+  def self.category_listings(category)
+   	category.listings.includes(:images, :auction, :price_fade, :user).by_newest	
+  end
+ 
 	def self.user_listings(user)
 		Listing.where("user_id = ?", user).includes(:images, :auction, :price_fade, :user).by_newest
-	end
-
-	def self.category_listings(category)
-		category.listings.includes(:images, :auction, :price_fade, :user).order(created_at: :desc)
 	end
 
 	def self.subcategory_listings(subcategory)

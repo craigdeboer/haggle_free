@@ -17,10 +17,11 @@ class QuestionsPresenter
           answer = question.answer.answer 
           edit_info = edit_link(question)
         else
+          user_question = "" if !listing_owner?
           answer = answer_link(question)
           edit_info = ''
         end 
-        yield(user_question, delete_link(question), answer, edit_info,)
+        yield(user_question, delete_link(question), answer, edit_info)
     end
     return
   end
@@ -43,15 +44,19 @@ private
     end
   end
 
-  def the_answer(question)
-    question.answer
-  end
-
   def edit_link(question)
-    h.link_to "Edit Answer", h.edit_answer_path(question.answer), class: "button-normal" 
+    if listing_owner?
+      h.link_to "Edit Answer", h.edit_answer_path(question.answer), class: "button-normal" 
+    else
+      ""
+    end
   end
 
   def answer_link(question)
-    answer = h.link_to "Answer Question", h.new_question_answer_path(question), class: "button-normal"
+    if listing_owner?
+      answer = h.link_to "Answer Question", h.new_question_answer_path(question), class: "button-normal"
+    else
+      ""
+    end
   end
 end

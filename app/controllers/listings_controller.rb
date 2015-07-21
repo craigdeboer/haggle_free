@@ -5,7 +5,7 @@ class ListingsController < ApplicationController
   before_action :clear_my_listings, only: :index
   
   def index
-    @listings = Listing.listings_select(params).page(params[:page]).per_page(10)  
+    @listings = Listing.recent_listings.page(params[:page]).per_page(10) 
   end
 
   def show
@@ -49,6 +49,14 @@ private
 
   def listing_params
     params.require(:listing).permit(:title, :description, :sell_method, :sub_category_id, :user_id, auction_attributes: [:reserve, :show_reserve, :end_date], price_fade_attributes: [:start_price, :price_decrement, :price_interval]).merge(user_id: current_user.id)
+  end
+  
+  def page_params
+    (params[:page]).per_page(10)
+  end 
+
+  def find_category
+    @category = Category.find(params[:category_id])
   end
 
   def listing_owner

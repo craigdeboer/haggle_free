@@ -85,7 +85,20 @@ RSpec.describe Bid, type: :model do
 
   end
 
-
+  describe "set_rank" do
+    before do
+      @bid1 = create(:bid, listing_id: @listing.id, price: 400.00)
+      @bid2 = create(:bid, listing_id: @listing.id, price: 500.00)
+      @bid3 = create(:bid, listing_id: @listing.id, price: 200.00)
+      @bid4 = create(:bid, listing_id: @listing.id, price: 600.00)
+      @bids = Bid.get_bids(@listing.id)
+    end
+    it "sets the highest bid's rank attribute with 1" do
+      Bid.set_rank(@bids)
+      @bid4.reload
+      expect(@bid4.rank).to eq 1
+    end
+  end
 
 end
 

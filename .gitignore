@@ -10,9 +10,7 @@
 # Ignore all logfiles and tempfiles.
 /log/*
 !/log/.keep
-/tmp/cache
-/tmp/capybara
-/tmp/miniprofiler
+/tmp/*
 
 # Ignore files with sensitive data.
 /config/database.yml

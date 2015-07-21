@@ -28,8 +28,9 @@ class Bid < ActiveRecord::Base
 
 	def self.set_rank(bids)
 		bids.each_with_index do |bid, index|
-			if [0..2].include? index
+			if (0..2).include? index
 				bid.update_column(:rank, index + 1)
+				p bid.rank
 			else
 				bid.update_column(:rank, 4)
 			end

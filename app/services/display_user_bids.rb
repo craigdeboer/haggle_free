@@ -12,7 +12,7 @@ class DisplayUserBids
 		@expired_bids = @user.bids.where("expired = ?", true)
 	end
 
-	def expired_listing_title(id)
-		@expired_listing_title = ExpiredListing.find_by_original_listing_id(id).pluck(:title)
+	def expired_listing_title(listing_id)
+		@expired_listing_title = ExpiredListing.find_by_original_listing_id(listing_id).pluck(:title)
 	end
 end

@@ -5,4 +5,4 @@ Rails Version: 4.2
 
 Haggle Free is an application used to buy and sell merchandise.
 
-It's similar to Craigslist and Used Victoria but it allows sellers to use auctions to sell their merchandise. Sellers can choose to use a standard blind auction they can choose to sell using a Dutch auction where the price is decreased until a buyer is found.
+It's similar to Craigslist and Used Victoria but it allows sellers to use auctions to sell their merchandise. Sellers can choose to use a standard blind auction or they can choose to sell using a Dutch auction where the price is decreased until a buyer is found.

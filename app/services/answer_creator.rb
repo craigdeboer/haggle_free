@@ -1,7 +1,11 @@
 class AnswerCreator
 
   def initialize(question_id)
-    @question = Question.find(question_id)
+    @question = Question.includes(:listing).find(question_id)
+  end
+
+  def new_answer
+    @question.build_answer
   end
 
   def answer(answer_params)

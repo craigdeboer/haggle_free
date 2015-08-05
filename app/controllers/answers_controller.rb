@@ -1,7 +1,7 @@
 class AnswersController < ApplicationController
 
 	def new 
-    @answer_builder = AnswerBuilder.new(params[:question_id])
+    @answer_creator = AnswerCreator.new(params[:question_id])
 	end
 
 	def create
@@ -34,5 +34,13 @@ private
 	def answer_params
 		params.require(:answer).permit(:answer, :question_id)
 	end
+
+  def associated_listing(answer)
+    question(answer).listing
+  end
+
+  def question(answer)
+    answer.question
+  end
 
 end

@@ -1,7 +1,7 @@
 class AnswerCreator
 
-  def initialize(params)
-    @question = Question.find(params[:question_id])
+  def initialize(question_id)
+    @question = Question.find(question_id)
   end
 
   def answer(answer_params)

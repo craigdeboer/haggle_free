@@ -1,5 +1,5 @@
 <div id="bids-table">
-	<h3>Your current active bids/offers:</h3>
+  <h3>Here are the bids for <%= @listing.title %>:</h3>
 	<table>
 		<tr>
 			<th class="listing-title">Listing</th>
@@ -8,6 +8,6 @@
 			<th>Status</th>
 			<th></th>
 		</tr>
-		<%= render 'shared/bids', collection: @bids %>
+		<%= render 'shared/bids', bids: @bid_manager.bids %>
 	</table>
 </div>

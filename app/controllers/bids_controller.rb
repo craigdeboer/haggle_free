@@ -6,25 +6,24 @@ class BidsController < ApplicationController
 	
 
 	def index
-		@bids = @listing.bids.all
+    @bid_manager = BidManager.new(params)
 	end
 
 	def new
-		@bid = @listing.bids.new
-		@bid.price = params[:price] if params[:price]
+    @bid_manager = BidManager.new(params)
 	end
 
 	def create
-		@bid = Bid.new(bid_params)
-		if @bid.save
-			listing_owner = User.find(@bid.listing.user_id)
-			UserMailer.bid_received(listing_owner, @bid.listing, @bid, current_user).deliver_later
+    @bid_manager = BidManager.new(params)
+    @bid = Bid.new(bid_params)
+    if @bid.save 
+			UserMailer.bid_received(@bid_manager.listing_owner, @bid.listing, @bid, current_user).deliver_later
 			flash[:success] = "Your bid has been accepted! Good luck!"
 			redirect_to @listing
 		else
 			if @bid.errors.include?(:ended)
 				flash[:error] = "Your bid was not accepted, the auction has ended."
-				redirect_to sub_category_listings_path(sub_category_id: @bid.listing.sub_category)
+				redirect_to sub_category_listings_path(sub_category_id: @bid_manager.listing_sub_category)
 			else
 				render 'new'
 			end
@@ -35,8 +34,9 @@ class BidsController < ApplicationController
 	end
 
 	def update
+    @bid_manager = BidManager.new(params[:bid])
 		@bid.update_attributes(price_string: bid_params[:price_string])
-		UserMailer.bid_change(@bid.listing.user.email, @bid.listing.title, @bid.price.to_f, current_user.user_name).deliver_later
+		UserMailer.bid_change(@bid_manager.listing_user_email, @bid_manager.listing_title, @bid.price.to_f, current_user.user_name).deliver_later
 		redirect_to user_bids_path
 	end
 

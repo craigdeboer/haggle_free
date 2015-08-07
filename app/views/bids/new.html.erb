@@ -6,20 +6,18 @@
 
 	<% if @listing.sell_method == "Auction" %>
 		<h3>There <%= 'is'.pluralize(@listing.bids_count) %> currently <%= pluralize(@listing.bids_count, " bid") %> on this item.</h3>
-		<h3><%= "Reserve: #{number_to_currency(@listing.auction.reserve)}" if @listing.auction.show_reserve %></h3>
+		<h3><%= "Reserve: #{number_to_currency(@bid_manager.listing_reserve)}" if @bid_manager.listing_show_reserve %></h3>
 	<% end %>
-	<%= simple_form_for @bid, url: listing_bids_path, defaults: { error: false } do |f| %>
-		<%= render 'shared/error_messages', object: @bid %>
+	<%= simple_form_for @bid_manager.new_bid, url: listing_bids_path, defaults: { error: false } do |f| %>
+		<%= render 'shared/error_messages', object: @bid if @bid%>
 		<% if @listing.auction? %>
 			<%= f.input :price_string, as: :string, label: "Enter Your Bid", required: false, input_html: { placeholder: '$', class: "currency-string" } %>
 			<%= f.submit "Submit Your Bid", class: "button-large" %>
 		<% else %>
-			<%= content_tag :h3, "Please confirm your offer of #{number_to_currency(@bid.price)}" %>
-			<%= f.input :price, as: :hidden, input_html: { value: @bid.price } %>
+			<%= content_tag :h3, "Please confirm your offer of #{number_to_currency(@bid_manager.price)}" %>
+			<%= f.input :price, as: :hidden, input_html: { value: @bid_manager.price } %>
 			<%= f.submit "Confirm Your Offer", class: "button-large" %>
 		<% end %>
 			
 	<% end %>
 </div>
-
-

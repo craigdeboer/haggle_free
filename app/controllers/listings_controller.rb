@@ -2,7 +2,6 @@ class ListingsController < ApplicationController
 
   include SharedFilters
   skip_before_action :require_login, only: [:index, :show] 
-  before_action :clear_my_listings, only: :index
   
   def index
     @listings = Listing.recent_listings.page(params[:page]).per_page(10) 

@@ -1,7 +1,7 @@
 class BidManager
   
   def initialize(params)
-    @listing = Listing.find(params[:listing_id])
+    @associated_listing = Listing.find(params[:listing_id])
     @price = params[:price] if params[:price]
   end
 
@@ -9,16 +9,12 @@ class BidManager
     @price
   end
 
-  def listing
-    @listing
-  end
-
   def listing_sub_category
-    @listing.sub_category
+    @associated_listing.sub_category
   end
 
   def bids
-    @bids = @listing.bids.all
+    @bids = @associated_listing.bids.all
   end
 
   def new_bid
@@ -26,11 +22,11 @@ class BidManager
   end
 
   def listing_owner
-    @listing_owner = User.find(@listing.user_id)
+    @listing_owner = User.find(@associated_listing.user_id)
   end
 
-  def listing_title
-    @listing.title
+  def associated_listing_title
+    @associated_listing.title
   end
   
   def listing_user_email
@@ -46,7 +42,7 @@ class BidManager
   end
 
   def auction 
-    @listing.auction
+    @associated_listing.auction
   end
 
 end

@@ -1,6 +1,6 @@
 class BidsController < ApplicationController
 
-	before_action :set_listing, only: [:index, :new, :create]
+	before_action :set_listing, only: [:new, :create]
 	before_action :set_bid, only: [:edit, :update, :destroy]
 	before_action :bid_owner, only: :edit
 	

@@ -1,9 +1,9 @@
 <div class="breadcrumb">
 	<%= link_to "ALL CATEGORIES", root_path %>
 	<span> << </span>
-	<span><%= category.name.upcase %></span>
+	<span><%= @category.name.upcase %></span>
 </div>
 
-<h1 class="center"><%= category.name.upcase %></h1>
+<h1 class="center"><%= @category.name.upcase %></h1>
 
 <%= render 'shared/listings', collection: @listings %>

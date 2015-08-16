@@ -7,9 +7,14 @@ class ExpiredListingsController < ApplicationController
 	end
 
 	def subcategory
-		@expired_listings = ExpiredListing.where("sub_category_id = ?", params[:sub_category_id])
+    @subcategory = SubCategory.find(params[:sub_category_id])
+		@expired_listings = @subcategory.expired_listings.all
 		render 'index'
 	end
+
+  def user
+    @expired_listings = current_user.expired_listings.all
+  end
 
   # This method will change the boolean "sold" attribute to true if the current user is the listing owner which should
   # always be the case because the "mark as sold" button should only be displayed to the listing owner.
